@@ -1,4 +1,4 @@
-name: React PWA Build & Deploy
+name: Deploy React to S3
 
 on:
   push:
@@ -6,26 +6,20 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
-
       - name: Install Dependencies
         run: npm install
 
-      - name: Build PWA
+      - name: Build React App
         run: npm run build
+
+      - name: Check current directory
+        run: ls -al
 
       - name: Check dist directory
         run: ls -al dist/
@@ -39,4 +33,4 @@ jobs:
             --recursive \
             --region ap-northeast-2 \
             --cache-control "max-age=0, no-cache, no-store, must-revalidate" \
-            build s3://olle-staff-front 
+            dist s3://olle-staff-front
