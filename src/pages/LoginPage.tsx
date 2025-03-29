@@ -27,7 +27,7 @@ export default function LoginPage() {
                 <SocialButton bgcolor="#03C75A" textcolor="#ffffff">
                     네이버 로그인
                 </SocialButton>
-                <SocialButton bgcolor="#ffffff" textcolor="#000000" border>
+                <SocialButton bgcolor="#ffffff" textcolor="#000000">
                     이메일 로그인
                 </SocialButton>
             </ButtonContainer>
@@ -66,7 +66,6 @@ const ButtonContainer = styled.div`
 const SocialButton = styled.button<{
     bgcolor: string;
     textcolor: string;
-    border?: boolean;
 }>`
     width: 100%;
     display: flex;
@@ -74,7 +73,7 @@ const SocialButton = styled.button<{
     padding: 8px 16px;
     justify-content: center;
     align-items: center;
+    border: none;
     background-color: ${({ bgcolor }) => bgcolor};
     color: ${({ textcolor }) => textcolor};
-    border: ${({ border }) => (border ? "1px solid #CACACA" : "none")};
 `;
