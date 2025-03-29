@@ -2,6 +2,14 @@ import styled from "styled-components";
 import { Text } from "../styles/Text";
 
 export default function LoginPage() {
+    const KAKAO_CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
+    const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
+    const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+    const handleKakaoLogin = () => {
+        window.location.href = kakaoAuthUrl;
+    };
+
     return (
         <Container>
             {/* 임시 로고 */}
@@ -13,7 +21,7 @@ export default function LoginPage() {
             </Title>
 
             <ButtonContainer>
-                <SocialButton bgcolor="#FEE500" textcolor="#000000">
+                <SocialButton bgcolor="#FEE500" textcolor="#000000" onClick={handleKakaoLogin}>
                     카카오 로그인
                 </SocialButton>
                 <SocialButton bgcolor="#03C75A" textcolor="#ffffff">
