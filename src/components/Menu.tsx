@@ -30,21 +30,23 @@ export default function Menu({ version }: MenuProps) {
     };
 
     return (
-        <Wrapper.FlexBox>
-            {menu.map((item, index) => (
-                <Wrapper.FlexBox
-                    width="70px"
-                    direction="column"
-                    alignItems="center"
-                    gap="14px"
-                    key={index}
-                    pointer
-                    onClick={() => handleClick(item.path)}
-                >
-                    <img src={item.src} alt={item.alt} />
-                    <Text.Body1_1>{item.label}</Text.Body1_1>
-                </Wrapper.FlexBox>
-            ))}
-        </Wrapper.FlexBox>
+        <Wrapper.AbsoluteBox padding="14px 30px">
+            <Wrapper.FlexBox justifyContent="space-between" alignItems="flex-end">
+                {menu.map((item, index) => (
+                    <Wrapper.FlexBox
+                        width="70px"
+                        direction="column"
+                        alignItems="center"
+                        gap="14px"
+                        key={index}
+                        pointer
+                        onClick={() => handleClick(item.path)}
+                    >
+                        <img src={item.src} alt={item.alt} />
+                        <Text.Body1_1>{item.label}</Text.Body1_1>
+                    </Wrapper.FlexBox>
+                ))}
+            </Wrapper.FlexBox>
+        </Wrapper.AbsoluteBox>
     );
 }

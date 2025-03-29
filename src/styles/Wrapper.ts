@@ -48,10 +48,10 @@ export const Wrapper = {
         position: absolute;
         width: ${props => props.width || "auto"};
         height: ${props => props.height || "auto"};
-        top: ${props => props.top};
-        right: ${props => props.right};
-        bottom: ${props => props.bottom};
-        left: ${props => props.left};
+        top: ${props => (props.top ? props.top : 0)};
+        right: ${props => (props.right ? props.right : 0)};
+        bottom: ${props => (props.bottom ? props.bottom : 0)};
+        left: ${props => (props.left ? props.left : 0)};
         z-index: ${props => props.zIndex};
         display: flex;
         flex-direction: ${props => props.direction};
