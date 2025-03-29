@@ -20,7 +20,7 @@ export const SubmitButton = ({
     ...props
 }: SubmitButtonProps) => {
     return (
-        <StyledSubmitButton
+        <Style.SubmitButton
             primary={primary}
             width={width}
             height={height}
@@ -28,22 +28,24 @@ export const SubmitButton = ({
             {...props}
         >
             {children}
-        </StyledSubmitButton>
+        </Style.SubmitButton>
     );
 };
 
-const StyledSubmitButton = styled.button<{
-    primary: boolean;
-    width: "small" | "medium" | "large";
-    height: "small" | "medium" | "large";
-    backgroundColor?: string;
-}>`
-    display: inline-block;
-    cursor: pointer;
-    border: 0;
-    border-radius: 8px;
-    background-color: ${({ primary }) => (primary ? `${theme.color.Main}` : `${theme.color.Gray1}`)};
-    color: ${({ primary }) => (primary ? "white" : "black")};
-    width: ${({ width }) => (width === "small" ? "90px" : width === "medium" ? "50%" : "100%")};
-    height: ${({ height }) => (height === "small" ? "40px" : height === "medium" ? "44px" : "48px")};
-`;
+const Style = {
+    SubmitButton: styled.button<{
+        primary: boolean;
+        width: "small" | "medium" | "large";
+        height: "small" | "medium" | "large";
+        backgroundColor?: string;
+    }>`
+        display: inline-block;
+        cursor: pointer;
+        border: 0;
+        border-radius: 8px;
+        background-color: ${({ primary }) => (primary ? `${theme.color.Main}` : `${theme.color.Gray1}`)};
+        color: ${({ primary }) => (primary ? "white" : "black")};
+        width: ${({ width }) => (width === "small" ? "90px" : width === "medium" ? "50%" : "100%")};
+        height: ${({ height }) => (height === "small" ? "40px" : height === "medium" ? "44px" : "48px")};
+    `,
+};
