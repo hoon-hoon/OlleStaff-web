@@ -28,15 +28,18 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
       margin: 0;
-      padding: 0;
+      padding: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: 'Pretendard-Regular';
       overflow: hidden;
+      width: 393px;
+      height: 100%;
+      border: 1px solid black;
       /* overflow-y: scroll; */
       scroll-behavior: smooth;
-      background-color: #e8e8e8;
+      background-color: #FFFFFF;
       max-width: 100vw;
       height: 100vh;
   }

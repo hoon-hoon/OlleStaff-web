@@ -7,7 +7,7 @@ import theme from "./styles/theme.ts";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
-        <RouterProvider router={router} />;
+        <RouterProvider router={router} />
         <GlobalStyle theme={theme} />
     </StrictMode>
 );
