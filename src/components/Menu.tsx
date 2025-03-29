@@ -9,7 +9,7 @@ type MenuProps = {
 const menuItems = {
     guesthouse: [
         { src: "/icons/Home.svg", alt: "홈", label: "홈", path: "/" },
-        { src: "/icons/my_notes.svg", alt: "나의 공고", label: "나의 공고", path: "/my-notes" },
+        { src: "/icons/My_notes.svg", alt: "나의 공고", label: "나의 공고", path: "/my-notes" },
         { src: "/icons/chat.svg", alt: "채팅", label: "채팅", path: "/chat" },
         { src: "/icons/user.svg", alt: "내 정보", label: "내 정보", path: "/my-info" },
     ],
