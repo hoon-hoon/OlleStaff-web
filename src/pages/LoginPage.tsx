@@ -4,10 +4,18 @@ import { Text } from "../styles/Text";
 export default function LoginPage() {
     const KAKAO_CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
     const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
+    const NAVER_CLIENT_ID = import.meta.env.VITE_NAVER_CLIENT_ID;
+    const NAVER_REDIRECT_URI = import.meta.env.VITE_NAVER_REDIRECT_URI;
+
     const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    const NaverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=SOME_STATE`;
 
     const handleKakaoLogin = () => {
         window.location.href = kakaoAuthUrl;
+    };
+
+    const handleNaverLogin = () => {
+        window.location.href = NaverAuthUrl;
     };
 
     return (
@@ -24,7 +32,7 @@ export default function LoginPage() {
                 <SocialButton bgcolor="#FEE500" textcolor="#000000" onClick={handleKakaoLogin}>
                     카카오 로그인
                 </SocialButton>
-                <SocialButton bgcolor="#03C75A" textcolor="#ffffff">
+                <SocialButton bgcolor="#03C75A" textcolor="#ffffff" onClick={handleNaverLogin}>
                     네이버 로그인
                 </SocialButton>
                 <SocialButton bgcolor="#ffffff" textcolor="#000000">

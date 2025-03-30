@@ -1,36 +1,38 @@
-// // import { useEffect } from "react";
-// // import { useNavigate } from "react-router-dom";
-// // import axios from "axios";
+import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import useUserStore from "@/store/user";
 
-// // export default function KakaoRedirectPage() {
-// //     const navigate = useNavigate();
+export default function KakaoRedirectPage() {
+    // const navigate = useNavigate();
+    // const setUser = useUserStore((state) => state.setUser);
 
-// //     useEffect(() => {
-// //         const fetchUserInfo = async () => {
-// //             try {
-// //                 const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users/me/minimum`, {
-// //                     withCredentials: true,
-// //                 });
+    useEffect(() => {
+        const code = new URL(window.location.href).searchParams.get("code");
+        console.log(code);
 
-// //                 const { nickname, type } = res.data;
+        // if (code) {
+        //   axios
+        //     .post(`${import.meta.env.VITE_API_BASE_URL}/login/kakao`, { code })
+        //     .then((res) => {
+        //       const { status, data } = res.data;
+        //
+        //       if (status === "USER_NEED_SIGNUP") {
+        //         navigate("/signup");
+        //       }
+        //       // 회원 상태 저장 여기서
+        //       // setUser({
+        //       //   id: data.userId,
+        //       //   nickname: data.nickname,
+        //       //   type: data.type,
+        //       // });
+        //
+        //     })
+        //     .catch((err) => {
+        //       console.error("로그인 실패", err);
+        //     });
+        // }
+    }, []);
 
-// //                 if (type === "NEED_SIGNUP") {
-// //                     navigate("/signup");
-// //                 } else if (type === "OWNER") {
-// //                     navigate("/owner/home");
-// //                 } else if (type === "STAFF") {
-// //                     navigate("/staff/home");
-// //                 } else {
-// //                     navigate("/login");
-// //                 }
-// //             } catch (err) {
-// //                 console.error("사용자 정보 조회 실패", err);
-// //                 navigate("/login");
-// //             }
-// //         };
-
-// //         fetchUserInfo();
-// //     }, []);
-
-// //     return <div>사용자 정보 확인 중...</div>;
-// // }
+    return <div>로그인 처리 중입니다...</div>;
+}
