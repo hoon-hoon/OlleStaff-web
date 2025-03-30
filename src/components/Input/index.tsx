@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ReactNode } from "react";
 import theme from "../../styles/theme";
+import { Text } from "../../styles/Text";
 
 type InputVariant = "default" | "message" | "comment";
 
@@ -14,6 +15,7 @@ type InputProps = {
     rightIcon?: ReactNode;
     leftIcon?: ReactNode;
     onLeftIconClick?: () => void;
+    errorMessage?: string;
 };
 
 export default function Input({
@@ -26,19 +28,23 @@ export default function Input({
     onRightIconClick,
     leftIcon,
     onLeftIconClick,
+    errorMessage,
 }: InputProps) {
     return (
-        <Wrapper variant={variant}>
-            {variant === "message" && leftIcon && <LeftIconArea onClick={onLeftIconClick}>{leftIcon}</LeftIconArea>}
-            <StyledInput
-                value={value}
-                onChange={onChange}
-                placeholder={placeholder}
-                disabled={disabled}
-                variant={variant}
-            />
-            {rightIcon && <RightIconArea onClick={onRightIconClick}>{rightIcon}</RightIconArea>}
-        </Wrapper>
+        <div>
+            <Wrapper variant={variant}>
+                {variant === "message" && leftIcon && <LeftIconArea onClick={onLeftIconClick}>{leftIcon}</LeftIconArea>}
+                <StyledInput
+                    value={value}
+                    onChange={onChange}
+                    placeholder={placeholder}
+                    disabled={disabled}
+                    variant={variant}
+                />
+                {rightIcon && <RightIconArea onClick={onRightIconClick}>{rightIcon}</RightIconArea>}
+            </Wrapper>
+            {errorMessage && <ErrorMessage color="Red1">{errorMessage}</ErrorMessage>}
+        </div>
     );
 }
 
@@ -82,4 +88,9 @@ const LeftIconArea = styled.button`
     padding-right: 8px;
     display: flex;
     align-items: center;
+`;
+
+const ErrorMessage = styled(Text.Body3_1)`
+    margin-top: 6px;
+    padding-left: 4px;
 `;
