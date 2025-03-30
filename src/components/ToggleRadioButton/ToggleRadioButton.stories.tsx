@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import ToggleRadioButton, { ToggleRadioButtonProps } from "./ToggleRadioButton";
+import ToggleRadioButton, { ToggleRadioButtonProps } from ".";
 
 const DummyIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24">

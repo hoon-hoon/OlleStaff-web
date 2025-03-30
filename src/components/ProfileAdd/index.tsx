@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import theme from "../../styles/theme";
 
 type ProfileAddProps = {
     onImageChange?: (file: File) => void;
@@ -38,6 +39,7 @@ const Wrapper = styled.div`
     position: relative;
     width: 130px;
     height: 126px;
+    cursor: pointer;
 `;
 
 const Frame = styled.div`
@@ -47,7 +49,7 @@ const Frame = styled.div`
     width: 116px;
     height: 116px;
     border-radius: 12px;
-    border: 1px solid ${({ theme }) => `${theme.color.Gray2}`};
+    border: 1px solid ${theme.color.Gray2};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -67,14 +69,15 @@ const UploadButton = styled.label`
     position: absolute;
     bottom: 0px;
     right: 0px;
-    background-color: ${({ theme }) => `${theme.color.White}`};
-    border: 1px solid ${({ theme }) => `${theme.color.Gray2}`};
+    background-color: ${theme.color.White};
+    border: 1px solid ${theme.color.Gray2};
     border-radius: 50%;
     width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 `;
 
 const CameraIcon = styled.img`

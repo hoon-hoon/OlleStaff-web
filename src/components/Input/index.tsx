@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ReactNode } from "react";
+import theme from "../../styles/theme";
 
 type InputVariant = "default" | "message" | "comment";
 
@@ -45,8 +46,8 @@ const Wrapper = styled.div<{ variant: InputVariant }>`
     display: flex;
     align-items: center;
     padding: 0 12px;
-    background-color: ${({ theme }) => `${theme.color.White}`};
-    border: 1px solid ${({ theme }) => `${theme.color.Gray2}`};
+    background-color: ${theme.color.White};
+    border: 1px solid ${theme.color.Gray2};
     border-radius: ${({ variant }) => (variant === "default" ? "8px" : "40px")};
     height: 40px;
     width: 100%;
@@ -60,10 +61,10 @@ const StyledInput = styled.input<{ variant: InputVariant }>`
     outline: none;
     font-size: 16px;
     font-weight: 400;
-    color: ${({ theme }) => `${theme.color.Gray3}`};
+    color: ${theme.color.Gray3};
 
     &::placeholder {
-        color: ${({ theme }) => `${theme.color.Gray3}`};
+        color: ${theme.color.Gray3};
     }
 `;
 

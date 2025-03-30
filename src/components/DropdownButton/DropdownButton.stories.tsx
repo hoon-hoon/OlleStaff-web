@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import DropdownButton, { DropdownButtonProps } from "./DropdownButton";
+import DropdownButton, { DropdownButtonProps } from ".";
 
 const meta: Meta<DropdownButtonProps> = {
     title: "Components/DropdownButton",

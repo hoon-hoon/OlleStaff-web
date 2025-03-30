@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RadioButton from "./RadioButton";
+import RadioButton from ".";
 
 export default {
     title: "Components/RadioButton",
