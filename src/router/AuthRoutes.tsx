@@ -1,7 +1,7 @@
 import { RouteObject } from "react-router-dom";
 import AuthLayout from "../layout/AuthLayout";
 import LoginPage from "../pages/LoginPage";
-import SignupPage from "../pages/SignUpPage";
+import SignupPage from "../pages/SignupPage";
 import RestorePage from "../pages/auth/Restore";
 
 const AuthRoutes: RouteObject[] = [
