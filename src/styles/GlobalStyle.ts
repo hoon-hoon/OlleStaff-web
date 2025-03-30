@@ -28,31 +28,26 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
       margin: 0;
-      padding: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: 'Pretendard-Regular';
       overflow: hidden;
-      width: 393px;
-      height: 100%;
-      border: 1px solid black;
-      /* overflow-y: scroll; */
       scroll-behavior: smooth;
       background-color: #FFFFFF;
-      max-width: 100vw;
       height: 100vh;
-  }
+}
 
-  #root {
+#root {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100%;
-      max-width: 600px;
+      width: 393px;
       min-width: 375px;
-      height: 100%;
-  }
+      height: 100%; 
+      border: 1px solid gray;
+      padding: 30px;
+}
 ol, ul {
 	list-style: none;
 }

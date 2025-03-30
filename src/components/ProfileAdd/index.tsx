@@ -39,6 +39,7 @@ const Wrapper = styled.div`
     position: relative;
     width: 130px;
     height: 126px;
+    cursor: pointer;
 `;
 
 const Frame = styled.div`
@@ -76,6 +77,7 @@ const UploadButton = styled.label`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 `;
 
 const CameraIcon = styled.img`
