@@ -1,11 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import useUserStore from "@/store/user";
 
 export default function NaverRedirectPage() {
     const navigate = useNavigate();
-    // const setUser = useUserStore((state) => state.setUser);
 
     useEffect(() => {
         const code = new URL(window.location.href).searchParams.get("code");
@@ -26,7 +24,6 @@ export default function NaverRedirectPage() {
                     if (status === "USER_NEED_SIGNUP") {
                         navigate("/signup");
                     } else {
-                        // setUser({ id: data.id, nickname: data.nickname, type: data.type });
                         navigate("/");
                     }
                 })

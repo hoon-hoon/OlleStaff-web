@@ -4,6 +4,7 @@ import { Text } from "../styles/Text";
 import { Wrapper } from "../styles/Wrapper";
 import { SubmitButton } from "../components/SubmitButton";
 import useSignupForm from "../hooks/useSignupForm";
+import { styled } from "styled-components";
 
 export default function SignupPage() {
     const { userInfo, errors, handleInputChange, validate } = useSignupForm();
@@ -22,7 +23,7 @@ export default function SignupPage() {
     };
 
     return (
-        <Wrapper.FlexBox direction="column" gap="20px">
+        <Wrapper.FlexBox direction="column" gap="10px">
             <Wrapper.FlexBox justifyContent="center">
                 <ProfileAdd />
             </Wrapper.FlexBox>
@@ -37,14 +38,18 @@ export default function SignupPage() {
             </div>
             <div>
                 <Text.Body1>전화번호</Text.Body1>
-                <Wrapper.FlexBox gap="1px">
-                    <Input
-                        value={userInfo.phone}
-                        onChange={handleInputChange("phone")}
-                        placeholder="전화번호를 입력하세요."
-                        errorMessage={errors.phone}
-                    />
-                    <SubmitButton label="인증 요청 버튼">인증 요청</SubmitButton>
+                <Wrapper.FlexBox gap="1px" width="100%">
+                    <div style={{ flex: 1 }}>
+                        <Input
+                            value={userInfo.phone}
+                            onChange={handleInputChange("phone")}
+                            placeholder="전화번호를 입력하세요."
+                            errorMessage={errors.phone}
+                        />
+                    </div>
+                    <SubmitButton width="small" label="인증 요청 버튼">
+                        인증 요청
+                    </SubmitButton>
                 </Wrapper.FlexBox>
             </div>
             <div>

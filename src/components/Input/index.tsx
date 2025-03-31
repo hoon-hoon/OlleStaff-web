@@ -31,7 +31,7 @@ export default function Input({
     errorMessage,
 }: InputProps) {
     return (
-        <div>
+        <InputContainer>
             <Wrapper variant={variant}>
                 {variant === "message" && leftIcon && <LeftIconArea onClick={onLeftIconClick}>{leftIcon}</LeftIconArea>}
                 <StyledInput
@@ -43,10 +43,15 @@ export default function Input({
                 />
                 {rightIcon && <RightIconArea onClick={onRightIconClick}>{rightIcon}</RightIconArea>}
             </Wrapper>
-            {errorMessage && <ErrorMessage color="Red1">{errorMessage}</ErrorMessage>}
-        </div>
+            <ErrorMessage $hasError={!!errorMessage}>{errorMessage || "\u00A0"}</ErrorMessage>{" "}
+        </InputContainer>
     );
 }
+
+const InputContainer = styled.div`
+    width: 100%;
+    max-width: 333px;
+`;
 
 const Wrapper = styled.div<{ variant: InputVariant }>`
     display: flex;
@@ -90,7 +95,9 @@ const LeftIconArea = styled.button`
     align-items: center;
 `;
 
-const ErrorMessage = styled(Text.Body3_1)`
+const ErrorMessage = styled(Text.Body3_1)<{ $hasError: boolean }>`
     margin-top: 6px;
     padding-left: 4px;
+    min-height: 18px;
+    color: ${({ $hasError, theme }) => ($hasError ? theme.color.Red1 : "transparent")};
 `;
