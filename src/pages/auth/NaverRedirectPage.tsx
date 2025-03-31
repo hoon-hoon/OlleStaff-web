@@ -19,7 +19,7 @@ export default function NaverRedirectPage() {
                 .then((res) => {
                     console.log(res);
 
-                    const { status, data } = res.data;
+                    const { status } = res.data;
 
                     if (status === "USER_NEED_SIGNUP") {
                         navigate("/signup");

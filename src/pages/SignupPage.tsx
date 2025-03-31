@@ -4,7 +4,6 @@ import { Text } from "../styles/Text";
 import { Wrapper } from "../styles/Wrapper";
 import { SubmitButton } from "../components/SubmitButton";
 import useSignupForm from "../hooks/useSignupForm";
-import { styled } from "styled-components";
 
 export default function SignupPage() {
     const { userInfo, errors, handleInputChange, validate } = useSignupForm();
