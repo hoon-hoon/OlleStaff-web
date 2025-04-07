@@ -14,6 +14,12 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"] // 절대경로
+    },
 
     /* Linting */
     "strict": true,
