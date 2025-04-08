@@ -2,7 +2,7 @@ import Input from "@/components/Input";
 import ProfileAdd from "@/components/ProfileAdd";
 import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
-import { SubmitButton } from "@/components/SubmitButton";
+import { Button } from "@/components/Button";
 import useSignupForm from "@/hooks/useSignupForm";
 
 export default function SignupPage() {
@@ -55,9 +55,9 @@ export default function SignupPage() {
                             errorMessage={errors.phone}
                         />
                     </div>
-                    <SubmitButton width="small" label="인증 요청 버튼">
+                    <Button width="small" label="인증 요청 버튼">
                         인증 요청
-                    </SubmitButton>
+                    </Button>
                 </Wrapper.FlexBox>
             </div>
             <div>
@@ -69,9 +69,9 @@ export default function SignupPage() {
                     errorMessage={errors.verificationCode}
                 />
             </div>
-            <SubmitButton label="가입 완료 버튼" width="large" onClick={handleSubmit}>
+            <Button label="가입 완료 버튼" width="large" onClick={handleSubmit}>
                 가입 완료
-            </SubmitButton>
+            </Button>
         </Wrapper.FlexBox>
     );
 }

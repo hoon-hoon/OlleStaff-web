@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 
-export interface SubmitButtonProps {
+export interface ButtonProps {
     children: React.ReactNode;
-    primary?: boolean;
+    isActive?: boolean;
     backgroundColor?: keyof typeof theme.color;
     width?: "small" | "medium" | "large";
     height?: "small" | "medium" | "large";
@@ -11,41 +11,43 @@ export interface SubmitButtonProps {
     onClick?: () => void;
 }
 
-export const SubmitButton = ({
+export const Button = ({
     children,
-    primary = false,
+    isActive = false,
     width = "medium",
     height = "medium",
     backgroundColor,
     ...props
-}: SubmitButtonProps) => {
+}: ButtonProps) => {
     return (
-        <Style.SubmitButton
-            primary={primary}
+        <Style.Button
+            $isActive={isActive}
             width={width}
             height={height}
             backgroundColor={backgroundColor ? backgroundColor : "transparent"}
             {...props}
         >
             {children}
-        </Style.SubmitButton>
+        </Style.Button>
     );
 };
 
 const Style = {
-    SubmitButton: styled.button<{
-        primary: boolean;
+    Button: styled.button<{
+        $isActive: boolean;
         width: "small" | "medium" | "large";
         height: "small" | "medium" | "large";
         backgroundColor?: string;
     }>`
         display: inline-block;
-        cursor: pointer;
+        cursor: ${({ $isActive }) => ($isActive ? "pointer" : "not-allowed")};
         border: 0;
         border-radius: 8px;
-        background-color: ${({ primary }) => (primary ? `${theme.color.Main}` : `${theme.color.Gray1}`)};
-        color: ${({ primary }) => (primary ? "white" : "black")};
+        background-color: ${({ $isActive }) => ($isActive ? theme.color.Main : theme.color.Gray2)};
+        color: ${({ $isActive }) => ($isActive ? "white" : "gray")};
+        opacity: ${({ $isActive }) => ($isActive ? 1 : 0.6)};
         width: ${({ width }) => (width === "small" ? "90px" : width === "medium" ? "50%" : "100%")};
         height: ${({ height }) => (height === "small" ? "40px" : height === "medium" ? "44px" : "48px")};
+        transition: background-color 0.3s ease;
     `,
 };

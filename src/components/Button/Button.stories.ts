@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { SubmitButton, SubmitButtonProps } from ".";
+import { Button, ButtonProps } from ".";
 import theme from "@/styles/theme";
 
-const meta: Meta<SubmitButtonProps> = {
-    title: "Components/SubmitButton",
-    component: SubmitButton,
+const meta: Meta<ButtonProps> = {
+    title: "Components/Button",
+    component: Button,
     argTypes: {
-        primary: { control: "boolean" },
+        isActive: { control: "boolean" },
         backgroundColor: {
             control: "select",
             options: Object.keys(theme.color),
@@ -24,26 +24,16 @@ const meta: Meta<SubmitButtonProps> = {
 };
 export default meta;
 
-type Story = StoryObj<SubmitButtonProps>;
+type Story = StoryObj<ButtonProps>;
 
 // 기본 버튼
 export const Default: Story = {
     args: {
         children: "Button",
-        primary: false,
+        isActive: false,
         width: "medium",
         height: "medium",
         backgroundColor: "Gray0",
-    },
-};
-
-// Primary 버튼
-export const Primary: Story = {
-    args: {
-        children: "Primary Button",
-        primary: true,
-        width: "medium",
-        height: "medium",
     },
 };
 
@@ -51,18 +41,8 @@ export const Primary: Story = {
 export const Small: Story = {
     args: {
         children: "Small",
-        primary: false,
+        isActive: false,
         width: "small",
         height: "small",
-    },
-};
-
-// 큰 버튼
-export const Large: Story = {
-    args: {
-        children: "Large",
-        primary: false,
-        width: "large",
-        height: "large",
     },
 };
