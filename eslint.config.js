@@ -29,6 +29,7 @@ export default [
             ...tseslint.configs.recommended[1].rules,
             ...reactHooks.configs.recommended.rules,
             "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+            "no-unused-vars": "off",
         },
     },
     prettier,
