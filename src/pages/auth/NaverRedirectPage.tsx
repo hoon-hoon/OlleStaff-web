@@ -16,7 +16,7 @@ export default function NaverRedirectPage() {
                 .get(`${import.meta.env.VITE_API_BASE_URL}/login/oauth/naver?code=${code}&state=${state}`, {
                     withCredentials: true,
                 })
-                .then((res) => {
+                .then(res => {
                     console.log(res);
 
                     const { status } = res.data;
@@ -27,7 +27,7 @@ export default function NaverRedirectPage() {
                         navigate("/");
                     }
                 })
-                .catch((err) => {
+                .catch(err => {
                     console.error("네이버 로그인 실패", err);
                 });
         }

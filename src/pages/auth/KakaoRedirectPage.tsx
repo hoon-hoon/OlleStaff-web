@@ -14,7 +14,7 @@ export default function KakaoRedirectPage() {
                 .get(`${import.meta.env.VITE_API_BASE_URL}/login/kakao/success?code=${code}`, {
                     withCredentials: true,
                 })
-                .then((res) => {
+                .then(res => {
                     console.log(res);
 
                     const { status } = res.data;
@@ -22,9 +22,8 @@ export default function KakaoRedirectPage() {
                     if (status === "USER_NEED_SIGNUP") {
                         navigate("/signup");
                     }
-
                 })
-                .catch((err) => {
+                .catch(err => {
                     console.error("로그인 실패", err);
                 });
         }

@@ -8,10 +8,10 @@ import { Global } from "@emotion/react";
 import { GlobalStyle } from "./styles/GlobalStyle.ts";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-      <Global styles={GlobalStyle} />
-    </ThemeProvider>
-  </StrictMode>
+    <StrictMode>
+        <ThemeProvider theme={theme}>
+            <RouterProvider router={router} />
+            <Global styles={GlobalStyle} />
+        </ThemeProvider>
+    </StrictMode>
 );
