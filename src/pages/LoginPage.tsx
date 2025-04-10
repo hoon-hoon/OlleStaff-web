@@ -17,6 +17,9 @@ export default function LoginPage() {
     const handleNaverLogin = () => {
         window.location.href = NaverAuthUrl;
     };
+    const handleGoogleLogin = () => {
+        window.location.href = "/auth/google";
+    };
 
     return (
         <Container>
@@ -35,7 +38,7 @@ export default function LoginPage() {
                 <SocialButton bgcolor="#03C75A" textcolor="#ffffff" onClick={handleNaverLogin}>
                     네이버 로그인
                 </SocialButton>
-                <SocialButton bgcolor="#ffffff" textcolor="#000000">
+                <SocialButton bgcolor="#ffffff" textcolor="#000000" onClick={handleGoogleLogin}>
                     이메일 로그인
                 </SocialButton>
             </ButtonContainer>

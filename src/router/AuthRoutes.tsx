@@ -5,6 +5,7 @@ import SignupPage from "@/pages/SignupPage";
 import RestorePage from "@/pages/auth/Restore";
 import KakaoRedirectPage from "@/pages/auth/KakaoRedirectPage";
 import NaverRedirectPage from "@/pages/auth/NaverRedirectPage";
+import GoogleRedirectPage from "@/pages/auth/GoogleRedirectPage";
 
 const AuthRoutes: RouteObject[] = [
     {
@@ -32,6 +33,10 @@ const AuthRoutes: RouteObject[] = [
     {
         path: "/auth/naver",
         element: <NaverRedirectPage />,
+    },
+    {
+        path: "/auth/google",
+        element: <GoogleRedirectPage />,
     },
 ];
 

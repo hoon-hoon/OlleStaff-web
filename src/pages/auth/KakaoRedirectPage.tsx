@@ -11,16 +11,15 @@ export default function KakaoRedirectPage() {
 
         if (code) {
             axios
-                .get(`${import.meta.env.VITE_API_BASE_URL}/login/kakao/success?code=${code}`, {
-                    withCredentials: true,
-                })
+                .post(`${import.meta.env.VITE_API_BASE_URL}/login/kakao`, { code }, { withCredentials: true })
                 .then(res => {
-                    console.log(res);
-
                     const { status } = res.data;
+                    console.log("로그인 응답:", res.data);
 
                     if (status === "USER_NEED_SIGNUP") {
                         navigate("/signup");
+                    } else {
+                        navigate("/");
                     }
                 })
                 .catch(err => {
