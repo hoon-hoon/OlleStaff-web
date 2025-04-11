@@ -9,6 +9,7 @@ export interface SubmitButtonProps {
     height?: "small" | "medium" | "large";
     label: string;
     onClick?: () => void;
+    disabled?: boolean;
 }
 
 export const SubmitButton = ({
@@ -38,9 +39,10 @@ const Style = {
         width: "small" | "medium" | "large";
         height: "small" | "medium" | "large";
         backgroundColor?: string;
+        disabled?: boolean;
     }>`
         display: inline-block;
-        cursor: pointer;
+        cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
         border: 0;
         border-radius: 8px;
         background-color: ${({ primary }) => (primary ? `${theme.color.Main}` : `${theme.color.Gray1}`)};

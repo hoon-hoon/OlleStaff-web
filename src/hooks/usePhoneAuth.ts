@@ -1,23 +1,48 @@
 import { useEffect, useState } from "react";
 
-export const usePhoneAuth = () => {
+import axios from "axios";
+
+export const usePhoneAuth = (phone: string) => {
     const [timer, setTimer] = useState<number>(0);
     const [message, setMessage] = useState<string>("");
     const [isExpired, setIsExpired] = useState<boolean>(false);
     const [isStarted, setIsStarted] = useState(false);
     const [isRequested, setIsRequested] = useState(false);
+    const [isCooldown, setIsCooldown] = useState(false);
 
-    const startTimer = () => {
-        setIsStarted(true);
-        setIsRequested(true);
-        setTimer(10);
-        setIsExpired(false);
-        setMessage("인증번호를 발송했습니다. 인증란에 입력해 주세요.");
+    const isValidPhone = /^010\d{8}$/.test(phone);
+
+    const requestVerification = async () => {
+        if (!isValidPhone) {
+            setMessage("올바른 전화번호 형식이 아닙니다.");
+            return;
+        }
+
+        try {
+            await axios.post(
+                `${import.meta.env.VITE_API_BASE_URL}/users/phone/verification-requests`,
+                {
+                    phone,
+                },
+                { withCredentials: true }
+            );
+
+            setMessage("인증번호를 발송했습니다. 인증란에 입력해 주세요.");
+            setIsStarted(true);
+            setIsRequested(true);
+            setIsExpired(false);
+            setTimer(10); // 임시로 10초
+            setIsCooldown(true);
+            setTimeout(() => setIsCooldown(false), 6000); // 임시로 6초
+        } catch (err) {
+            console.error("인증 요청 실패", err);
+            setMessage("인증 요청에 실패했습니다.");
+        }
     };
 
     useEffect(() => {
         if (timer <= 0) {
-            setIsExpired(true);
+            if (isStarted) setIsExpired(true);
             return;
         }
 
@@ -32,8 +57,9 @@ export const usePhoneAuth = () => {
         timer,
         message,
         isExpired,
-        startTimer,
         isStarted,
         isRequested,
+        isCooldown,
+        requestVerification,
     };
 };

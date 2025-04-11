@@ -6,10 +6,19 @@ import { SubmitButton } from "@/components/SubmitButton";
 import useSignupForm from "@/hooks/useSignupForm";
 import { VerificationTimer } from "@/components/VerificationTimer";
 import { usePhoneAuth } from "@/hooks/usePhoneAuth";
+import { useEffect } from "react";
 
 export default function SignupPage() {
     const { userInfo, errors, handleInputChange, validate } = useSignupForm();
-    const { timer, message: verificationMessage, isExpired, startTimer, isStarted, isRequested } = usePhoneAuth();
+    const {
+        timer,
+        message: verificationMessage,
+        isExpired,
+        isStarted,
+        isCooldown,
+        isRequested,
+        requestVerification,
+    } = usePhoneAuth(userInfo.phone);
 
     const handleSubmit = () => {
         if (!validate()) return;
@@ -23,6 +32,10 @@ export default function SignupPage() {
         };
         console.log("회원가입 요청", requestBody);
     };
+
+    useEffect(() => {
+        sessionStorage.removeItem("kakao_login_sent");
+    }, []);
 
     return (
         <Wrapper.FlexBox direction="column" gap="10px">
@@ -61,7 +74,8 @@ export default function SignupPage() {
                                 <SubmitButton
                                     width="small"
                                     label={isRequested ? "재전송 버튼" : "인증 요청 버튼"}
-                                    onClick={startTimer}
+                                    onClick={requestVerification}
+                                    disabled={isCooldown || !/^010\d{8}$/.test(userInfo.phone)}
                                 >
                                     {isRequested ? "재전송" : "인증 요청"}
                                 </SubmitButton>

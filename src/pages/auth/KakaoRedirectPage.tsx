@@ -7,15 +7,15 @@ export default function KakaoRedirectPage() {
 
     useEffect(() => {
         const code = new URL(window.location.href).searchParams.get("code");
-        console.log(code);
+        const alreadySent = sessionStorage.getItem("kakao_login_sent");
 
-        if (code) {
+        if (code && !alreadySent) {
+            sessionStorage.setItem("kakao_login_sent", "true");
+
             axios
                 .post(`${import.meta.env.VITE_API_BASE_URL}/login/kakao`, { code }, { withCredentials: true })
                 .then(res => {
                     const { status } = res.data;
-                    console.log("로그인 응답:", res.data);
-
                     if (status === "USER_NEED_SIGNUP") {
                         navigate("/signup");
                     } else {
