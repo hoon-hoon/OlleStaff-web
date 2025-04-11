@@ -1,30 +1,15 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useSocialLogin } from "@/hooks/useSocialLogin";
 
 export default function KakaoRedirectPage() {
-    const navigate = useNavigate();
+    const { mutate: kakaoLogin } = useSocialLogin("kakao");
 
     useEffect(() => {
         const code = new URL(window.location.href).searchParams.get("code");
-        const alreadySent = sessionStorage.getItem("kakao_login_sent");
-
-        if (code && !alreadySent) {
-            sessionStorage.setItem("kakao_login_sent", "true");
-
-            axios
-                .post(`${import.meta.env.VITE_API_BASE_URL}/login/kakao`, { code }, { withCredentials: true })
-                .then(res => {
-                    const { status } = res.data;
-                    if (status === "USER_NEED_SIGNUP") {
-                        navigate("/signup");
-                    } else {
-                        navigate("/");
-                    }
-                })
-                .catch(err => {
-                    console.error("로그인 실패", err);
-                });
+        if (code) {
+            kakaoLogin({ code });
+        } else {
+            console.error("카카오 로그인 코드가 없습니다.");
         }
     }, []);
 
