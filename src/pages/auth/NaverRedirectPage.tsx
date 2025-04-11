@@ -8,14 +8,19 @@ export default function NaverRedirectPage() {
     useEffect(() => {
         const code = new URL(window.location.href).searchParams.get("code");
         const state = new URL(window.location.href).searchParams.get("state");
+        const savedState = sessionStorage.getItem("naver_auth_state");
 
         console.log(code);
+        console.log(state);
+
+        if (state !== savedState) {
+            console.error("CSRF 의심 요청입니다.");
+            return;
+        }
 
         if (code) {
             axios
-                .get(`${import.meta.env.VITE_API_BASE_URL}/login/oauth/naver?code=${code}&state=${state}`, {
-                    withCredentials: true,
-                })
+                .post(`${import.meta.env.VITE_API_BASE_URL}/login/naver`, { code, state }, { withCredentials: true })
                 .then(res => {
                     console.log(res);
 
