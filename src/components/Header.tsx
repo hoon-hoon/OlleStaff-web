@@ -5,22 +5,28 @@ type HeaderProps = {
     title: string;
     showBackButton?: boolean;
     onBackClick?: () => void;
-    rightIcon?: React.ReactNode;
+    rightIconSrc?: string;
     onRightClick?: () => void;
 };
 
-export default function Header({ title, showBackButton, onBackClick, rightIcon, onRightClick }: HeaderProps) {
+export default function Header({ title, showBackButton, onBackClick, rightIconSrc, onRightClick }: HeaderProps) {
     return (
         <Wrapper>
             <Side>
                 {showBackButton && (
                     <BackButton onClick={onBackClick}>
-                        <img src="BackButton.svg" />
+                        <img src="/BackButton.svg" alt="뒤로가기" />
                     </BackButton>
                 )}
             </Side>
             <Text.Title3_1>{title}</Text.Title3_1>
-            <Side>{rightIcon && <IconButton onClick={onRightClick}>{rightIcon}</IconButton>}</Side>
+            <Side>
+                {rightIconSrc && (
+                    <IconButton onClick={onRightClick}>
+                        <img src={rightIconSrc} alt="오른쪽 아이콘" />
+                    </IconButton>
+                )}
+            </Side>
         </Wrapper>
     );
 }
