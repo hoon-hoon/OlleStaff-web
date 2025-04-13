@@ -2,7 +2,7 @@ import Input from "@/components/Input";
 import ProfileAdd from "@/components/ProfileAdd";
 import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
-import { SubmitButton } from "@/components/SubmitButton";
+import { Button } from "@/components/Button";
 import useSignupForm from "@/hooks/useSignupForm";
 import { VerificationTimer } from "@/components/VerificationTimer";
 import { usePhoneAuth } from "@/hooks/usePhoneAuth";
@@ -71,14 +71,14 @@ export default function SignupPage() {
                         messageColor={errors.phone ? "Red1" : "Gray4"}
                         rightIcon={
                             <div style={{ height: "100%" }}>
-                                <SubmitButton
+                                <Button
                                     width="small"
                                     label={isRequested ? "재전송 버튼" : "인증 요청 버튼"}
                                     onClick={requestVerification}
                                     disabled={isCooldown || !/^010\d{8}$/.test(userInfo.phone)}
                                 >
                                     {isRequested ? "재전송" : "인증 요청"}
-                                </SubmitButton>
+                                </Button>
                             </div>
                         }
                     />
@@ -98,9 +98,9 @@ export default function SignupPage() {
                     }
                 />
             </div>
-            <SubmitButton label="가입 완료 버튼" width="large" onClick={handleSubmit}>
+            <Button label="가입 완료 버튼" width="large" onClick={handleSubmit}>
                 가입 완료
-            </SubmitButton>
+            </Button>
         </Wrapper.FlexBox>
     );
 }

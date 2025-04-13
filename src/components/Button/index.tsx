@@ -1,53 +1,70 @@
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 
-export interface SubmitButtonProps {
+export interface ButtonProps {
     children: React.ReactNode;
-    primary?: boolean;
+    isActive?: boolean;
     backgroundColor?: keyof typeof theme.color;
     width?: "small" | "medium" | "large";
     height?: "small" | "medium" | "large";
     label: string;
     onClick?: () => void;
+    iconSrc?: string;
     disabled?: boolean;
 }
 
-export const SubmitButton = ({
+export const Button = ({
     children,
-    primary = false,
+    isActive = false,
     width = "medium",
     height = "medium",
     backgroundColor,
+    iconSrc,
     ...props
-}: SubmitButtonProps) => {
+}: ButtonProps) => {
     return (
-        <Style.SubmitButton
-            primary={primary}
+        <Style.Button
+            $isActive={isActive}
             width={width}
             height={height}
             backgroundColor={backgroundColor ? backgroundColor : "transparent"}
             {...props}
         >
+            {iconSrc && <Style.Icon src={iconSrc} alt="button icon" />}
             {children}
-        </Style.SubmitButton>
+        </Style.Button>
     );
 };
 
 const Style = {
-    SubmitButton: styled.button<{
-        primary: boolean;
+    Button: styled.button<{
+        $isActive: boolean;
         width: "small" | "medium" | "large";
         height: "small" | "medium" | "large";
         backgroundColor?: string;
         disabled?: boolean;
     }>`
-        display: inline-block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: ${({ $isActive }) => ($isActive ? "pointer" : "not-allowed")};
         cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+
         border: 0;
         border-radius: 8px;
-        background-color: ${({ primary }) => (primary ? `${theme.color.Main}` : `${theme.color.Gray1}`)};
-        color: ${({ primary }) => (primary ? "white" : "black")};
+        background-color: ${({ $isActive }) => ($isActive ? theme.color.Main : theme.color.Gray2)};
+        color: ${({ $isActive }) => ($isActive ? "white" : "gray")};
+        opacity: ${({ $isActive }) => ($isActive ? 1 : 0.6)};
         width: ${({ width }) => (width === "small" ? "90px" : width === "medium" ? "50%" : "100%")};
         height: ${({ height }) => (height === "small" ? "40px" : height === "medium" ? "44px" : "48px")};
+        transition: background-color 0.3s ease;
+        gap: 6px;
+    `,
+
+    Icon: styled.img`
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        transition: opacity 0.3s ease;
     `,
 };
