@@ -3,10 +3,11 @@ import ProfileAdd from "@/components/ProfileAdd";
 import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
 import { Button } from "@/components/Button";
-import useSignupForm from "@/hooks/useSignupForm";
+import useSignupForm from "@/hooks/useValidation";
 import { VerificationTimer } from "@/components/VerificationTimer";
 import { usePhoneAuth } from "@/hooks/usePhoneAuth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useSignup } from "@/hooks/useSignup";
 
 export default function SignupPage() {
     const { userInfo, errors, handleInputChange, validate } = useSignupForm();
@@ -20,17 +21,34 @@ export default function SignupPage() {
         requestVerification,
     } = usePhoneAuth(userInfo.phone);
 
+    const isAllFilled =
+        !!userInfo.nickname.trim() &&
+        !!userInfo.birthDate.trim() &&
+        !!userInfo.phone.trim() &&
+        !!userInfo.verificationCode.trim() &&
+        isRequested &&
+        !isExpired;
+
+    const [selectedImage, setSelectedImage] = useState<File | null>(null);
+
+    const signupMutation = useSignup();
+
     const handleSubmit = () => {
         if (!validate()) return;
 
-        const requestBody = {
+        signupMutation.mutate({
             nickname: userInfo.nickname,
             phone: userInfo.phone,
             phoneVerificationCode: userInfo.verificationCode,
-            imageUrl: " ",
             birthDate: parseInt(userInfo.birthDate),
-        };
-        console.log("회원가입 요청", requestBody);
+            image: selectedImage,
+            agreements: [
+                "올래스텝 이용약관_2025-04-09_v1",
+                "개인정보처리방침_2025-04-09_v1",
+                "올래스텝 개인정보처리 동의서-필수_2025-04-09_v1",
+                "올래스텝 개인정보처리 동의서-마케팅_2025-04-09_v1",
+            ],
+        });
     };
 
     useEffect(() => {
@@ -40,7 +58,7 @@ export default function SignupPage() {
     return (
         <>
             <Wrapper.FlexBox justifyContent="center">
-                <ProfileAdd />
+                <ProfileAdd onImageChange={setSelectedImage} />
             </Wrapper.FlexBox>
             <div>
                 <Text.Body1>닉네임</Text.Body1>
@@ -76,6 +94,7 @@ export default function SignupPage() {
                                     label={isRequested ? "재전송 버튼" : "인증 요청 버튼"}
                                     onClick={requestVerification}
                                     disabled={isCooldown || !/^010\d{8}$/.test(userInfo.phone)}
+                                    isActive={!isCooldown && /^010\d{8}$/.test(userInfo.phone)}
                                 >
                                     {isRequested ? "재전송" : "인증 요청"}
                                 </Button>
@@ -98,7 +117,13 @@ export default function SignupPage() {
                     }
                 />
             </div>
-            <Button label="가입 완료 버튼" width="large" onClick={handleSubmit}>
+            <Button
+                label="가입 완료 버튼"
+                width="large"
+                onClick={handleSubmit}
+                disabled={!isAllFilled}
+                isActive={isAllFilled}
+            >
                 가입 완료
             </Button>
         </>
