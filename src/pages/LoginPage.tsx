@@ -8,14 +8,21 @@ export default function LoginPage() {
     const NAVER_REDIRECT_URI = import.meta.env.VITE_NAVER_REDIRECT_URI;
 
     const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-    const NaverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=SOME_STATE`;
 
     const handleKakaoLogin = () => {
         window.location.href = kakaoAuthUrl;
     };
 
     const handleNaverLogin = () => {
-        window.location.href = NaverAuthUrl;
+        const state = crypto.randomUUID();
+        sessionStorage.setItem("naver_auth_state", state);
+
+        const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=${state}`;
+        window.location.href = naverAuthUrl;
+    };
+
+    const handleGoogleLogin = () => {
+        window.location.href = "/auth/google";
     };
 
     return (
@@ -35,7 +42,7 @@ export default function LoginPage() {
                 <SocialButton bgcolor="#03C75A" textcolor="#ffffff" onClick={handleNaverLogin}>
                     네이버 로그인
                 </SocialButton>
-                <SocialButton bgcolor="#ffffff" textcolor="#000000">
+                <SocialButton bgcolor="#ffffff" textcolor="#000000" onClick={handleGoogleLogin}>
                     이메일 로그인
                 </SocialButton>
             </ButtonContainer>

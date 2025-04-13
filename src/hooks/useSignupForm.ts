@@ -10,6 +10,7 @@ export default function useSignupForm() {
     });
 
     const [errors, setErrors] = useState<ErrorState>({});
+    const [verificationMessage, setVerificationMessage] = useState("");
 
     const handleInputChange = (field: keyof UserInfo) => (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserInfo(prev => ({
@@ -42,10 +43,16 @@ export default function useSignupForm() {
         return Object.keys(newErrors).length === 0;
     };
 
+    const phoneBottomMessage = errors.phone || verificationMessage;
+    const phoneMessageColor = errors.phone ? "Red1" : "Gray4";
+
     return {
         userInfo,
         errors,
         handleInputChange,
         validate,
+        setVerificationMessage,
+        phoneBottomMessage,
+        phoneMessageColor,
     };
 }

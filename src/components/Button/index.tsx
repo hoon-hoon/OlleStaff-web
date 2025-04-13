@@ -10,6 +10,7 @@ export interface ButtonProps {
     label: string;
     onClick?: () => void;
     iconSrc?: string;
+    disabled?: boolean;
 }
 
 export const Button = ({
@@ -41,11 +42,14 @@ const Style = {
         width: "small" | "medium" | "large";
         height: "small" | "medium" | "large";
         backgroundColor?: string;
+        disabled?: boolean;
     }>`
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: ${({ $isActive }) => ($isActive ? "pointer" : "not-allowed")};
+        cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+
         border: 0;
         border-radius: 8px;
         background-color: ${({ $isActive }) => ($isActive ? theme.color.Main : theme.color.Gray2)};

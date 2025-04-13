@@ -4,9 +4,21 @@ import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
 import { Button } from "@/components/Button";
 import useSignupForm from "@/hooks/useSignupForm";
+import { VerificationTimer } from "@/components/VerificationTimer";
+import { usePhoneAuth } from "@/hooks/usePhoneAuth";
+import { useEffect } from "react";
 
 export default function SignupPage() {
     const { userInfo, errors, handleInputChange, validate } = useSignupForm();
+    const {
+        timer,
+        message: verificationMessage,
+        isExpired,
+        isStarted,
+        isCooldown,
+        isRequested,
+        requestVerification,
+    } = usePhoneAuth(userInfo.phone);
 
     const handleSubmit = () => {
         if (!validate()) return;
@@ -21,6 +33,10 @@ export default function SignupPage() {
         console.log("회원가입 요청", requestBody);
     };
 
+    useEffect(() => {
+        sessionStorage.removeItem("kakao_login_sent");
+    }, []);
+
     return (
         <Wrapper.FlexBox direction="column" gap="10px">
             <Wrapper.FlexBox justifyContent="center">
@@ -32,7 +48,7 @@ export default function SignupPage() {
                     value={userInfo.nickname}
                     onChange={handleInputChange("nickname")}
                     placeholder="닉네임을 입력하세요."
-                    errorMessage={errors.nickname}
+                    bottomMessage={errors.nickname}
                 />
             </div>
             <div>
@@ -41,23 +57,31 @@ export default function SignupPage() {
                     value={userInfo.birthDate}
                     onChange={handleInputChange("birthDate")}
                     placeholder="YYYYMMDD를 입력하세요."
-                    errorMessage={errors.birthDate}
+                    bottomMessage={errors.birthDate}
                 />
             </div>
             <div>
                 <Text.Body1>전화번호</Text.Body1>
                 <Wrapper.FlexBox gap="1px" width="100%">
-                    <div style={{ flex: 1 }}>
-                        <Input
-                            value={userInfo.phone}
-                            onChange={handleInputChange("phone")}
-                            placeholder="전화번호를 입력하세요."
-                            errorMessage={errors.phone}
-                        />
-                    </div>
-                    <Button width="small" label="인증 요청 버튼">
-                        인증 요청
-                    </Button>
+                    <Input
+                        value={userInfo.phone}
+                        onChange={handleInputChange("phone")}
+                        placeholder="전화번호를 입력하세요."
+                        bottomMessage={errors.phone || verificationMessage}
+                        messageColor={errors.phone ? "Red1" : "Gray4"}
+                        rightIcon={
+                            <div style={{ height: "100%" }}>
+                                <Button
+                                    width="small"
+                                    label={isRequested ? "재전송 버튼" : "인증 요청 버튼"}
+                                    onClick={requestVerification}
+                                    disabled={isCooldown || !/^010\d{8}$/.test(userInfo.phone)}
+                                >
+                                    {isRequested ? "재전송" : "인증 요청"}
+                                </Button>
+                            </div>
+                        }
+                    />
                 </Wrapper.FlexBox>
             </div>
             <div>
@@ -66,7 +90,12 @@ export default function SignupPage() {
                     value={userInfo.verificationCode}
                     onChange={handleInputChange("verificationCode")}
                     placeholder="인증번호를 입력하세요."
-                    errorMessage={errors.verificationCode}
+                    rightIcon={<VerificationTimer timer={timer} />}
+                    bottomMessage={
+                        isStarted && isExpired
+                            ? "제한시간을 초과하여 인증에 실패하였습니다.\n‘재전송’ 버튼을 눌러 새로운 인증번호를 받아주세요."
+                            : errors.verificationCode
+                    }
                 />
             </div>
             <Button label="가입 완료 버튼" width="large" onClick={handleSubmit}>

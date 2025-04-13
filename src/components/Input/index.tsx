@@ -15,35 +15,39 @@ type InputProps = {
     rightIcon?: ReactNode;
     leftIcon?: ReactNode;
     onLeftIconClick?: () => void;
-    errorMessage?: string;
+    bottomMessage?: string;
+    messageColor?: keyof typeof theme.color;
 };
 
-export default function Input({
-    value,
-    onChange,
-    placeholder,
-    disabled,
-    variant = "default",
-    rightIcon,
-    onRightIconClick,
-    leftIcon,
-    onLeftIconClick,
-    errorMessage,
-}: InputProps) {
+export default function Input(props: InputProps) {
+    const {
+        value,
+        onChange,
+        placeholder,
+        disabled,
+        variant = "default",
+        rightIcon,
+        onRightIconClick,
+        leftIcon,
+        onLeftIconClick,
+        bottomMessage,
+        messageColor = "Red1",
+    } = props;
+
+    const hasBottomMessage = "bottomMessage" in props;
+
     return (
         <InputContainer>
             <Wrapper variant={variant}>
                 {variant === "message" && leftIcon && <LeftIconArea onClick={onLeftIconClick}>{leftIcon}</LeftIconArea>}
-                <StyledInput
-                    value={value}
-                    onChange={onChange}
-                    placeholder={placeholder}
-                    disabled={disabled}
-                    variant={variant}
-                />
+                <StyledInput value={value} onChange={onChange} placeholder={placeholder} disabled={disabled} />
                 {rightIcon && <RightIconArea onClick={onRightIconClick}>{rightIcon}</RightIconArea>}
             </Wrapper>
-            <ErrorMessage $hasError={!!errorMessage}>{errorMessage || "\u00A0"}</ErrorMessage>{" "}
+            {hasBottomMessage && (
+                <BottomMessage visible={!!bottomMessage} color={messageColor}>
+                    {bottomMessage || "\u00A0"}
+                </BottomMessage>
+            )}
         </InputContainer>
     );
 }
@@ -65,7 +69,7 @@ const Wrapper = styled.div<{ variant: InputVariant }>`
     max-width: 333px;
 `;
 
-const StyledInput = styled.input<{ variant: InputVariant }>`
+const StyledInput = styled.input`
     flex: 1;
     background: transparent;
     border: none;
@@ -79,25 +83,26 @@ const StyledInput = styled.input<{ variant: InputVariant }>`
     }
 `;
 
-const RightIconArea = styled.button`
-    background: none;
-    border: none;
-    padding-left: 8px;
+const RightIconArea = styled.div`
     display: flex;
     align-items: center;
+    height: 100%;
 `;
 
-const LeftIconArea = styled.button`
-    background: none;
-    border: none;
+const LeftIconArea = styled.div`
     padding-right: 8px;
     display: flex;
     align-items: center;
 `;
 
-const ErrorMessage = styled(Text.Body3_1)<{ $hasError: boolean }>`
+const BottomMessage = styled(Text.Body3_1)<{
+    color: keyof typeof theme.color;
+    visible: boolean;
+}>`
     margin-top: 6px;
     padding-left: 4px;
     min-height: 18px;
-    color: ${({ $hasError, theme }) => ($hasError ? theme.color.Red1 : "transparent")};
+    white-space: pre-wrap;
+    color: ${({ visible, color, theme }) => (visible ? theme.color[color] : "transparent")};
+    visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
 `;
