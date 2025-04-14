@@ -1,6 +1,8 @@
 import { RouteObject } from "react-router-dom";
 import StaffLayout from "@/layout/StaffLayout";
-import StaffHome from "@/pages/staff/StaffHome";
+import StaffHome from "@/pages/staff/HomePage";
+import CompanionPage from "@/pages/staff/CompanionPage";
+import UserInfoPage from "@/pages/staff/UserInfoPage";
 
 const StaffRoutes: RouteObject[] = [
     {
@@ -10,6 +12,14 @@ const StaffRoutes: RouteObject[] = [
             {
                 index: true,
                 element: <StaffHome />,
+            },
+            {
+                path: "companion",
+                element: <CompanionPage />,
+            },
+            {
+                path: "userinfo",
+                element: <UserInfoPage />,
             },
         ],
     },

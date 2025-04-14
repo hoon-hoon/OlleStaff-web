@@ -16,12 +16,13 @@ const AuthRoutes: RouteObject[] = [
                 index: true,
                 element: <LoginPage />,
             },
+            {
+                path: "/signup",
+                element: <SignupPage />,
+            },
         ],
     },
-    {
-        path: "/signup",
-        element: <SignupPage />,
-    },
+
     {
         path: "/auth/kakao",
         element: <KakaoRedirectPage />,

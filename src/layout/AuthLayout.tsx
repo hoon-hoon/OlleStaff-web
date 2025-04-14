@@ -1,9 +1,20 @@
 import { Outlet } from "react-router-dom";
+import styled from "@emotion/styled";
+import PageWrapper from "@/components/PageWrapper";
 
 export default function AuthLayout() {
     return (
-        <div>
-            <Outlet />
-        </div>
+        <>
+            <PageWrapper>
+                <ContentWrapper>
+                    <Outlet />
+                </ContentWrapper>
+            </PageWrapper>
+        </>
     );
 }
+
+const ContentWrapper = styled.div`
+    padding: 50% 30px;
+    overflow-y: auto;
+`;

@@ -17,7 +17,7 @@ export default function PageWrapper({ children, hasHeader = false, hasNav = fals
 }
 
 const Wrapper = styled.div<{ $hasHeader: boolean; $hasNav: boolean }>`
-    width: 393px;
+    width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -32,7 +32,6 @@ const ScrollableContent = styled.div`
     flex: 1;
     overflow-y: auto;
     width: 100%;
-    background-color: rgba(255, 255, 0, 0.05);
-    padding: 0 30px;
+    background-color: rgba(255, 255, 0, 0.2);
     scrollbar-width: none;
 `;
