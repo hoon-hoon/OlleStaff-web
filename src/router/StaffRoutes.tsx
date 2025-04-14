@@ -1,6 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import StaffLayout from "@/layout/StaffLayout";
-import StaffHome from "@/pages/StaffHome";
+import StaffHome from "@/pages/staff/StaffHome";
 
 const StaffRoutes: RouteObject[] = [
     {

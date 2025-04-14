@@ -16,6 +16,10 @@ const theme = {
         Green1: "#1CFF1C",
         Blue1: "#1F1CFF",
     },
+    size: {
+        HeaderHeight: "74px", // header가 존재할 때 header 높이만큼 띄워주기 위함
+        NavHeight: "78px", // nav가 존재할 때 nav 높이만큼 띄워주기 위함
+    },
 } as const;
 export type ThemeType = typeof theme;
 export default theme;

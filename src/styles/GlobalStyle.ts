@@ -120,7 +120,8 @@ export const GlobalStyle = () => css`
         min-width: 375px;
         height: 100%;
         border: 1px solid gray;
-        padding: 30px;
+        /* padding: 30px; */ // 이부분 때문에 문제가 생긴다면 연락주십시오
+        position: relative;
     }
     ol,
     ul {
