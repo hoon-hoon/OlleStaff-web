@@ -36,11 +36,12 @@ export const useSocialLogin = (provider: "kakao" | "naver" | "dev") => {
 
         onSuccess: res => {
             if (res.status === "USER_NEED_SIGNUP") {
-                navigate("/signup");
+                navigate("/agreements");
             } else {
                 useUserStore.getState().setUser(res.nickname, res.userType);
-
-                if (res.userType === "STAFF") {
+                if (res.userType === "UNDECIDED") {
+                    navigate("/"); // 타입선택페이지
+                } else if (res.userType === "STAFF") {
                     navigate("/staff/home");
                 } else if (res.userType === "GUESTHOUSE") {
                     navigate("/guesthouse/home");

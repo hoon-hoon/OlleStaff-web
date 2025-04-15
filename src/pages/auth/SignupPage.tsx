@@ -8,6 +8,7 @@ import { VerificationTimer } from "@/components/VerificationTimer";
 import { usePhoneAuth } from "@/hooks/usePhoneAuth";
 import { useEffect, useState } from "react";
 import { useSignup } from "@/hooks/useSignup";
+import { useLocation } from "react-router-dom";
 
 export default function SignupPage() {
     const { userInfo, errors, handleInputChange, validate } = useSignupForm();
@@ -30,6 +31,8 @@ export default function SignupPage() {
         !isExpired;
 
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
+    const location = useLocation();
+    const passedAgreements: string[] = location.state?.agreements ?? [];
 
     const signupMutation = useSignup();
 
@@ -42,12 +45,7 @@ export default function SignupPage() {
             phoneVerificationCode: userInfo.verificationCode,
             birthDate: parseInt(userInfo.birthDate),
             image: selectedImage,
-            agreements: [
-                "올래스텝 이용약관_2025-04-09_v1",
-                "개인정보처리방침_2025-04-09_v1",
-                "올래스텝 개인정보처리 동의서-필수_2025-04-09_v1",
-                "올래스텝 개인정보처리 동의서-마케팅_2025-04-09_v1",
-            ],
+            agreements: passedAgreements,
         });
     };
 
