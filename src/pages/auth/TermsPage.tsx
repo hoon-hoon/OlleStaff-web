@@ -8,6 +8,8 @@ import { CheckBox } from "@/components/CheckBox";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Text } from "@/styles/Text";
+import Header from "@/components/Header";
+import PageWrapper from "@/components/PageWrapper";
 
 export default function TermsPage() {
     const termsArray = Object.values(TERMS_CONTENT);
@@ -42,27 +44,31 @@ export default function TermsPage() {
     };
 
     return (
-        <Container>
-            {termsArray.map(({ id, title, required, content }) => (
-                <AgreementBox key={id}>
-                    <CheckBox
-                        checked={checkedItems[id]}
-                        onChange={() => handleSingleCheck(id)}
-                        label={
-                            <>
-                                {title}{" "}
-                                {required && <Text.Body1_1 style={{ color: theme.color.Main }}>(필수)</Text.Body1_1>}
-                            </>
-                        }
-                    />
+        <>
+            <Header showBackButton title="이용약관 동의" />
+            <PageWrapper hasHeader>
+                {termsArray.map(({ id, title, required, content }) => (
+                    <AgreementBox key={id}>
+                        <CheckBox
+                            checked={checkedItems[id]}
+                            onChange={() => handleSingleCheck(id)}
+                            label={
+                                <>
+                                    {title}{" "}
+                                    {required && (
+                                        <Text.Body1_1 style={{ color: theme.color.Main }}>(필수)</Text.Body1_1>
+                                    )}
+                                </>
+                            }
+                        />
 
-                    <ScrollBox>
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
-                    </ScrollBox>
-                </AgreementBox>
-            ))}
+                        <ScrollBox>
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+                        </ScrollBox>
+                    </AgreementBox>
+                ))}
 
-            {/* <CheckBox
+                {/* <CheckBox
                 checked={marketingAgreed}
                 onChange={() => setMarketingAgreed(!marketingAgreed)}
                 label={
@@ -72,31 +78,28 @@ export default function TermsPage() {
                 }
             /> */}
 
-            <AllCheckWrapper>
-                <CheckBox
-                    checked={termsArray.every(term => checkedItems[term.id])}
-                    onChange={handleAllCheck}
-                    label={"모든 약관에 동의합니다."}
-                />
-            </AllCheckWrapper>
+                <AllCheckWrapper>
+                    <CheckBox
+                        checked={termsArray.every(term => checkedItems[term.id])}
+                        onChange={handleAllCheck}
+                        label={"모든 약관에 동의합니다."}
+                    />
+                </AllCheckWrapper>
 
-            <Button
-                width="large"
-                backgroundColor="Main"
-                disabled={!allRequiredChecked}
-                isActive={allRequiredChecked}
-                onClick={handleSubmit}
-                label={"동의 완료"}
-            >
-                동의완료
-            </Button>
-        </Container>
+                <Button
+                    width="large"
+                    backgroundColor="Main"
+                    disabled={!allRequiredChecked}
+                    isActive={allRequiredChecked}
+                    onClick={handleSubmit}
+                    label={"동의 완료"}
+                >
+                    동의완료
+                </Button>
+            </PageWrapper>
+        </>
     );
 }
-
-const Container = styled.div`
-    max-width: 480px;
-`;
 
 const ScrollBox = styled.div`
     background-color: ${theme.color.White};

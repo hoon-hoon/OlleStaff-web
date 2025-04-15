@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export interface SignupRequest {
     nickname: string;
@@ -11,6 +12,8 @@ export interface SignupRequest {
 }
 
 export const useSignup = () => {
+    const navigate = useNavigate();
+
     return useMutation({
         mutationFn: async (data: SignupRequest) => {
             const formData = new FormData();
@@ -39,7 +42,7 @@ export const useSignup = () => {
 
         onSuccess: () => {
             console.log("✅ 회원가입 성공");
-            // 타입선택 페이지로 navigate
+            navigate("/type-select");
         },
 
         onError: err => {

@@ -40,7 +40,7 @@ export const useSocialLogin = (provider: "kakao" | "naver" | "dev") => {
             } else {
                 useUserStore.getState().setUser(res.nickname, res.userType);
                 if (res.userType === "UNDECIDED") {
-                    navigate("/"); // 타입선택페이지
+                    navigate("/type-select");
                 } else if (res.userType === "STAFF") {
                     navigate("/staff/home");
                 } else if (res.userType === "GUESTHOUSE") {
