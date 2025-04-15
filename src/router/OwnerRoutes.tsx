@@ -1,6 +1,8 @@
 import { RouteObject } from "react-router-dom";
 import OwnerLayout from "@/layout/OwnerLayout";
-import OwnerHome from "@/pages/OwnerHome";
+import OwnerHome from "@/pages/owner/HomePage";
+import RecruitPage from "@/pages/owner/RecruitPage";
+import UserInfoPage from "@/pages/owner/UserInfoPage";
 
 const OwnerRoutes: RouteObject[] = [
     {
@@ -10,6 +12,14 @@ const OwnerRoutes: RouteObject[] = [
             {
                 index: true,
                 element: <OwnerHome />,
+            },
+            {
+                path: "recruit",
+                element: <RecruitPage />,
+            },
+            {
+                path: "userinfo",
+                element: <UserInfoPage />,
             },
         ],
     },

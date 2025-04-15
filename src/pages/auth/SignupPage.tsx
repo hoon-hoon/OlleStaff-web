@@ -38,7 +38,7 @@ export default function SignupPage() {
     }, []);
 
     return (
-        <Wrapper.FlexBox direction="column" gap="10px">
+        <>
             <Wrapper.FlexBox justifyContent="center">
                 <ProfileAdd />
             </Wrapper.FlexBox>
@@ -101,6 +101,6 @@ export default function SignupPage() {
             <Button label="가입 완료 버튼" width="large" onClick={handleSubmit}>
                 가입 완료
             </Button>
-        </Wrapper.FlexBox>
+        </>
     );
 }

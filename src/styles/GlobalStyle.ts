@@ -109,7 +109,7 @@ export const GlobalStyle = () => css`
         font-family: "Pretendard-Regular";
         overflow: hidden;
         scroll-behavior: smooth;
-        background-color: #ffffff;
+        background-color: #efefef;
         height: 100vh;
     }
     #root {
@@ -119,8 +119,8 @@ export const GlobalStyle = () => css`
         width: 393px;
         min-width: 375px;
         height: 100%;
-        border: 1px solid gray;
-        padding: 30px;
+        background-color: white;
+        position: relative;
     }
     ol,
     ul {
