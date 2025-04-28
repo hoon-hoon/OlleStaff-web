@@ -3,6 +3,7 @@ import StaffLayout from "@/layout/StaffLayout";
 import StaffHome from "@/pages/staff/HomePage";
 import CompanionPage from "@/pages/staff/CompanionPage";
 import UserInfoPage from "@/pages/staff/UserInfoPage";
+import ApplicationWritePage from "@/pages/staff/ApplicationWritePage";
 
 const StaffRoutes: RouteObject[] = [
     {
@@ -20,6 +21,10 @@ const StaffRoutes: RouteObject[] = [
             {
                 path: "userinfo",
                 element: <UserInfoPage />,
+            },
+            {
+                path: "application/write",
+                element: <ApplicationWritePage />,
             },
         ],
     },
