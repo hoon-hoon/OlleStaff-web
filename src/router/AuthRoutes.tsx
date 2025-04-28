@@ -6,6 +6,8 @@ import KakaoRedirectPage from "@/pages/auth/KakaoRedirectPage";
 import NaverRedirectPage from "@/pages/auth/NaverRedirectPage";
 import GoogleRedirectPage from "@/pages/auth/GoogleRedirectPage";
 import BusinessCertification from "@/pages/auth/BusinessCertification";
+import TermsPage from "@/pages/auth/TermsPage";
+import TypeSelectPage from "@/pages/auth/TypeSelectPage";
 
 const AuthRoutes: RouteObject[] = [
     {
@@ -20,9 +22,16 @@ const AuthRoutes: RouteObject[] = [
                 path: "/signup",
                 element: <SignupPage />,
             },
+            {
+                path: "/agreements",
+                element: <TermsPage />,
+            },
+            {
+                path: "/type-select",
+                element: <TypeSelectPage />,
+            },
         ],
     },
-
     {
         path: "/auth/kakao",
         element: <KakaoRedirectPage />,

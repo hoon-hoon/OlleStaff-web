@@ -15,6 +15,6 @@ export default function AuthLayout() {
 }
 
 const ContentWrapper = styled.div`
-    padding: 50% 30px;
+    padding: 30px;
     overflow-y: auto;
 `;

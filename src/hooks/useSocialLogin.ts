@@ -2,6 +2,7 @@ import { useUserStore } from "@/store/useUserStore";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { fetchMinimumUserInfo } from "./useFetchMinumumUserInfo";
 
 type SocialLoginParams = {
     code: string;
@@ -23,24 +24,23 @@ export const useSocialLogin = (provider: "kakao" | "naver" | "dev") => {
                 return { status: "USER_NEED_SIGNUP" };
             }
 
-            const userInfoRes = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users/me/minimum`, {
-                withCredentials: true,
-            });
+            const userInfo = await fetchMinimumUserInfo();
 
             return {
                 status: "SUCCESS",
-                nickname: userInfoRes.data.data.nickname,
-                userType: userInfoRes.data.data.type,
+                nickname: userInfo.nickname,
+                userType: userInfo.userType,
             };
         },
 
         onSuccess: res => {
             if (res.status === "USER_NEED_SIGNUP") {
-                navigate("/signup");
+                navigate("/agreements");
             } else {
                 useUserStore.getState().setUser(res.nickname, res.userType);
-
-                if (res.userType === "STAFF") {
+                if (res.userType === "UNDECIDED") {
+                    navigate("/type-select");
+                } else if (res.userType === "STAFF") {
                     navigate("/staff/home");
                 } else if (res.userType === "GUESTHOUSE") {
                     navigate("/guesthouse/home");
