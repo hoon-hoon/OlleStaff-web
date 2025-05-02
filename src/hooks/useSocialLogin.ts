@@ -41,9 +41,9 @@ export const useSocialLogin = (provider: "kakao" | "naver" | "dev") => {
                 if (res.userType === "UNDECIDED") {
                     navigate("/type-select");
                 } else if (res.userType === "STAFF") {
-                    navigate("/staff/home");
+                    navigate("/staff/");
                 } else if (res.userType === "GUESTHOUSE") {
-                    navigate("/guesthouse/home");
+                    navigate("/guesthouse/");
                 } else {
                     console.warn("알 수 없는 사용자 유형입니다.");
                     navigate("/");
