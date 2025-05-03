@@ -27,7 +27,7 @@ export const Wrapper = {
     FlexBox: styled.div<StyleWrapper>`
         display: flex;
         width: ${props => (props.width ? props.width : "100%")};
-        height: ${props => (props.height ? props.height : "auto")};
+        height: ${props => (props.height ? props.height : "100%")};
         flex-direction: ${props => props.direction};
         justify-content: ${props => props.justifyContent};
         align-items: ${props => props.alignItems};
@@ -85,13 +85,5 @@ export const Wrapper = {
         border-radius: ${props => props.borderRadius};
         background-color: ${props => props.bgColor || "transparent"};
         cursor: ${props => (props.pointer ? "pointer" : "default")};
-    `,
-    PaddingBox: styled.div<StyleWrapper>`
-        padding: 20px;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
     `,
 };

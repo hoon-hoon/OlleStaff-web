@@ -37,65 +37,70 @@ export default function BusinessVerificationPage() {
     }, [businessName, selectedFile]);
 
     return (
-        <PageWrapper hasHeader>
-            <Wrapper.PaddingBox>
-                <header>
-                    <Header showBackButton title="사업자 인증" />
+        <>
+            <Header showBackButton title="사업자 인증" />
+            <PageWrapper hasHeader>
+                <Wrapper.FlexBox direction="column" justifyContent="space-between">
+                    <header>
+                        <Text.Body1_1>사업자명</Text.Body1_1>
+                        <Input
+                            onChange={handleChangeBusinessName}
+                            placeholder="사업자명을 입력하세요."
+                            value={businessName}
+                            variant="default"
+                        />
 
-                    <Text.Body1_1>사업자명</Text.Body1_1>
-                    <Input
-                        onChange={handleChangeBusinessName}
-                        placeholder="사업자명을 입력하세요."
-                        value={businessName}
-                        variant="default"
-                    />
+                        <Text.Body1_1>사업자등록증</Text.Body1_1>
+                        <Style.AttachFileWrapper>
+                            <Style.InputBox>
+                                <input
+                                    type="file"
+                                    style={{ display: "none" }}
+                                    ref={imageInput}
+                                    onChange={handleFileChange}
+                                />
 
-                    <Text.Body1_1>사업자등록증</Text.Body1_1>
-                    <Style.AttachFileWrapper>
-                        <Style.InputBox>
-                            <input
-                                type="file"
-                                style={{ display: "none" }}
-                                ref={imageInput}
-                                onChange={handleFileChange}
-                            />
+                                {selectedFile ? (
+                                    <Style.FilledBox>
+                                        <Text.Body1>{selectedFile.name}</Text.Body1>
+                                        <img
+                                            src="/XButton.svg"
+                                            alt="X"
+                                            onClick={handleClearFile}
+                                            style={{ cursor: "pointer" }}
+                                        />
+                                    </Style.FilledBox>
+                                ) : (
+                                    <Text.Body1 color="Gray3">파일을 선택하세요.</Text.Body1>
+                                )}
+                            </Style.InputBox>
 
-                            {selectedFile ? (
-                                <Style.FilledBox>
-                                    <Text.Body1>{selectedFile.name}</Text.Body1>
-                                    <img
-                                        src="/XButton.svg"
-                                        alt="X"
-                                        onClick={handleClearFile}
-                                        style={{ cursor: "pointer" }}
-                                    />
-                                </Style.FilledBox>
-                            ) : (
-                                <Text.Body1 color="Gray3">파일을 선택하세요.</Text.Body1>
-                            )}
-                        </Style.InputBox>
+                            <Button label="" width="small" height="small" onClick={handleClickImageUpload} isActive>
+                                파일 선택
+                            </Button>
+                        </Style.AttachFileWrapper>
 
-                        <Button label="" width="small" height="small" onClick={handleClickImageUpload} isActive>
-                            파일 선택
+                        {selectedFile && (
+                            <Text.Body2 color="Gray3">{(selectedFile.size / 1024).toFixed(2)} KB</Text.Body2>
+                        )}
+                    </header>
+
+                    <footer>
+                        <Button
+                            label="인증 완료 버튼"
+                            width="large"
+                            height="medium"
+                            onClick={() => {
+                                // 인증 API 요청
+                            }}
+                            isActive={isComplete}
+                        >
+                            인증 완료
                         </Button>
-                    </Style.AttachFileWrapper>
-
-                    {selectedFile && <Text.Body2 color="Gray3">{(selectedFile.size / 1024).toFixed(2)} KB</Text.Body2>}
-                </header>
-
-                <Button
-                    label="인증 완료 버튼"
-                    width="large"
-                    height="medium"
-                    onClick={() => {
-                        // 인증 API 요청
-                    }}
-                    isActive={isComplete}
-                >
-                    인증 완료
-                </Button>
-            </Wrapper.PaddingBox>
-        </PageWrapper>
+                    </footer>
+                </Wrapper.FlexBox>
+            </PageWrapper>
+        </>
     );
 }
 

@@ -18,7 +18,19 @@ export default function PageWrapper({ children, hasHeader = false, hasNav = fals
 
 const Wrapper = styled.div<{ $hasHeader: boolean; $hasNav: boolean }>`
     width: 100%;
-    height: 100vh;
+    height: ${({ $hasHeader, $hasNav }) => {
+        if ($hasHeader && $hasNav) {
+            return `calc(100vh - ${theme.size.HeaderHeight} - ${theme.size.NavHeight})`;
+        }
+        if ($hasHeader) {
+            return `calc(100vh - ${theme.size.HeaderHeight})`;
+        }
+        if ($hasNav) {
+            return `calc(100vh - ${theme.size.NavHeight})`;
+        }
+        return "100vh";
+    }};
+
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
