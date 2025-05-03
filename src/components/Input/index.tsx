@@ -6,6 +6,7 @@ import { Text } from "@/styles/Text";
 type InputVariant = "default" | "message" | "comment";
 
 type InputProps = {
+    inputTitle?: string;
     type?: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -22,6 +23,7 @@ type InputProps = {
 
 export default function Input(props: InputProps) {
     const {
+        inputTitle = "",
         type,
         value,
         onChange,
@@ -40,28 +42,37 @@ export default function Input(props: InputProps) {
 
     return (
         <InputContainer>
-            <Wrapper variant={variant}>
-                {variant === "message" && leftIcon && <LeftIconArea onClick={onLeftIconClick}>{leftIcon}</LeftIconArea>}
-                <StyledInput
-                    type={type}
-                    value={value}
-                    onChange={onChange}
-                    placeholder={placeholder}
-                    disabled={disabled}
-                />
-                {rightIcon && <RightIconArea onClick={onRightIconClick}>{rightIcon}</RightIconArea>}
-            </Wrapper>
-            {hasBottomMessage && (
-                <BottomMessage visible={!!bottomMessage} color={messageColor}>
-                    {bottomMessage || "\u00A0"}
-                </BottomMessage>
-            )}
+            {inputTitle !== "" && <Text.Body1_1>{inputTitle}</Text.Body1_1>}
+
+            <section>
+                <Wrapper variant={variant}>
+                    {variant === "message" && leftIcon && (
+                        <LeftIconArea onClick={onLeftIconClick}>{leftIcon}</LeftIconArea>
+                    )}
+                    <StyledInput
+                        type={type}
+                        value={value}
+                        onChange={onChange}
+                        placeholder={placeholder}
+                        disabled={disabled}
+                    />
+                    {rightIcon && <RightIconArea onClick={onRightIconClick}>{rightIcon}</RightIconArea>}
+                </Wrapper>
+                {hasBottomMessage && (
+                    <BottomMessage visible={!!bottomMessage} color={messageColor}>
+                        {bottomMessage || "\u00A0"}
+                    </BottomMessage>
+                )}
+            </section>
         </InputContainer>
     );
 }
 
 const InputContainer = styled.div`
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     /* max-width: 333px; */
 `;
 

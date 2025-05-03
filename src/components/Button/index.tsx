@@ -59,6 +59,7 @@ const Style = {
         height: ${({ height }) => (height === "small" ? "40px" : height === "medium" ? "44px" : "48px")};
         transition: background-color 0.3s ease;
         gap: 6px;
+        margin-top: 2px; // 전화번호 인증 버튼을 위해 임시 조정하였으니 추후 변경 필요 시 참고해주세요
     `,
 
     Icon: styled.img`
