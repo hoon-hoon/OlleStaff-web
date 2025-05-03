@@ -6,6 +6,7 @@ import { Text } from "@/styles/Text";
 type InputVariant = "default" | "message" | "comment";
 
 type InputProps = {
+    type?: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder?: string;
@@ -21,6 +22,7 @@ type InputProps = {
 
 export default function Input(props: InputProps) {
     const {
+        type,
         value,
         onChange,
         placeholder,
@@ -40,7 +42,13 @@ export default function Input(props: InputProps) {
         <InputContainer>
             <Wrapper variant={variant}>
                 {variant === "message" && leftIcon && <LeftIconArea onClick={onLeftIconClick}>{leftIcon}</LeftIconArea>}
-                <StyledInput value={value} onChange={onChange} placeholder={placeholder} disabled={disabled} />
+                <StyledInput
+                    type={type}
+                    value={value}
+                    onChange={onChange}
+                    placeholder={placeholder}
+                    disabled={disabled}
+                />
                 {rightIcon && <RightIconArea onClick={onRightIconClick}>{rightIcon}</RightIconArea>}
             </Wrapper>
             {hasBottomMessage && (
@@ -54,7 +62,7 @@ export default function Input(props: InputProps) {
 
 const InputContainer = styled.div`
     width: 100%;
-    max-width: 333px;
+    /* max-width: 333px; */
 `;
 
 const Wrapper = styled.div<{ variant: InputVariant }>`
@@ -66,7 +74,7 @@ const Wrapper = styled.div<{ variant: InputVariant }>`
     border-radius: ${({ variant }) => (variant === "default" ? "8px" : "40px")};
     height: 40px;
     width: 100%;
-    max-width: 333px;
+    /* max-width: 333px; */
 `;
 
 const StyledInput = styled.input`

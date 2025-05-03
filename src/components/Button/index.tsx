@@ -55,7 +55,7 @@ const Style = {
         background-color: ${({ $isActive }) => ($isActive ? theme.color.Main : theme.color.Gray2)};
         color: ${({ $isActive }) => ($isActive ? "white" : "gray")};
         opacity: ${({ $isActive }) => ($isActive ? 1 : 0.6)};
-        width: ${({ width }) => (width === "small" ? "90px" : width === "medium" ? "50%" : "100%")};
+        width: ${({ width }) => (width === "small" ? "91px" : width === "medium" ? "50%" : "100%")};
         height: ${({ height }) => (height === "small" ? "40px" : height === "medium" ? "44px" : "48px")};
         transition: background-color 0.3s ease;
         gap: 6px;

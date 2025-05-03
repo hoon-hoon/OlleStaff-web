@@ -65,7 +65,7 @@ export const Wrapper = {
         background-color: ${props => props.bgColor || "transparent"};
         cursor: ${props => (props.pointer ? "pointer" : "default")};
     `,
-    FixedBox: styled.img<StyleWrapper>`
+    FixedBox: styled.div<StyleWrapper>`
         position: fixed;
         width: ${props => props.width || "auto"};
         height: ${props => props.height || "auto"};
@@ -85,5 +85,13 @@ export const Wrapper = {
         border-radius: ${props => props.borderRadius};
         background-color: ${props => props.bgColor || "transparent"};
         cursor: ${props => (props.pointer ? "pointer" : "default")};
+    `,
+    PaddingBox: styled.div<StyleWrapper>`
+        padding: 20px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     `,
 };
