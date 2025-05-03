@@ -7,7 +7,8 @@ import ProfileAdd from "@/components/ProfileAdd";
 import Input from "@/components/Input";
 import Textarea from "@/components/Textarea";
 import { useState } from "react";
-import theme from "@/styles/theme";
+import { useUserStore } from "@/store/useUserStore";
+import ImageUploader from "@/components/ImageUploader";
 
 export default function ApplicationWritePage() {
     const [formData, setFormData] = useState({
@@ -19,6 +20,7 @@ export default function ApplicationWritePage() {
     });
 
     const isAllFilled = Object.values(formData).every(value => value.trim() !== "");
+    const nickname = useUserStore(state => state.nickname);
 
     return (
         <>
@@ -27,7 +29,7 @@ export default function ApplicationWritePage() {
                 <FormWrapper>
                     <ProfileSection>
                         <ProfileAdd />
-                        <Text.Title3_1>홍길동님</Text.Title3_1>
+                        <Text.Title3_1>{nickname}</Text.Title3_1>
                     </ProfileSection>
 
                     <FieldGroup>
@@ -77,10 +79,7 @@ export default function ApplicationWritePage() {
 
                     <FieldGroup>
                         <Text.Body1_1>사진 첨부</Text.Body1_1>
-                        <ProfileAdd /> {/* 사진 첨부 6개까지 가능하게 */}
-                        <Text.Body3_1 style={{ color: theme.color.Gray4 }}>
-                            * 최대 6개의 사진을 첨부할 수 있습니다.
-                        </Text.Body3_1>
+                        <ImageUploader maxImages={6} />
                     </FieldGroup>
                 </FormWrapper>
 
