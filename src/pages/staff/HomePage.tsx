@@ -7,9 +7,10 @@ export default function HomePage() {
     useEffect(() => {
         const checkApplicationStatus = async () => {
             try {
-                const user = await fetchMinimumUserInfo();
+                const skipped = sessionStorage.getItem("applicationSkipped");
 
-                if (!user.isOnboarded) {
+                const user = await fetchMinimumUserInfo();
+                if (!user.isOnboarded && !skipped) {
                     navigate("/staff/application/write");
                 }
             } catch (err) {

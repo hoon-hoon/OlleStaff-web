@@ -9,8 +9,10 @@ import Textarea from "@/components/Textarea";
 import { useState } from "react";
 import { useUserStore } from "@/store/useUserStore";
 import ImageUploader from "@/components/ImageUploader";
+import { useNavigate } from "react-router-dom";
 
 export default function ApplicationWritePage() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         mbti: "",
         link: "",
@@ -22,9 +24,14 @@ export default function ApplicationWritePage() {
     const isAllFilled = Object.values(formData).every(value => value.trim() !== "");
     const nickname = useUserStore(state => state.nickname);
 
+    const handleSkip = () => {
+        sessionStorage.setItem("applicationSkipped", "true");
+        navigate("/staff/");
+    };
+
     return (
         <>
-            <Header showBackButton title="지원서 작성" />
+            <Header showBackButton title="지원서 작성" rightText="건너뛰기" onRightClick={handleSkip} />
             <PageWrapper hasHeader>
                 <FormWrapper>
                     <ProfileSection>
