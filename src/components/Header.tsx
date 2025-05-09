@@ -8,9 +8,10 @@ type HeaderProps = {
     onBackClick?: () => void;
     rightIconSrc?: string;
     onRightClick?: () => void;
+    rightText?: string;
 };
 
-export default function Header({ title, showBackButton, rightIconSrc, onRightClick }: HeaderProps) {
+export default function Header({ title, showBackButton, rightIconSrc, onRightClick, rightText }: HeaderProps) {
     const navigate = useNavigate();
     const handleBackClick = () => {
         navigate(-1);
@@ -27,11 +28,13 @@ export default function Header({ title, showBackButton, rightIconSrc, onRightCli
                 </Side>
                 <Text.Title3_1>{title}</Text.Title3_1>
                 <Side>
-                    {rightIconSrc && (
+                    {rightIconSrc ? (
                         <IconButton onClick={onRightClick}>
                             <img src={rightIconSrc} alt="오른쪽 아이콘" />
                         </IconButton>
-                    )}
+                    ) : rightText ? (
+                        <TextButton onClick={onRightClick}>{rightText}</TextButton>
+                    ) : null}
                 </Side>
             </Wrapper>
         </HeaderWrapper>
@@ -57,7 +60,7 @@ const Wrapper = styled.header`
 `;
 
 const Side = styled.div`
-    width: 24px;
+    min-width: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,7 +74,16 @@ const BackButton = styled.button`
 `;
 
 const IconButton = styled.button`
+    width: 24px;
     background: none;
     border: none;
+    cursor: pointer;
+`;
+
+const TextButton = styled(Text.Body2_1)`
+    background: none;
+    border: none;
+    color: ${({ theme }) => theme.color.Gray3};
+    font-size: 14px;
     cursor: pointer;
 `;

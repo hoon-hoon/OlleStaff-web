@@ -1,8 +1,8 @@
 import { Button } from "@/components/Button";
 import PageWrapper from "@/components/PageWrapper";
 import { TypeButton } from "@/components/TypeButton";
-import { patchUserType } from "@/hooks/patchUserType";
-import { fetchMinimumUserInfo } from "@/hooks/useFetchMinumumUserInfo";
+import { patchUserType } from "@/hooks/auth/patchUserType";
+import { fetchMinimumUserInfo } from "@/hooks/user/useFetchMinumumUserInfo";
 import { useUserStore } from "@/store/useUserStore";
 import { Text } from "@/styles/Text";
 import styled from "@emotion/styled";
