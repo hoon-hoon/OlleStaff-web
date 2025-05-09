@@ -10,7 +10,7 @@ export default function HomePage() {
                 const skipped = sessionStorage.getItem("applicationSkipped");
 
                 const user = await fetchMinimumUserInfo();
-                if (!user.isOnboarded && !skipped) {
+                if (!user.onboarded && !skipped) {
                     navigate("/staff/application/write");
                 }
             } catch (err) {
