@@ -1,4 +1,4 @@
-import { fetchMinimumUserInfo } from "@/hooks/useFetchMinumumUserInfo";
+import { fetchMinimumUserInfo } from "@/hooks/user/useFetchMinumumUserInfo";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

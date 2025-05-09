@@ -2,7 +2,7 @@ import { useUserStore } from "@/store/useUserStore";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { fetchMinimumUserInfo } from "./useFetchMinumumUserInfo";
+import { fetchMinimumUserInfo } from "../user/useFetchMinumumUserInfo";
 
 type SocialLoginParams = {
     code: string;
