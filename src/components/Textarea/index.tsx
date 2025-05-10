@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
+import { Text } from "@/styles/Text";
 
 type TextareaVariant = "flat" | "outline";
 
@@ -11,6 +12,7 @@ type TextareaProps = {
     disabled?: boolean;
     variant?: TextareaVariant;
     minLength?: number;
+    textareaTitle?: string;
 };
 
 export default function Textarea({
@@ -20,6 +22,7 @@ export default function Textarea({
     disabled,
     variant = "outline",
     minLength,
+    textareaTitle,
 }: TextareaProps) {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -35,6 +38,7 @@ export default function Textarea({
 
     return (
         <TextareaContainer>
+            {textareaTitle && <Text.Body1_1>{textareaTitle}</Text.Body1_1>}
             <Wrapper variant={variant} hasCharCount={showCount}>
                 <StyledTextarea
                     ref={textareaRef}
@@ -52,6 +56,9 @@ export default function Textarea({
 
 const TextareaContainer = styled.div`
     width: 333px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 `;
 
 const Wrapper = styled.div<{ variant: TextareaVariant; hasCharCount?: boolean }>`

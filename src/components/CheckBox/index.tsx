@@ -6,7 +6,7 @@ import theme from "@/styles/theme";
 export interface CheckBoxProps {
     checked: boolean;
     onChange: () => void;
-    label: React.ReactNode;
+    label?: React.ReactNode;
     required?: boolean;
     className?: string;
 }

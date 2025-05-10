@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSocialLogin } from "@/hooks/useSocialLogin";
+import { useSocialLogin } from "@/hooks/auth/useSocialLogin";
 
 export default function KakaoRedirectPage() {
     const { mutate: kakaoLogin } = useSocialLogin("kakao");
