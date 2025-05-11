@@ -11,34 +11,23 @@ type PageWrapperProps = {
 export default function PageWrapper({ children, hasHeader = false, hasNav = false, className }: PageWrapperProps) {
     return (
         <Wrapper $hasHeader={hasHeader} $hasNav={hasNav} className={className}>
-            <ScrollableContent>{children}</ScrollableContent>
+            <InnerContent>{children}</InnerContent>
         </Wrapper>
     );
 }
 
 const Wrapper = styled.div<{ $hasHeader: boolean; $hasNav: boolean }>`
     width: 100%;
-    height: ${({ $hasHeader, $hasNav }) => {
-        if ($hasHeader && $hasNav) {
-            return `calc(100vh - ${theme.size.HeaderHeight} - ${theme.size.NavHeight})`;
-        }
-        if ($hasHeader) {
-            return `calc(100vh - ${theme.size.HeaderHeight})`;
-        }
-        if ($hasNav) {
-            return `calc(100vh - ${theme.size.NavHeight})`;
-        }
-        return "100vh";
-    }};
-
+    height: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: ${({ $hasHeader }) => ($hasHeader ? theme.size.HeaderHeight : "0px")};
-    margin-bottom: ${({ $hasNav }) => ($hasNav ? theme.size.NavHeight : "0px")};
+    padding-top: ${({ $hasHeader }) => ($hasHeader ? theme.size.HeaderHeight : "0px")};
+    padding-bottom: ${({ $hasNav }) => ($hasNav ? theme.size.NavHeight : "0px")};
+    margin: 0;
     overflow: hidden;
 `;
 
-const ScrollableContent = styled.div`
+const InnerContent = styled.div`
     flex: 1;
     overflow-y: auto;
     width: 100%;

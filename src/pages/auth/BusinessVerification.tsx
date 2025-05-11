@@ -14,6 +14,7 @@ export default function BusinessVerificationPage() {
     const [businessName, setBusinessName] = useState("");
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [isComplete, setIsComplete] = useState(false);
+    const [isAgreed, setIsAgreed] = useState(false);
 
     const handleChangeBusinessName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setBusinessName(e.target.value);
@@ -32,16 +33,19 @@ export default function BusinessVerificationPage() {
         setSelectedFile(null);
     };
 
+    const handleToggleCheckButton = () => {
+        setIsAgreed(prev => !prev);
+    };
     useEffect(() => {
-        setIsComplete(businessName !== "" && selectedFile !== null);
-    }, [businessName, selectedFile]);
+        setIsComplete(businessName !== "" && selectedFile !== null && isAgreed);
+    }, [businessName, selectedFile, isAgreed]);
 
     return (
         <>
             <Header showBackButton title="사업자 인증" />
             <PageWrapper hasHeader>
-                <Wrapper.FlexBox direction="column" justifyContent="space-between">
-                    <Wrapper.FlexBox direction="column" gap="24px">
+                <Wrapper.FlexBox width="100%" height="100%" direction="column" justifyContent="space-between">
+                    <Wrapper.FlexBox direction="column" gap="20px">
                         <Input
                             inputTitle="사업자명"
                             onChange={handleChangeBusinessName}
@@ -50,7 +54,7 @@ export default function BusinessVerificationPage() {
                             variant="default"
                         />
 
-                        <Style.InputGroup>
+                        <Style.AttachFileGroup>
                             <Text.Body1_1>사업자등록증</Text.Body1_1>
                             <Style.AttachFileWrapper>
                                 <Style.InputBox>
@@ -83,10 +87,23 @@ export default function BusinessVerificationPage() {
                             {selectedFile && (
                                 <Text.Body2 color="Gray3">{(selectedFile.size / 1024).toFixed(2)} KB</Text.Body2>
                             )}
-                        </Style.InputGroup>
+                        </Style.AttachFileGroup>
                     </Wrapper.FlexBox>
+                    <Wrapper.FlexBox direction="column" gap="24px">
+                        <Style.AgreeGroup>
+                            <Style.AgreeTextWrapper>
+                                <Text.Body1_1 style={{ textDecoration: "underline" }}>
+                                    개인정보 수집 및 이용 동의
+                                </Text.Body1_1>
+                                <Text.Body1_1 color="Main">(필수)</Text.Body1_1>
+                            </Style.AgreeTextWrapper>
 
-                    <footer>
+                            <Style.CheckBox
+                                src={`/${isAgreed ? "Checked" : "UnChecked"}.svg`}
+                                alt="체크박스"
+                                onClick={handleToggleCheckButton}
+                            />
+                        </Style.AgreeGroup>
                         <Button
                             label="인증 완료 버튼"
                             width="large"
@@ -98,7 +115,7 @@ export default function BusinessVerificationPage() {
                         >
                             인증 완료
                         </Button>
-                    </footer>
+                    </Wrapper.FlexBox>
                 </Wrapper.FlexBox>
             </PageWrapper>
         </>
@@ -126,9 +143,23 @@ const Style = {
         display: flex;
         justify-content: space-between;
     `,
-    InputGroup: styled.div`
+    AttachFileGroup: styled.div`
         display: flex;
         flex-direction: column;
         gap: 6px;
+    `,
+    AgreeGroup: styled.div`
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    `,
+    AgreeTextWrapper: styled.div`
+        gap: 4px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+    `,
+    CheckBox: styled.img`
+        cursor: pointer;
     `,
 };
