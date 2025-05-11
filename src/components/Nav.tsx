@@ -44,10 +44,10 @@ export default function Nav({ version }: NavProps) {
                         <Wrapper.FlexBox
                             key={index}
                             width="70px"
-                            height="50px"
+                            height="78px"
                             direction="column"
-                            justifyContent="space-between"
                             alignItems="center"
+                            justifyContent="center"
                             gap="14px"
                             pointer
                             onClick={() => handleClick(item.path)}

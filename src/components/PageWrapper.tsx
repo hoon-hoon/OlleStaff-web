@@ -33,10 +33,8 @@ const Wrapper = styled.div<{ $hasHeader: boolean; $hasNav: boolean }>`
 
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
-    padding-top: ${({ $hasHeader }) => ($hasHeader ? theme.size.HeaderHeight : "0px")};
-    padding-bottom: ${({ $hasNav }) => ($hasNav ? theme.size.NavHeight : "0px")};
-    position: relative;
+    margin-top: ${({ $hasHeader }) => ($hasHeader ? theme.size.HeaderHeight : "0px")};
+    margin-bottom: ${({ $hasNav }) => ($hasNav ? theme.size.NavHeight : "0px")};
     overflow: hidden;
 `;
 
