@@ -8,6 +8,7 @@ import GoogleRedirectPage from "@/pages/auth/GoogleRedirectPage";
 import TermsPage from "@/pages/auth/TermsPage";
 import TypeSelectPage from "@/pages/auth/TypeSelectPage";
 import BusinessVerificationPage from "@/pages/auth/BusinessVerification";
+import OwnerTermsPage from "@/pages/auth/OwnerTermsPage";
 
 const AuthRoutes: RouteObject[] = [
     {
@@ -33,6 +34,10 @@ const AuthRoutes: RouteObject[] = [
             {
                 path: "/auth/business-verification",
                 element: <BusinessVerificationPage />,
+            },
+            {
+                path: "/auth/business-verification/term",
+                element: <OwnerTermsPage />,
             },
         ],
     },

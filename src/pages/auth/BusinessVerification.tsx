@@ -45,7 +45,7 @@ export default function BusinessVerificationPage() {
                             onToggle={handleToggleCheckButton}
                             label="개인정보 수집 및 이용 동의"
                             requirementType="필수"
-                            termsLink="/"
+                            termsLink="/auth/business-verification/term"
                         />
                         <Button
                             label="인증 완료 버튼"
