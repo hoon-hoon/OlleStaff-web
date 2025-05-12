@@ -6,19 +6,16 @@ import { Wrapper } from "@/styles/Wrapper";
 import { useEffect, useState } from "react";
 import BusinessFileUploader from "./components/BusinessFileUploader";
 import AgreementCheck from "./components/AgreementCheck";
+import useBusinessVerification from "@/hooks/auth/useBusinessVerification";
 
 export default function BusinessVerificationPage() {
-    const [businessName, setBusinessName] = useState("");
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const { businessName, setBusinessName, selectedFile, setSelectedFile, isAgreed, setIsAgreed, clearDraft } =
+        useBusinessVerification();
+
     const [isComplete, setIsComplete] = useState(false);
-    const [isAgreed, setIsAgreed] = useState(false);
 
-    const handleChangeBusinessName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setBusinessName(e.target.value);
-    };
-
-    const handleToggleCheckButton = () => {
-        setIsAgreed(prev => !prev);
+    const handleSubmitForm = () => {
+        clearDraft();
     };
     useEffect(() => {
         setIsComplete(businessName !== "" && selectedFile !== null && isAgreed);
@@ -32,7 +29,7 @@ export default function BusinessVerificationPage() {
                     <Wrapper.FlexBox direction="column" gap="20px">
                         <Input
                             inputTitle="사업자명"
-                            onChange={handleChangeBusinessName}
+                            onChange={e => setBusinessName(e.target.value)}
                             placeholder="사업자명을 입력하세요."
                             value={businessName}
                             variant="default"
@@ -42,7 +39,7 @@ export default function BusinessVerificationPage() {
                     <Wrapper.FlexBox direction="column" gap="24px">
                         <AgreementCheck
                             isChecked={isAgreed}
-                            onToggle={handleToggleCheckButton}
+                            onToggle={() => setIsAgreed(!isAgreed)}
                             label="개인정보 수집 및 이용 동의"
                             requirementType="필수"
                             termsLink="/auth/business-verification/term"
@@ -51,9 +48,7 @@ export default function BusinessVerificationPage() {
                             label="인증 완료 버튼"
                             width="large"
                             height="medium"
-                            onClick={() => {
-                                // 인증 API 요청
-                            }}
+                            onClick={handleSubmitForm}
                             isActive={isComplete}
                         >
                             인증 완료
