@@ -5,6 +5,7 @@ import CompanionPage from "@/pages/staff/CompanionPage";
 import UserInfoPage from "@/pages/staff/UserInfoPage";
 import ApplicationWritePage from "@/pages/staff/ApplicationWritePage";
 import AuthLayout from "@/layout/AuthLayout";
+import AccompanyWritePage from "@/pages/staff/AccompanyWritePage";
 
 const StaffRoutes: RouteObject[] = [
     {
@@ -18,6 +19,10 @@ const StaffRoutes: RouteObject[] = [
             {
                 path: "companion",
                 element: <CompanionPage />,
+            },
+            {
+                path: "companion/write",
+                element: <AccompanyWritePage />,
             },
             {
                 path: "userinfo",
