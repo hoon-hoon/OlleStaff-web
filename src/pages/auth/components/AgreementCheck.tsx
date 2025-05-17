@@ -25,7 +25,7 @@ export default function AgreementCheck({
     };
 
     return (
-        <Wrapper.FlexBox alignItems="center" justifyContent="space-between">
+        <Wrapper.FlexBox height="40px" alignItems="center" justifyContent="space-between">
             <TextWrapper onClick={handleNavigateToTerms}>
                 <Text.Body1_1 style={{ textDecoration: "underline" }}>{label}</Text.Body1_1>
                 <Text.Body1_1 color="Main">{requirementType}</Text.Body1_1>
@@ -37,6 +37,7 @@ export default function AgreementCheck({
 
 const TextWrapper = styled.div`
     display: flex;
+    align-items: center;
     gap: 4px;
     cursor: pointer;
 `;

@@ -31,14 +31,6 @@ const AuthRoutes: RouteObject[] = [
                 path: "/type-select",
                 element: <TypeSelectPage />,
             },
-            {
-                path: "/auth/business-verification",
-                element: <BusinessVerificationPage />,
-            },
-            {
-                path: "/auth/business-verification/term",
-                element: <OwnerTermsPage />,
-            },
         ],
     },
     {
@@ -52,6 +44,14 @@ const AuthRoutes: RouteObject[] = [
     {
         path: "/auth/google",
         element: <GoogleRedirectPage />,
+    },
+    {
+        path: "business-verification",
+        element: <BusinessVerificationPage />,
+    },
+    {
+        path: "business-verification/term",
+        element: <OwnerTermsPage />,
     },
 ];
 

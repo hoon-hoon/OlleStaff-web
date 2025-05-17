@@ -6,7 +6,7 @@ import UserInfoPage from "@/pages/owner/UserInfoPage";
 
 const OwnerRoutes: RouteObject[] = [
     {
-        path: "/owner",
+        path: "/owner/",
         element: <OwnerLayout />,
         children: [
             {
