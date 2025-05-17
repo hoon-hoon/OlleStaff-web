@@ -43,7 +43,7 @@ export const useSocialLogin = (provider: "kakao" | "naver" | "dev") => {
                 } else if (res.userType === "STAFF") {
                     navigate("/staff/");
                 } else if (res.userType === "GUESTHOUSE") {
-                    navigate("/guesthouse/");
+                    navigate("/owner/");
                 } else {
                     console.warn("알 수 없는 사용자 유형입니다.");
                     navigate("/");

@@ -5,9 +5,10 @@ import SignupPage from "@/pages/auth/SignupPage";
 import KakaoRedirectPage from "@/pages/auth/KakaoRedirectPage";
 import NaverRedirectPage from "@/pages/auth/NaverRedirectPage";
 import GoogleRedirectPage from "@/pages/auth/GoogleRedirectPage";
-import BusinessCertification from "@/pages/auth/BusinessCertification";
 import TermsPage from "@/pages/auth/TermsPage";
 import TypeSelectPage from "@/pages/auth/TypeSelectPage";
+import BusinessVerificationPage from "@/pages/auth/BusinessVerification";
+import OwnerTermsPage from "@/pages/auth/OwnerTermsPage";
 
 const AuthRoutes: RouteObject[] = [
     {
@@ -45,8 +46,12 @@ const AuthRoutes: RouteObject[] = [
         element: <GoogleRedirectPage />,
     },
     {
-        path: "/auth/business-certificate",
-        element: <BusinessCertification />,
+        path: "business-verification",
+        element: <BusinessVerificationPage />,
+    },
+    {
+        path: "business-verification/term",
+        element: <OwnerTermsPage />,
     },
 ];
 

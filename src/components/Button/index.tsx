@@ -55,10 +55,11 @@ const Style = {
         background-color: ${({ $isActive }) => ($isActive ? theme.color.Main : theme.color.Gray2)};
         color: ${({ $isActive }) => ($isActive ? "white" : "gray")};
         opacity: ${({ $isActive }) => ($isActive ? 1 : 0.6)};
-        width: ${({ width }) => (width === "small" ? "90px" : width === "medium" ? "50%" : "100%")};
+        width: ${({ width }) => (width === "small" ? "91px" : width === "medium" ? "50%" : "100%")};
         height: ${({ height }) => (height === "small" ? "40px" : height === "medium" ? "44px" : "48px")};
         transition: background-color 0.3s ease;
         gap: 6px;
+        margin-top: 2px; // 전화번호 인증 버튼을 위해 임시 조정하였으니 추후 변경 필요 시 참고해주세요
     `,
 
     Icon: styled.img`
