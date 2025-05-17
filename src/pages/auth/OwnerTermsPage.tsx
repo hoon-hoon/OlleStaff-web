@@ -16,7 +16,9 @@ export default function OwnerTermsPage() {
                 <Wrapper.FlexBox padding="30px" direction="column">
                     <Text.Body1_1>개인정보 수집 및 이용 동의</Text.Body1_1>
                     <Text.Body2_1 color="Gray4">
-                        <ReactMarkdown children={term.content} remarkPlugins={[remarkGfm]} />
+                        <Wrapper.FlexBox margin="0 0 30px 0" direction="column">
+                            <ReactMarkdown children={term.content} remarkPlugins={[remarkGfm]} />
+                        </Wrapper.FlexBox>
                     </Text.Body2_1>
                 </Wrapper.FlexBox>
             </PageWrapper>
