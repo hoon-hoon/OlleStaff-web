@@ -6,6 +6,7 @@ import UserInfoPage from "@/pages/staff/UserInfoPage";
 import ApplicationWritePage from "@/pages/staff/ApplicationWritePage";
 import AuthLayout from "@/layout/AuthLayout";
 import AccompanyWritePage from "@/pages/staff/AccompanyWritePage";
+import CategoryPage from "@/pages/staff/CategoryPage";
 
 const StaffRoutes: RouteObject[] = [
     {
@@ -27,6 +28,10 @@ const StaffRoutes: RouteObject[] = [
             {
                 path: "userinfo",
                 element: <UserInfoPage />,
+            },
+            {
+                path: "guesthouse/category",
+                element: <CategoryPage />,
             },
         ],
     },
