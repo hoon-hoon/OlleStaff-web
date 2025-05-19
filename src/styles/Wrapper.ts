@@ -27,7 +27,7 @@ export const Wrapper = {
     FlexBox: styled.div<StyleWrapper>`
         display: flex;
         width: ${props => (props.width ? props.width : "100%")};
-        height: ${props => (props.height ? props.height : "100%")};
+        height: ${props => (props.height ? props.height : "auto")};
         flex-direction: ${props => props.direction};
         justify-content: ${props => props.justifyContent};
         align-items: ${props => props.alignItems};

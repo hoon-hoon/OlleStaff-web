@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import PageWrapper from "@/components/PageWrapper";
 
-export default function RecruitPage() {
+export default function RecruitListPage() {
     return (
         <>
             <Header showBackButton title="나의 공고" />
