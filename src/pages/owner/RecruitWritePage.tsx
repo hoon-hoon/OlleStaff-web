@@ -10,7 +10,7 @@ import { Wrapper } from "@/styles/Wrapper";
 import { useState } from "react";
 
 export default function RecruitWritePage() {
-    const [formData, setFormData] = useState({
+    const [formData, _setFormData] = useState({
         title: "",
         link: "",
         recruitmentCount: "",
