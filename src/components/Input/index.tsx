@@ -6,6 +6,8 @@ import { Text } from "@/styles/Text";
 type InputVariant = "default" | "message" | "comment";
 
 type InputProps = {
+    inputTitle?: string;
+    type?: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder?: string;
@@ -21,6 +23,8 @@ type InputProps = {
 
 export default function Input(props: InputProps) {
     const {
+        inputTitle = "",
+        type,
         value,
         onChange,
         placeholder,
@@ -38,23 +42,38 @@ export default function Input(props: InputProps) {
 
     return (
         <InputContainer>
-            <Wrapper variant={variant}>
-                {variant === "message" && leftIcon && <LeftIconArea onClick={onLeftIconClick}>{leftIcon}</LeftIconArea>}
-                <StyledInput value={value} onChange={onChange} placeholder={placeholder} disabled={disabled} />
-                {rightIcon && <RightIconArea onClick={onRightIconClick}>{rightIcon}</RightIconArea>}
-            </Wrapper>
-            {hasBottomMessage && (
-                <BottomMessage visible={!!bottomMessage} color={messageColor}>
-                    {bottomMessage || "\u00A0"}
-                </BottomMessage>
-            )}
+            {inputTitle !== "" && <Text.Body1_1>{inputTitle}</Text.Body1_1>}
+
+            <section>
+                <Wrapper variant={variant}>
+                    {variant === "message" && leftIcon && (
+                        <LeftIconArea onClick={onLeftIconClick}>{leftIcon}</LeftIconArea>
+                    )}
+                    <StyledInput
+                        type={type}
+                        value={value}
+                        onChange={onChange}
+                        placeholder={placeholder}
+                        disabled={disabled}
+                    />
+                    {rightIcon && <RightIconArea onClick={onRightIconClick}>{rightIcon}</RightIconArea>}
+                </Wrapper>
+                {hasBottomMessage && (
+                    <BottomMessage visible={!!bottomMessage} color={messageColor}>
+                        {bottomMessage || "\u00A0"}
+                    </BottomMessage>
+                )}
+            </section>
         </InputContainer>
     );
 }
 
 const InputContainer = styled.div`
     width: 100%;
-    max-width: 333px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    /* max-width: 333px; */
 `;
 
 const Wrapper = styled.div<{ variant: InputVariant }>`
@@ -66,7 +85,7 @@ const Wrapper = styled.div<{ variant: InputVariant }>`
     border-radius: ${({ variant }) => (variant === "default" ? "8px" : "40px")};
     height: 40px;
     width: 100%;
-    max-width: 333px;
+    /* max-width: 333px; */
 `;
 
 const StyledInput = styled.input`

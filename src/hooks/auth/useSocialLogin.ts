@@ -2,7 +2,7 @@ import { useUserStore } from "@/store/useUserStore";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { fetchMinimumUserInfo } from "./useFetchMinumumUserInfo";
+import { fetchMinimumUserInfo } from "../user/useFetchMinumumUserInfo";
 
 type SocialLoginParams = {
     code: string;
@@ -41,9 +41,9 @@ export const useSocialLogin = (provider: "kakao" | "naver" | "dev") => {
                 if (res.userType === "UNDECIDED") {
                     navigate("/type-select");
                 } else if (res.userType === "STAFF") {
-                    navigate("/staff/home");
+                    navigate("/staff/");
                 } else if (res.userType === "GUESTHOUSE") {
-                    navigate("/guesthouse/home");
+                    navigate("/owner/");
                 } else {
                     console.warn("알 수 없는 사용자 유형입니다.");
                     navigate("/");

@@ -98,6 +98,10 @@ export const GlobalStyle = () => css`
     hgroup,
     menu,
     nav,
+    html,
+    body {
+        height: 100%;
+    }
     section {
         display: block;
     }
@@ -113,12 +117,12 @@ export const GlobalStyle = () => css`
         height: 100vh;
     }
     #root {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        /* display: flex; */
+        /* justify-content: center; */
+        /* align-items: center; */
         width: 393px;
         min-width: 375px;
-        height: 100%;
+        height: 100vh;
         background-color: white;
         position: relative;
     }

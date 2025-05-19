@@ -1,13 +1,16 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "@emotion/styled";
+import { Text } from "@/styles/Text";
+import { Wrapper } from "@/styles/Wrapper";
 
 export interface DropdownButtonProps {
     label: string;
     options: string[];
     onSelect?: (option: string) => void;
+    dropTitle?: string;
 }
 
-export default function DropdownButton({ label, options, onSelect }: DropdownButtonProps) {
+export default function DropdownButton({ label, options, onSelect, dropTitle }: DropdownButtonProps) {
     const [isOpen, setIsOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -34,18 +37,21 @@ export default function DropdownButton({ label, options, onSelect }: DropdownBut
     }, []);
 
     return (
-        <Style.Wrapper ref={wrapperRef}>
-            <Style.Button onClick={toggleDropdown}>{label}</Style.Button>
-            {isOpen && (
-                <Style.DropdownMenu>
-                    {options.map((option, index) => (
-                        <Style.DropdownItem key={index} onClick={() => handleSelect(option)}>
-                            {option}
-                        </Style.DropdownItem>
-                    ))}
-                </Style.DropdownMenu>
-            )}
-        </Style.Wrapper>
+        <Wrapper.FlexBox direction="column" gap="12px">
+            <Text.Body1_1>{dropTitle}</Text.Body1_1>
+            <Style.Wrapper ref={wrapperRef}>
+                <Style.Button onClick={toggleDropdown}>{label}</Style.Button>
+                {isOpen && (
+                    <Style.DropdownMenu>
+                        {options.map((option, index) => (
+                            <Style.DropdownItem key={index} onClick={() => handleSelect(option)}>
+                                {option}
+                            </Style.DropdownItem>
+                        ))}
+                    </Style.DropdownMenu>
+                )}
+            </Style.Wrapper>
+        </Wrapper.FlexBox>
     );
 }
 

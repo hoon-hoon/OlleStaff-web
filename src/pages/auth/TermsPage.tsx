@@ -16,7 +16,7 @@ export default function TermsPage() {
     const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>(
         termsArray.reduce((acc, { id }) => ({ ...acc, [id]: false }), {})
     );
-    // const [marketingAgreed, setMarketingAgreed] = useState(false);
+    const [marketingAgreed, setMarketingAgreed] = useState(false);
     const navigate = useNavigate();
 
     const allRequiredChecked = termsArray.filter(term => term.required).every(term => checkedItems[term.id]);
@@ -36,9 +36,9 @@ export default function TermsPage() {
             .filter(term => checkedItems[term.id])
             .map(term => `${term.title}_${term.date}_${term.version}`);
 
-        // if (marketingAgreed) {
-        //     agreed.push("올래스텝 개인정보처리 동의서-마케팅_2025-04-09_v1");
-        // }
+        if (marketingAgreed) {
+            agreed.push("올래스텝 개인정보처리 동의서-마케팅_2025-04-09_v1");
+        }
 
         navigate("/signup", { state: { agreements: agreed } });
     };
@@ -67,16 +67,10 @@ export default function TermsPage() {
                         </ScrollBox>
                     </AgreementBox>
                 ))}
-
-                {/* <CheckBox
-                checked={marketingAgreed}
-                onChange={() => setMarketingAgreed(!marketingAgreed)}
-                label={
-                    <>
-                        마케팅 및 이벤트 수신에 동의합니다. <span style={{ color: theme.color.Gray4 }}>(선택)</span>
-                    </>
-                }
-            /> */}
+                <CustomWrapper>
+                    <CheckBox checked={marketingAgreed} onChange={() => setMarketingAgreed(!marketingAgreed)} />
+                    마케팅 및 이벤트 수신에 동의합니다. <span style={{ color: theme.color.Gray4 }}>(선택)</span>
+                </CustomWrapper>
 
                 <AllCheckWrapper>
                     <CheckBox
@@ -142,4 +136,9 @@ const AllCheckWrapper = styled.div`
     display: flex;
     align-items: center;
     margin: 16px 0;
+`;
+
+const CustomWrapper = styled.div`
+    display: flex;
+    align-items: center;
 `;

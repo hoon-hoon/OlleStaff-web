@@ -8,5 +8,6 @@ export const fetchMinimumUserInfo = async () => {
     return {
         nickname: res.data.data.nickname,
         userType: res.data.data.type,
+        onboarded: res.data.data.onboarded,
     };
 };

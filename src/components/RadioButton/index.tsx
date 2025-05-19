@@ -7,9 +7,10 @@ export interface RadioButtonProps {
     labelList?: string[];
     selectedIndex: number;
     onSelect?: (index: number) => void;
+    radioTitle?: string;
 }
 
-export default function RadioButton({ labelList = [], selectedIndex, onSelect }: RadioButtonProps) {
+export default function RadioButton({ labelList = [], selectedIndex, onSelect, radioTitle }: RadioButtonProps) {
     const [selected, setSelected] = useState<number>(selectedIndex);
 
     const handleSelect = (index: number) => {
@@ -19,19 +20,22 @@ export default function RadioButton({ labelList = [], selectedIndex, onSelect }:
 
     return (
         <>
-            <Wrapper.FlexBox gap="20px">
-                {labelList.map((name, index) => (
-                    <Style.RadioButton key={index}>
-                        <input
-                            type="radio"
-                            name="radio-group"
-                            checked={selected === index}
-                            onChange={() => handleSelect(index)}
-                        />
-                        <Style.RadioCircle>{selected === index && <Style.RadioInnerCircle />}</Style.RadioCircle>
-                        <Text.Body1_1>{name}</Text.Body1_1>
-                    </Style.RadioButton>
-                ))}
+            <Wrapper.FlexBox direction="column" gap="18px">
+                <Text.Body1_1>{radioTitle}</Text.Body1_1>
+                <Wrapper.FlexBox gap="20px">
+                    {labelList.map((name, index) => (
+                        <Style.RadioButton key={index}>
+                            <input
+                                type="radio"
+                                name="radio-group"
+                                checked={selected === index}
+                                onChange={() => handleSelect(index)}
+                            />
+                            <Style.RadioCircle>{selected === index && <Style.RadioInnerCircle />}</Style.RadioCircle>
+                            <Text.Body1_1>{name}</Text.Body1_1>
+                        </Style.RadioButton>
+                    ))}
+                </Wrapper.FlexBox>
             </Wrapper.FlexBox>
         </>
     );

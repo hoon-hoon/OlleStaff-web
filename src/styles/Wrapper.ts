@@ -65,7 +65,7 @@ export const Wrapper = {
         background-color: ${props => props.bgColor || "transparent"};
         cursor: ${props => (props.pointer ? "pointer" : "default")};
     `,
-    FixedBox: styled.img<StyleWrapper>`
+    FixedBox: styled.div<StyleWrapper>`
         position: fixed;
         width: ${props => props.width || "auto"};
         height: ${props => props.height || "auto"};
