@@ -29,7 +29,7 @@ export default function RecruitWritePage() {
             <Header title="게시글 작성" showBackButton />
             <PageWrapper hasHeader>
                 <Wrapper.FlexBox direction="column" padding="30px" gap="20px">
-                    <ImageUploader />
+                    <ImageUploader maxImages={9} />
 
                     <Input
                         inputTitle="게시글 제목"
