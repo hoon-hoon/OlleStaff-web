@@ -1,14 +1,7 @@
 import styled from "@emotion/styled";
 import { Text } from "@/styles/Text";
 import { useNavigate } from "react-router-dom";
-
-export interface AccompanyListItemProps {
-    id: number;
-    title: string;
-    content: string;
-    timeAgo: string;
-    imageUrl?: string;
-}
+import { AccompanyListItemProps } from "@/types/accompany";
 
 export const AccompanyListItem = ({ id, title, content, timeAgo, imageUrl }: AccompanyListItemProps) => {
     const navigate = useNavigate();
@@ -78,7 +71,6 @@ const ContentWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    gap: 8px;
     flex: 1;
 `;
 

@@ -30,7 +30,7 @@ const Wrapper = styled.div<{ $hasHeader: boolean; $hasNav: boolean; $isRoot: boo
     height: ${({ $isRoot }) => ($isRoot ? "100vh" : "100%")};
     display: flex;
     flex-direction: column;
-    padding-top: ${({ $hasHeader }) => ($hasHeader ? theme.size.HeaderHeight : "0px")};
+    padding-top: ${({ $hasHeader }) => ($hasHeader ? `calc(${theme.size.HeaderHeight} - 32px)` : "0px")};
     padding-bottom: ${({ $hasNav }) => ($hasNav ? theme.size.NavHeight : "0px")};
     margin: 0;
 `;

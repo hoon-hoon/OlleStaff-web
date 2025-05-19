@@ -14,7 +14,7 @@ export default function SectionTitle({ title, link }: SectionTitleProps) {
         <Wrapper>
             <Text.Title2_1>{title}</Text.Title2_1>
             {link && (
-                <MoreButton onClick={() => navigate(link)}>
+                <MoreButton onClick={() => navigate(link, { relative: "path" })}>
                     <MoreText>더보기</MoreText>
                     <RotatedIcon src="/backbtn.svg" alt="더보기 아이콘" />
                 </MoreButton>
