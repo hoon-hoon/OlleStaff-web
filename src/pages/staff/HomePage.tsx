@@ -62,11 +62,11 @@ export default function HomePage() {
                 />
                 <CategoryList />
                 <Section>
-                    <SectionTitle title="취향저격 게스트하우스 🌴" link="/guesthouse/recommend" />
+                    <SectionTitle title="취향저격 게스트하우스 🌴" link="guesthouse/recommend" />
                     <CardCarousel />
                 </Section>
                 <Section>
-                    <SectionTitle title="나와 취향이 맞는 동행 구하기🎒" link="/companion/recommend" />
+                    <SectionTitle title="나와 취향이 맞는 동행 구하기🎒" link="companion" />
                     <AccompanyList data={mockAccompanyData} />
                 </Section>
             </PageWrapper>

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { AccompanyListItem, AccompanyListItemProps } from "./AccompanyListItem";
+import { AccompanyListItem } from "./AccompanyListItem";
+import { AccompanyListItemProps } from "@/types/accompany";
 
 interface AccompanyListProps {
     data: AccompanyListItemProps[];
