@@ -14,7 +14,7 @@ const OwnerRoutes: RouteObject[] = [
                 element: <OwnerHome />,
             },
             {
-                path: "recruits",
+                path: "recruitments-ongoing",
                 element: <RecruitListPage />,
             },
             {

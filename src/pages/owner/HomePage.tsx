@@ -41,7 +41,7 @@ export default function HomePage() {
         <>
             <Wrapper.FlexBox direction="column" gap="32px">
                 <PartnerRecruitmentCard />
-                <SectionTitle title="진행 중인 나의 공고" link="/owner/recruit" />
+                <SectionTitle title="진행 중인 나의 공고" link="/owner/recruitments-ongoing" />
                 <SectionTitle title="작성된 후기" link="/owner/userinfo/review" />
             </Wrapper.FlexBox>
             {/* <button onClick={handleDeleteVerify}>삭제</button> */}
