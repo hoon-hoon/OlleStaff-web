@@ -9,6 +9,7 @@ import TermsPage from "@/pages/auth/TermsPage";
 import TypeSelectPage from "@/pages/auth/TypeSelectPage";
 import BusinessVerificationPage from "@/pages/auth/BusinessVerification";
 import OwnerTermsPage from "@/pages/auth/OwnerTermsPage";
+import RecruitWritePage from "@/pages/owner/RecruitWritePage";
 
 const AuthRoutes: RouteObject[] = [
     {
@@ -52,6 +53,10 @@ const AuthRoutes: RouteObject[] = [
     {
         path: "business-verification/term",
         element: <OwnerTermsPage />,
+    },
+    {
+        path: "owner/recruit/write",
+        element: <RecruitWritePage />,
     },
 ];
 
