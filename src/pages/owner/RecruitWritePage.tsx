@@ -9,6 +9,7 @@ import Textarea from "@/components/Textarea";
 import { Wrapper } from "@/styles/Wrapper";
 import { useState } from "react";
 import CategoryTagEditor from "./components/CategoryTagEditor";
+import BenefitListEditor from "./components/BenefitListEditor";
 
 export default function RecruitWritePage() {
     const [formData, _setFormData] = useState({
@@ -90,8 +91,9 @@ export default function RecruitWritePage() {
                         onChange={() => {}}
                         variant="flat"
                     />
+                    <BenefitListEditor />
                     <Input
-                        inputTitle="위치선택"
+                        inputTitle="위치 선택"
                         placeholder="위치를 입력해 주세요."
                         variant="default"
                         value={formData.location}
