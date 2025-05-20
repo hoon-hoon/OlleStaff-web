@@ -55,20 +55,27 @@ export default function RecruitWritePage() {
                         <RadioButton radioTitle="성별" labelList={["모두", "남자", "여자"]} selectedIndex={0} />
                     </Wrapper.FlexBox>
 
-                    <Input
-                        inputTitle="시작일"
-                        placeholder="YYYYMMDD"
-                        variant="default"
-                        value={formData.startDate}
-                        onChange={() => {}}
-                    />
-                    <Input
-                        inputTitle="종료일"
-                        placeholder="YYYYMMDD"
-                        variant="default"
-                        value={formData.endDate}
-                        onChange={() => {}}
-                    />
+                    <Wrapper.FlexBox justifyContent="space-between">
+                        <Wrapper.FlexBox width="48%">
+                            <Input
+                                inputTitle="시작일"
+                                placeholder="YYYYMMDD"
+                                variant="default"
+                                value={formData.startDate}
+                                onChange={() => {}}
+                            />
+                        </Wrapper.FlexBox>
+                        <Wrapper.FlexBox width="48%">
+                            <Input
+                                inputTitle="종료일"
+                                placeholder="YYYYMMDD"
+                                variant="default"
+                                value={formData.endDate}
+                                onChange={() => {}}
+                            />
+                        </Wrapper.FlexBox>
+                    </Wrapper.FlexBox>
+
                     <Input
                         inputTitle="모집 마감일"
                         placeholder="YYYYMMDD"
