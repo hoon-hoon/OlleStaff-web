@@ -8,6 +8,7 @@ import RadioButton from "@/components/RadioButton";
 import Textarea from "@/components/Textarea";
 import { Wrapper } from "@/styles/Wrapper";
 import { useState } from "react";
+import CategoryTagEditor from "./components/CategoryTagEditor";
 
 export default function RecruitWritePage() {
     const [formData, _setFormData] = useState({
@@ -30,6 +31,7 @@ export default function RecruitWritePage() {
             <PageWrapper hasHeader>
                 <Wrapper.FlexBox direction="column" padding="30px" gap="20px">
                     <ImageUploader maxImages={9} />
+                    <CategoryTagEditor />
 
                     <Input
                         inputTitle="게시글 제목"
