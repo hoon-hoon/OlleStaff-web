@@ -49,7 +49,9 @@ export default function RecruitWritePage() {
                         onChange={() => {}}
                     />
                     <Wrapper.FlexBox>
-                        <DropdownButton dropTitle="모집 인원" label="00명" options={["1", "2", "3", "4", "5"]} />
+                        <Wrapper.FlexBox width="120px">
+                            <DropdownButton dropTitle="모집 인원" label="00명" options={["1", "2", "3", "4", "5"]} />
+                        </Wrapper.FlexBox>
                         <RadioButton radioTitle="성별" labelList={["모두", "남자", "여자"]} selectedIndex={0} />
                     </Wrapper.FlexBox>
 
