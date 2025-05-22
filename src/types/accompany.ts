@@ -2,6 +2,12 @@ export interface AccompanyListItemProps {
     id: number;
     title: string;
     content: string;
-    timeAgo: string;
-    imageUrl?: string;
+    createdAt: number;
+    updatedAt: number;
+    images: string[];
+    userId: number;
+    userNickname: string;
+    like: boolean;
+    likeCount: number;
+    commentCount: number;
 }
