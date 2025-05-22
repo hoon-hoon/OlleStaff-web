@@ -66,7 +66,7 @@ export default function HomePage() {
                     <CardCarousel />
                 </Section>
                 <Section>
-                    <SectionTitle title="나와 취향이 맞는 동행 구하기🎒" link="companion" />
+                    <SectionTitle title="나와 취향이 맞는 동행 구하기🎒" link="accompany" />
                     <AccompanyList data={mockAccompanyData} />
                 </Section>
             </PageWrapper>

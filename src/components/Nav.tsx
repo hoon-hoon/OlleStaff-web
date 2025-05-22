@@ -17,7 +17,7 @@ const items = {
     ],
     staff: [
         { src: "/NavHome.svg", alt: "홈", label: "홈", path: "/staff" },
-        { src: "/NavCompanion.svg", alt: "동행", label: "동행", path: "/staff/companion" },
+        { src: "/NavCompanion.svg", alt: "동행", label: "동행", path: "/staff/accompany" },
         { src: "/NavChat.svg", alt: "채팅", label: "채팅", path: "/chat" },
         { src: "/NavUser.svg", alt: "내 정보", label: "내 정보", path: "/staff/userinfo" },
     ],

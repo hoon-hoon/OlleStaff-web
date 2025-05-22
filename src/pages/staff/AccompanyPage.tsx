@@ -48,7 +48,7 @@ const mockData = [
     },
 ];
 
-export default function CompanionPage() {
+export default function AccompanyPage() {
     const [sort, setSort] = useState<"전체" | "인기순">("전체");
     const [data, setData] = useState<AccompanyListItemProps[]>([]);
     const navigate = useNavigate();
