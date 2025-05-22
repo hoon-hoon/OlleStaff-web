@@ -4,7 +4,7 @@ import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
 import theme from "@/styles/theme";
 
-export default function CategoryTagEditor() {
+export default function HashTagEditor() {
     const [tags, setTags] = useState<string[]>([]);
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
 

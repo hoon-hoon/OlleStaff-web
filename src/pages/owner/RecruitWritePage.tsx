@@ -8,9 +8,10 @@ import RadioButton from "@/components/RadioButton";
 import Textarea from "@/components/Textarea";
 import { Wrapper } from "@/styles/Wrapper";
 import { useState } from "react";
-import CategoryTagEditor from "./components/CategoryTagEditor";
+import HashTagEditor from "./components/HashTagEditor";
 import BenefitListEditor from "./components/BenefitListEditor";
 import LocationSelector from "./components/LocationSelector";
+import CategorySelector from "./components/CategorySelector";
 
 export default function RecruitWritePage() {
     const [formData, _setFormData] = useState({
@@ -33,7 +34,7 @@ export default function RecruitWritePage() {
             <PageWrapper hasHeader>
                 <Wrapper.FlexBox direction="column" padding="30px" gap="20px">
                     <ImageUploader maxImages={9} />
-                    <CategoryTagEditor />
+                    <HashTagEditor />
 
                     <Input
                         inputTitle="게시글 제목"
@@ -94,6 +95,9 @@ export default function RecruitWritePage() {
                     />
                     <BenefitListEditor />
                     <LocationSelector />
+
+                    <CategorySelector />
+
                     <Button label="다음 버튼" width="large">
                         다음으로
                     </Button>
