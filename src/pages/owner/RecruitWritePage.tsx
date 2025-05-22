@@ -8,6 +8,10 @@ import RadioButton from "@/components/RadioButton";
 import Textarea from "@/components/Textarea";
 import { Wrapper } from "@/styles/Wrapper";
 import { useState } from "react";
+import HashTagEditor from "./components/HashTagEditor";
+import BenefitListEditor from "./components/BenefitListEditor";
+import LocationSelector from "./components/LocationSelector";
+import CategorySelector from "./components/CategorySelector";
 
 export default function RecruitWritePage() {
     const [formData, _setFormData] = useState({
@@ -29,7 +33,8 @@ export default function RecruitWritePage() {
             <Header title="게시글 작성" showBackButton />
             <PageWrapper hasHeader>
                 <Wrapper.FlexBox direction="column" padding="30px" gap="20px">
-                    <ImageUploader />
+                    <ImageUploader maxImages={9} />
+                    <HashTagEditor />
 
                     <Input
                         inputTitle="게시글 제목"
@@ -47,24 +52,33 @@ export default function RecruitWritePage() {
                         onChange={() => {}}
                     />
                     <Wrapper.FlexBox>
-                        <DropdownButton dropTitle="모집 인원" label="00명" options={["1", "2", "3", "4", "5"]} />
+                        <Wrapper.FlexBox width="120px">
+                            <DropdownButton dropTitle="모집 인원" label="00명" options={["1", "2", "3", "4", "5"]} />
+                        </Wrapper.FlexBox>
                         <RadioButton radioTitle="성별" labelList={["모두", "남자", "여자"]} selectedIndex={0} />
                     </Wrapper.FlexBox>
 
-                    <Input
-                        inputTitle="시작일"
-                        placeholder="YYYYMMDD"
-                        variant="default"
-                        value={formData.startDate}
-                        onChange={() => {}}
-                    />
-                    <Input
-                        inputTitle="종료일"
-                        placeholder="YYYYMMDD"
-                        variant="default"
-                        value={formData.endDate}
-                        onChange={() => {}}
-                    />
+                    <Wrapper.FlexBox justifyContent="space-between">
+                        <Wrapper.FlexBox width="48%">
+                            <Input
+                                inputTitle="시작일"
+                                placeholder="YYYYMMDD"
+                                variant="default"
+                                value={formData.startDate}
+                                onChange={() => {}}
+                            />
+                        </Wrapper.FlexBox>
+                        <Wrapper.FlexBox width="48%">
+                            <Input
+                                inputTitle="종료일"
+                                placeholder="YYYYMMDD"
+                                variant="default"
+                                value={formData.endDate}
+                                onChange={() => {}}
+                            />
+                        </Wrapper.FlexBox>
+                    </Wrapper.FlexBox>
+
                     <Input
                         inputTitle="모집 마감일"
                         placeholder="YYYYMMDD"
@@ -79,13 +93,10 @@ export default function RecruitWritePage() {
                         onChange={() => {}}
                         variant="flat"
                     />
-                    <Input
-                        inputTitle="위치선택"
-                        placeholder="위치를 입력해 주세요."
-                        variant="default"
-                        value={formData.location}
-                        onChange={() => {}}
-                    />
+                    <BenefitListEditor />
+                    <LocationSelector />
+
+                    <CategorySelector />
 
                     <Button label="다음 버튼" width="large">
                         다음으로

@@ -22,7 +22,7 @@ export default function RadioButton({ labelList = [], selectedIndex, onSelect, r
         <>
             <Wrapper.FlexBox direction="column" gap="18px">
                 <Text.Body1_1>{radioTitle}</Text.Body1_1>
-                <Wrapper.FlexBox gap="20px">
+                <Wrapper.FlexBox gap="20px" style={{ flexWrap: "wrap" }}>
                     {labelList.map((name, index) => (
                         <Style.RadioButton key={index}>
                             <input

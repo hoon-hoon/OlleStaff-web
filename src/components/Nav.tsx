@@ -11,7 +11,7 @@ type NavProps = {
 const items = {
     owner: [
         { src: "/NavHome.svg", alt: "홈", label: "홈", path: "/owner" },
-        { src: "/NavRecruit.svg", alt: "나의 공고", label: "나의 공고", path: "/owner/recruit" },
+        { src: "/NavRecruit.svg", alt: "나의 공고", label: "나의 공고", path: "/owner/recruitments-ongoing" },
         { src: "/NavChat.svg", alt: "채팅", label: "채팅", path: "/chat" },
         { src: "/NavUser.svg", alt: "내 정보", label: "내 정보", path: "/owner/userinfo" },
     ],
