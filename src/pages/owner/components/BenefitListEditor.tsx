@@ -17,6 +17,14 @@ export default function BenefitListEditor() {
         newBenefits[index] = value;
         setBenefits(newBenefits);
     };
+    const handleRemoveBenefit = (index: number) => {
+        const newBenefits = benefits.filter((_, i) => i !== index);
+        if (newBenefits.length === 0) {
+            setBenefits([""]);
+        } else {
+            setBenefits(newBenefits);
+        }
+    };
 
     return (
         <>
@@ -26,13 +34,18 @@ export default function BenefitListEditor() {
             </Wrapper.FlexBox>
 
             {benefits.map((benefit, index) => (
-                <Input
-                    key={index}
-                    placeholder="ex) 매주 흥이나는 파티🔥"
-                    variant="default"
-                    value={benefit}
-                    onChange={e => handleChangeBenefit(e.target.value, index)}
-                />
+                <Style.InputWrapper key={index}>
+                    <Input
+                        placeholder="ex) 매주 흥이나는 파티🔥"
+                        variant="default"
+                        value={benefit}
+                        onChange={e => handleChangeBenefit(e.target.value, index)}
+                    />
+
+                    {benefit !== "" && (
+                        <Style.CloseButton src="/DeleteTag.svg" alt="삭제" onClick={() => handleRemoveBenefit(index)} />
+                    )}
+                </Style.InputWrapper>
             ))}
 
             {benefits.length < 5 && (
@@ -46,6 +59,23 @@ export default function BenefitListEditor() {
 
 const Style = {
     AddBenefit: styled.img`
+        cursor: pointer;
+    `,
+    InputWrapper: styled.div`
+        position: relative;
+        width: 100%;
+    `,
+    CloseButton: styled.img`
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #ccc;
+        border-radius: 50%;
+        border: none;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
         cursor: pointer;
     `,
 };
