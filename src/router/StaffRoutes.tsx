@@ -8,6 +8,7 @@ import AccompanyWritePage from "@/pages/staff/AccompanyWritePage";
 import CategoryPage from "@/pages/staff/CategoryPage";
 import RecommendPage from "@/pages/staff/RecommendPage";
 import AccompanyPage from "@/pages/staff/AccompanyPage";
+import AccompanyDetailPage from "@/pages/staff/AccompanyDetailPage";
 
 const StaffRoutes: RouteObject[] = [
     {
@@ -41,11 +42,15 @@ const StaffRoutes: RouteObject[] = [
         ],
     },
     {
-        path: "/staff/application",
+        path: "/staff",
         element: <AuthLayout />,
         children: [
             {
-                path: "write",
+                path: "accompany/:id",
+                element: <AccompanyDetailPage />,
+            },
+            {
+                path: "application/write",
                 element: <ApplicationWritePage />,
             },
         ],

@@ -4,11 +4,34 @@ import { useNavigate } from "react-router-dom";
 import { AccompanyListItemProps } from "@/types/accompany";
 import { timeAgo } from "@/utils/date";
 
-export const AccompanyListItem = ({ id, title, content, createdAt, images }: AccompanyListItemProps) => {
+export const AccompanyListItem = ({
+    id,
+    title,
+    content,
+    createdAt,
+    updatedAt,
+    images,
+    userNickname,
+    likeCount,
+    commentCount,
+}: AccompanyListItemProps) => {
     const navigate = useNavigate();
-
     const handleClick = () => {
-        navigate(`/staff/accompany/${id}`);
+        navigate(`/staff/accompany/${id}`, {
+            state: {
+                accompany: {
+                    id,
+                    title,
+                    content,
+                    createdAt,
+                    updatedAt,
+                    images,
+                    userNickname,
+                    likeCount,
+                    commentCount,
+                },
+            },
+        });
     };
 
     const thumbnail = images?.[0];
