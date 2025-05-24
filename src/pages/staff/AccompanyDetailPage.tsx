@@ -1,3 +1,4 @@
+import { CommentBox } from "@/components/CommentBox";
 import Header from "@/components/Header";
 import PageWrapper from "@/components/PageWrapper";
 import { Text } from "@/styles/Text";
@@ -47,7 +48,9 @@ export default function AccompanyDetailPage() {
                 </ReactionBar>
             </PageWrapper>
             <Divider />
-            <PageWrapper>댓글</PageWrapper>
+            <PageWrapper>
+                <CommentBox />
+            </PageWrapper>
         </>
     );
 }
