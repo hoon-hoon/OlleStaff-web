@@ -1,9 +1,21 @@
 import Header from "@/components/Header";
 import PageWrapper from "@/components/PageWrapper";
-import SettingMenuItem from "@/components/Setting/SettingMenuItem";
+import SettingList from "@/components/SettingList";
 import { useUserStore } from "@/store/useUserStore";
 import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
+
+const MenuList = [
+    {
+        id: 1,
+        title: "게시글 관리",
+        content: [
+            { title: "내가 작성한 공고", link: "/owner/recruitments-ongoing" },
+            { title: "주의사항 수정하기", link: "/" },
+            { title: "후기관리", link: "/" },
+        ],
+    },
+];
 
 export default function UserInfoPage() {
     const user = {
@@ -21,12 +33,7 @@ export default function UserInfoPage() {
                 </Wrapper.FlexBox>
 
                 <Wrapper.FlexBox direction="column" gap="12px">
-                    <Text.Body1_1>게시글 관리</Text.Body1_1>
-                    <div>
-                        <SettingMenuItem title="내가 작성한 공고" link="/owner/recruitments-ongoing" />
-                        <SettingMenuItem title="주의사항 수정하기" link="/" />
-                        <SettingMenuItem title="후기관리" link="/" />
-                    </div>
+                    <SettingList data={MenuList} />
                 </Wrapper.FlexBox>
             </PageWrapper>
         </>

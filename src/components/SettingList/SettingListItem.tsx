@@ -8,7 +8,7 @@ interface Props {
     link: string;
 }
 
-export default function SettingMenuItem({ title, link }: Props) {
+export default function SettingListItem({ title, link }: Props) {
     const navigate = useNavigate();
 
     return (
