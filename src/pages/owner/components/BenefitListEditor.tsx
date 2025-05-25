@@ -36,7 +36,7 @@ export default function BenefitListEditor() {
             {benefits.map((benefit, index) => (
                 <Style.InputWrapper key={index}>
                     <Input
-                        placeholder="ex) 매주 흥이나는 파티🔥"
+                        placeholder="예) 매주 흥이나는 파티🔥"
                         variant="default"
                         value={benefit}
                         onChange={e => handleChangeBenefit(e.target.value, index)}
