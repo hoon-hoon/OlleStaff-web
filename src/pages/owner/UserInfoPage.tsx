@@ -4,6 +4,7 @@ import SettingList from "@/components/SettingList";
 import { useUserStore } from "@/store/useUserStore";
 import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
+import UserModeSwitcher from "../auth/components/UserModeSwitcher";
 
 const MenuList = [
     {
@@ -35,6 +36,8 @@ export default function UserInfoPage() {
                 <Wrapper.FlexBox direction="column" gap="12px">
                     <SettingList data={MenuList} />
                 </Wrapper.FlexBox>
+
+                <UserModeSwitcher />
             </PageWrapper>
         </>
     );
