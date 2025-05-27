@@ -17,7 +17,10 @@ interface EmploymentProps {
     longitude: number;
     hashtagName: string[];
     benefitsContent: string[];
-    precautions: string[];
+    precautions: {
+        title: string;
+        content: string;
+    }[];
 }
 
 const initialFormData: EmploymentProps = {
@@ -34,7 +37,7 @@ const initialFormData: EmploymentProps = {
     longitude: 0,
     hashtagName: [],
     benefitsContent: [],
-    precautions: [],
+    precautions: [{ title: "", content: "" }],
 };
 
 export default function RecruitWriteContainer() {
@@ -57,8 +60,8 @@ export default function RecruitWriteContainer() {
                 path="step2"
                 element={
                     <RecruitPrecautionPage
-                        // formData={formData}
-                        // setFormData={setFormData}
+                        formData={formData}
+                        setFormData={setFormData}
                         onSubmit={() => {
                             console.log("최종 제출", formData);
                         }}

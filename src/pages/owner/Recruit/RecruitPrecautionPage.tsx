@@ -4,12 +4,15 @@ import PageWrapper from "@/components/PageWrapper";
 import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
 import Precaution from "../components/Precaution";
+import { EmploymentProps } from "@/types/employment";
 
 interface Props {
+    formData: EmploymentProps;
+    setFormData: React.Dispatch<React.SetStateAction<EmploymentProps>>;
     onSubmit: () => void;
 }
 
-export default function RecruitPrecautionPage({ onSubmit }: Props) {
+export default function RecruitPrecautionPage({ formData, setFormData, onSubmit }: Props) {
     return (
         <>
             <Header title="주의사항 작성" showBackButton />
@@ -22,7 +25,10 @@ export default function RecruitPrecautionPage({ onSubmit }: Props) {
 
                     {/* 제목 & 소개글 컴포넌트 */}
 
-                    <Precaution />
+                    <Precaution
+                        values={formData.precautions}
+                        onChange={updated => setFormData(prev => ({ ...prev, precautions: updated }))}
+                    />
 
                     <Button label="작성 완료" width="large" onClick={onSubmit}>
                         작성 완료

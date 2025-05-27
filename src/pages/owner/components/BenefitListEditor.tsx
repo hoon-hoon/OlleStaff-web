@@ -53,7 +53,11 @@ export default function BenefitListEditor({ values, onChange }: BenefitListEdito
 
             {values.length < 5 && (
                 <Wrapper.FlexBox justifyContent="center">
-                    <Style.AddBenefit src="/AddBenefit.svg" alt="복리후생 추가 버튼" onClick={handleAddBenefit} />
+                    <Style.AddBenefit
+                        src="/Icon/addMainColor.svg"
+                        alt="복리후생 추가 버튼"
+                        onClick={handleAddBenefit}
+                    />
                 </Wrapper.FlexBox>
             )}
         </>

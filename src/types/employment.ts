@@ -13,5 +13,8 @@ export interface EmploymentProps {
     // location : string
     hashtagName: string[];
     benefitsContent: string[];
-    precautions: string[];
+    precautions: {
+        title: string;
+        content: string;
+    }[];
 }
