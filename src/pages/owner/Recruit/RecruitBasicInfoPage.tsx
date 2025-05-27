@@ -105,7 +105,7 @@ export default function RecruitBasicInfoPage({ formData, setFormData, onNext }: 
                         placeholder="소개글을 입력해 주세요."
                         value={formData.content}
                         onChange={e => setFormData(prev => ({ ...prev, content: e.target.value }))}
-                        variant="flat"
+                        variant="flat-lg"
                     />
 
                     <BenefitListEditor

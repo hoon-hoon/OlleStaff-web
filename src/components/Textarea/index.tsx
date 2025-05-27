@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { Text } from "@/styles/Text";
 
-type TextareaVariant = "flat" | "outline";
+type TextareaVariant = "flat-sm" | "flat" | "flat-lg";
 
 type TextareaProps = {
     value: string;
@@ -20,14 +20,14 @@ export default function Textarea({
     onChange,
     placeholder,
     disabled,
-    variant = "outline",
+    variant = "flat",
     minLength,
     textareaTitle,
 }: TextareaProps) {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
-        if (variant === "outline" && textareaRef.current) {
+        if (textareaRef.current) {
             textareaRef.current.style.height = "auto";
             textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
         }
@@ -67,8 +67,8 @@ const Wrapper = styled.div<{ variant: TextareaVariant; hasCharCount?: boolean }>
     align-items: center;
     padding: 16px 12px;
     padding-bottom: ${({ hasCharCount }) => (hasCharCount ? "40px" : "16px")};
-    background-color: ${({ variant }) => (variant === "flat" ? theme.color.Gray0 : theme.color.White)};
-    border: ${({ variant }) => (variant === "flat" ? "none" : `1px solid ${theme.color.Gray2}`)};
+    background-color: ${theme.color.Gray0};
+    border: "none";
     border-radius: 8px;
     width: 100%;
 `;
@@ -90,13 +90,19 @@ const StyledTextarea = styled.textarea<{ variant: TextareaVariant }>`
         display: none;
     }
 
-    ${({ variant }) =>
-        variant === "flat"
-            ? `height: 300px;`
-            : `
-        min-height: 77px;
-        max-height: 300px;
-    `}
+    ${({ variant }) => {
+        switch (variant) {
+            case "flat-sm":
+                return `min-height: 77px;`;
+            case "flat":
+                return `min-height: 120px;`;
+            case "flat-lg":
+                return `min-height: 300px;`;
+            default:
+                return `min-height: 120px;`;
+        }
+    }}
+    max-height: 300px;
 
     &::placeholder {
         color: ${theme.color.Gray3};

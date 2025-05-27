@@ -60,7 +60,7 @@ const Style = {
         height: 40px;
         border-radius: 8px;
         padding: 10px 17px;
-        background-color: ${theme.color.White};
+        background-color: ${theme.color.Gray0};
         border: none;
         cursor: pointer;
     `,

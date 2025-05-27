@@ -57,11 +57,11 @@ export default function RecruitWriteContainer() {
                 path="step2"
                 element={
                     <RecruitPrecautionPage
-                    // formData={formData}
-                    // setFormData={setFormData}
-                    // onSubmit={() => {
-                    //     console.log("최종 제출", formData);
-                    // }}
+                        // formData={formData}
+                        // setFormData={setFormData}
+                        onSubmit={() => {
+                            console.log("최종 제출", formData);
+                        }}
                     />
                 }
             />
