@@ -1,3 +1,5 @@
+// import { useState } from "react";
+
 import { Button } from "@/components/Button";
 import DropdownButton from "@/components/DropdownButton";
 import Header from "@/components/Header";
@@ -7,64 +9,37 @@ import PageWrapper from "@/components/PageWrapper";
 import RadioButton from "@/components/RadioButton";
 import Textarea from "@/components/Textarea";
 import { Wrapper } from "@/styles/Wrapper";
-import { useState } from "react";
-import HashTagEditor from "./components/HashTagEditor";
-import BenefitListEditor from "./components/BenefitListEditor";
-import LocationSelector from "./components/LocationSelector";
-import CategorySelector from "./components/CategorySelector";
+import HashTagEditor from "../components/HashTagEditor";
+import BenefitListEditor from "../components/BenefitListEditor";
+import LocationSelector from "../components/LocationSelector";
+import CategorySelector from "../components/CategorySelector";
+import { EmploymentProps } from "@/types/employment";
 
-interface EmploymentProps {
-    instarUrl: string;
-    personNum: number;
-    sex: "all" | "male" | "female";
-    startedAt: string;
-    endedAt: string;
-    recruitmentEnd: string;
-    title: string;
-    content: string;
-    category: string;
-    latitude: number;
-    longitude: number;
-    // location : string
-    hashtagName: string[];
-    benefitsContent: string[];
-    precautions: string[];
+interface Props {
+    formData: EmploymentProps;
+    setFormData: React.Dispatch<React.SetStateAction<EmploymentProps>>;
+    onNext: () => void;
 }
 
-export default function RecruitWritePage() {
-    const initialFormData: EmploymentProps = {
-        instarUrl: "",
-        personNum: 0,
-        sex: "all",
-        startedAt: "",
-        endedAt: "",
-        recruitmentEnd: "",
-        title: "",
-        content: "",
-        category: "",
-        latitude: 0,
-        longitude: 0,
-        hashtagName: [],
-        benefitsContent: [],
-        precautions: [],
-    };
-
-    const [formData, setFormData] = useState<EmploymentProps>(initialFormData);
-
+export default function RecruitBasicInfoPage({ formData, setFormData, onNext }: Props) {
     return (
         <>
             <Header title="게시글 작성" showBackButton />
             <PageWrapper hasHeader>
                 <Wrapper.FlexBox direction="column" padding="30px" gap="20px">
                     <ImageUploader maxImages={9} />
-                    <HashTagEditor />
+
+                    <HashTagEditor
+                        values={formData.hashtagName}
+                        onChange={updated => setFormData(prev => ({ ...prev, hashtagName: updated }))}
+                    />
 
                     <Input
                         inputTitle="게시글 제목"
                         placeholder="게시할 글의 제목을 작성해주세요."
                         variant="default"
                         value={formData.title}
-                        onChange={e => setFormData({ ...formData, title: e.target.value })}
+                        onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
                     />
 
                     <Input
@@ -72,18 +47,28 @@ export default function RecruitWritePage() {
                         placeholder="게스트하우스 대표 링크 1개를 첨부해 주세요."
                         variant="default"
                         value={formData.instarUrl}
-                        onChange={e => setFormData({ ...formData, instarUrl: e.target.value })}
+                        onChange={e => setFormData(prev => ({ ...prev, instarUrl: e.target.value }))}
                     />
+
                     <Wrapper.FlexBox>
                         <Wrapper.FlexBox width="120px">
                             <DropdownButton
                                 dropTitle="모집 인원"
                                 label={`${formData.personNum || "00"}명`}
                                 options={["1", "2", "3", "4", "5"]}
-                                onSelect={value => setFormData({ ...formData, personNum: parseInt(value) })}
+                                onSelect={value => setFormData(prev => ({ ...prev, personNum: parseInt(value) }))}
                             />
                         </Wrapper.FlexBox>
-                        <RadioButton radioTitle="성별" labelList={["모두", "남자", "여자"]} selectedIndex={0} />
+
+                        <RadioButton
+                            radioTitle="성별"
+                            labelList={["모두", "남자", "여자"]}
+                            selectedIndex={formData.sex === "all" ? 0 : formData.sex === "male" ? 1 : 2}
+                            onSelect={index => {
+                                const value = index === 0 ? "all" : index === 1 ? "male" : "female";
+                                setFormData(prev => ({ ...prev, sex: value }));
+                            }}
+                        />
                     </Wrapper.FlexBox>
 
                     <Wrapper.FlexBox justifyContent="space-between">
@@ -93,7 +78,7 @@ export default function RecruitWritePage() {
                                 placeholder="예) 2025-02-08"
                                 variant="default"
                                 value={formData.startedAt}
-                                onChange={e => setFormData({ ...formData, startedAt: e.target.value })}
+                                onChange={e => setFormData(prev => ({ ...prev, startedAt: e.target.value }))}
                             />
                         </Wrapper.FlexBox>
                         <Wrapper.FlexBox width="48%">
@@ -102,7 +87,7 @@ export default function RecruitWritePage() {
                                 placeholder="예) 2025-12-22"
                                 variant="default"
                                 value={formData.endedAt}
-                                onChange={e => setFormData({ ...formData, endedAt: e.target.value })}
+                                onChange={e => setFormData(prev => ({ ...prev, endedAt: e.target.value }))}
                             />
                         </Wrapper.FlexBox>
                     </Wrapper.FlexBox>
@@ -112,21 +97,34 @@ export default function RecruitWritePage() {
                         placeholder="예) 2025-02-01"
                         variant="default"
                         value={formData.recruitmentEnd}
-                        onChange={e => setFormData({ ...formData, recruitmentEnd: e.target.value })}
+                        onChange={e => setFormData(prev => ({ ...prev, recruitmentEnd: e.target.value }))}
                     />
+
                     <Textarea
                         textareaTitle="게스트 하우스 소개글"
                         placeholder="소개글을 입력해 주세요."
                         value={formData.content}
-                        onChange={e => setFormData({ ...formData, content: e.target.value })}
+                        onChange={e => setFormData(prev => ({ ...prev, content: e.target.value }))}
                         variant="flat"
                     />
-                    <BenefitListEditor />
-                    <LocationSelector />
 
-                    <CategorySelector />
+                    <BenefitListEditor
+                        values={formData.benefitsContent}
+                        onChange={updated => setFormData(prev => ({ ...prev, benefitsContent: updated }))}
+                    />
 
-                    <Button label="다음 버튼" width="large">
+                    <LocationSelector
+                        latitude={formData.latitude}
+                        longitude={formData.longitude}
+                        onChange={(lat, lng) => setFormData(prev => ({ ...prev, latitude: lat, longitude: lng }))}
+                    />
+
+                    <CategorySelector
+                        value={formData.category}
+                        onChange={category => setFormData(prev => ({ ...prev, category }))}
+                    />
+
+                    <Button label="다음으로" width="large" onClick={onNext}>
                         다음으로
                     </Button>
                 </Wrapper.FlexBox>

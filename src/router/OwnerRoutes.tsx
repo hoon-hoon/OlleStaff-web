@@ -2,7 +2,8 @@ import { RouteObject } from "react-router-dom";
 import OwnerLayout from "@/layout/OwnerLayout";
 import OwnerHome from "@/pages/owner/HomePage";
 import UserInfoPage from "@/pages/owner/UserInfoPage";
-import RecruitListPage from "@/pages/owner/RecruitListPage";
+import RecruitListPage from "@/pages/owner/Recruit/RecruitListPage";
+import RecruitWriteContainer from "@/pages/owner/Recruit/RecruitWriteContainer";
 
 const OwnerRoutes: RouteObject[] = [
     {
