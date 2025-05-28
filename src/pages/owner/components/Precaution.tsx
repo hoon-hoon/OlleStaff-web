@@ -3,6 +3,7 @@ import Textarea from "@/components/Textarea";
 import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Wrapper } from "@/styles/Wrapper";
+import theme from "@/styles/theme";
 
 type Precaution = {
     title: string;
@@ -55,7 +56,7 @@ export default function Precaution({ values, onChange }: PrecautionListEditorPro
                         value={item.content}
                         onChange={e => handleChangePrecaution({ ...item, content: e.target.value }, index)}
                     />
-                    {item.title !== "" && item.content !== "" && (
+                    {values.length > 1 && (
                         <Style.DeleteBoxButton
                             src="/DeleteTag.svg"
                             alt="삭제"
@@ -65,7 +66,7 @@ export default function Precaution({ values, onChange }: PrecautionListEditorPro
                 </Style.InputGroup>
             ))}
             {values.length < 5 && (
-                <Wrapper.FlexBox justifyContent="center">
+                <Wrapper.FlexBox justifyContent="center" margin="15px 0 0 0">
                     <Style.AddPrecaution
                         src="/Icon/addMainColor.svg"
                         alt="복리후생 추가 버튼"
@@ -84,9 +85,27 @@ const Style = {
         display: flex;
         flex-direction: column;
         gap: 8px;
-        margin-bottom: 12px;
+        padding: 15px;
+        border-radius: 8px;
+        transition:
+            background-color 0.2s ease,
+            box-shadow 0.2s ease;
+        &:hover {
+            background-color: ${theme.color.Gray1};
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
     `,
-    DeleteBoxButton: styled.img``,
+    DeleteBoxButton: styled.img`
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 20px;
+        height: 20px;
+        background: #ccc;
+        border-radius: 50%;
+
+        cursor: pointer;
+    `,
     AddPrecaution: styled.img`
         cursor: pointer;
     `,

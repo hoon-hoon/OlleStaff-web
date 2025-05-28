@@ -55,7 +55,7 @@ export default function Textarea({
 }
 
 const TextareaContainer = styled.div`
-    width: 333px;
+    /* width: 333px; */
     display: flex;
     flex-direction: column;
     gap: 8px;
