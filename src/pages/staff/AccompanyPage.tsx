@@ -15,9 +15,9 @@ const mockData: AccompanyListItemProps[] = [
         createdAt: 1747904790,
         updatedAt: 1747904090,
         images: [
+            "/images/guesthouse4.png",
             "/images/guesthouse3.png",
-            "/images/guesthouse3.png",
-            "/images/guesthouse3.png",
+            "/images/guesthouse4.png",
             "/images/guesthouse3.png",
         ],
         userId: 101,

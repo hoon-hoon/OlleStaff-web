@@ -1,10 +1,12 @@
 import { CommentBox } from "@/components/CommentBox";
 import Header from "@/components/Header";
+import ImageViewer from "@/components/ImageViewer";
 import PageWrapper from "@/components/PageWrapper";
 import { Text } from "@/styles/Text";
 import { AccompanyListItemProps } from "@/types/accompany";
 import { timeAgo } from "@/utils/date";
 import styled from "@emotion/styled";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 export default function AccompanyDetailPage() {
@@ -12,6 +14,15 @@ export default function AccompanyDetailPage() {
 
     const { accompany } = state as { accompany: AccompanyListItemProps };
     const { title, content, images, createdAt, userNickname, likeCount, commentCount } = accompany;
+
+    const [isViewerOpen, setViewerOpen] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const handleImageClick = (idx: number) => {
+        setCurrentImageIndex(idx);
+        setViewerOpen(true);
+    };
+
     return (
         <>
             <Header showBackButton title="" />
@@ -31,9 +42,13 @@ export default function AccompanyDetailPage() {
                 {images.length > 0 && (
                     <ImageGrid>
                         {images.map((url, idx) => (
-                            <PostImage key={idx} src={url} alt={`post-img-${idx}`} />
+                            <PostImage key={idx} src={url} onClick={() => handleImageClick(idx)} />
                         ))}
                     </ImageGrid>
+                )}
+
+                {isViewerOpen && (
+                    <ImageViewer images={images} startIndex={currentImageIndex} onClose={() => setViewerOpen(false)} />
                 )}
 
                 <ReactionBar>
@@ -90,7 +105,7 @@ const Content = styled(Text.Body1)`
 
 const ImageGrid = styled.div`
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 6px;
     margin-bottom: 16px;
 `;
