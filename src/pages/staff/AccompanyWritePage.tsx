@@ -6,6 +6,7 @@ import PageWrapper from "@/components/PageWrapper";
 import Textarea from "@/components/Textarea";
 import { useState } from "react";
 import styled from "@emotion/styled";
+import Modal from "@/components/Modal";
 
 export default function AccompanyWritePage() {
     const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ export default function AccompanyWritePage() {
         content: "",
     });
     const [images, setImages] = useState<File[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const isAllFilled = Object.values(formData).every(value => value.trim() !== "");
 
@@ -21,7 +23,15 @@ export default function AccompanyWritePage() {
             alert("모든 필드를 입력해주세요.");
             return;
         }
+        setIsModalOpen(true);
     };
+
+    const handleConfirm = () => {
+        console.log("폼 데이터:", formData);
+        console.log("이미지:", images);
+        setIsModalOpen(false);
+    };
+
     return (
         <>
             <Header showBackButton title="동행 게시글 작성" />
@@ -55,6 +65,22 @@ export default function AccompanyWritePage() {
                     </Button>
                 </ButtonWrapper>
             </PageWrapper>
+            {isModalOpen && (
+                <Modal
+                    variant="confirm"
+                    title="동행 게시글 작성을 완료하시겠습니까?"
+                    message={
+                        <>
+                            등록버튼을 누를 시 입력한 정보가 업로드 됩니다. <br />
+                            게시글 관리는 내 정보 &gt; 내가 작성한 글
+                        </>
+                    }
+                    confirmText="등록"
+                    cancelText="취소"
+                    handleModalClose={() => setIsModalOpen(false)}
+                    onConfirm={handleConfirm}
+                />
+            )}
         </>
     );
 }
