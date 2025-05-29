@@ -6,8 +6,8 @@ import { Wrapper } from "@/styles/Wrapper";
 import theme from "@/styles/theme";
 
 type Precaution = {
-    title: string;
-    content: string;
+    precautionsTitle: string;
+    precautionsContent: string;
 };
 
 interface PrecautionListEditorProps {
@@ -18,7 +18,7 @@ interface PrecautionListEditorProps {
 export default function Precaution({ values, onChange }: PrecautionListEditorProps) {
     const handleAddPrecaution = () => {
         if (values.length >= 5) return;
-        onChange([...values, { title: "", content: "" }]);
+        onChange([...values, { precautionsTitle: "", precautionsContent: "" }]);
     };
 
     const handleChangePrecaution = (newItem: Precaution, index: number) => {
@@ -29,12 +29,12 @@ export default function Precaution({ values, onChange }: PrecautionListEditorPro
 
     const handleRemovePrecaution = (index: number) => {
         const updated = values.filter((_, i) => i !== index);
-        onChange(updated.length === 0 ? [{ title: "", content: "" }] : updated);
+        onChange(updated.length === 0 ? [{ precautionsTitle: "", precautionsContent: "" }] : updated);
     };
 
     useEffect(() => {
         if (values.length === 0) {
-            onChange([{ title: "", content: "" }]);
+            onChange([{ precautionsTitle: "", precautionsContent: "" }]);
         }
     }, [values, onChange]);
 
@@ -46,15 +46,15 @@ export default function Precaution({ values, onChange }: PrecautionListEditorPro
                         inputTitle="제목"
                         placeholder="ex) 일과 재미, 균형 잡기! ⚖️"
                         variant="default"
-                        value={item.title}
-                        onChange={e => handleChangePrecaution({ ...item, title: e.target.value }, index)}
+                        value={item.precautionsTitle}
+                        onChange={e => handleChangePrecaution({ ...item, precautionsTitle: e.target.value }, index)}
                     />
                     <Textarea
                         textareaTitle="내용"
                         placeholder="ex) 즐길 때는 확실히! 하지만 업무 시간엔 프로페셔널하게 행동해 주세요."
                         variant="flat-sm"
-                        value={item.content}
-                        onChange={e => handleChangePrecaution({ ...item, content: e.target.value }, index)}
+                        value={item.precautionsContent}
+                        onChange={e => handleChangePrecaution({ ...item, precautionsContent: e.target.value }, index)}
                     />
                     {values.length > 1 && (
                         <Style.DeleteBoxButton

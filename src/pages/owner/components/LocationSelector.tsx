@@ -13,7 +13,7 @@ interface LocationSelectorProps {
     onChange: (lat: number, lng: number) => void;
 }
 
-export default function LocationSelector({ latitude, longitude, onChange }: LocationSelectorProps) {
+export default function LocationSelector({ onChange }: LocationSelectorProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [address, setAddress] = useState("");
 
