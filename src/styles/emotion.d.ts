@@ -16,7 +16,8 @@ declare module "@emotion/react" {
         | "Red1"
         | "Yellow1"
         | "Green1"
-        | "Blue1";
+        | "Blue1"
+        | "LightGray";
 
     export interface Theme {
         color: {

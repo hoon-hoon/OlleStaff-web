@@ -21,7 +21,7 @@ const initialFormData: EmploymentProps = {
     precautions: [{ precautionsTitle: "", precautionsContent: "" }],
 };
 
-export default function RecruitWriteContainer() {
+export default function Recruit() {
     const [formData, setFormData] = useState<EmploymentProps>(initialFormData);
     const navigate = useNavigate();
 
