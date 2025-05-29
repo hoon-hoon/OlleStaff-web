@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import PageWrapper from "@/components/PageWrapper";
 import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
-import Precaution from "../components/Precaution";
+import PrecautionListItem from "../components/PrecautionListItem";
 import { EmploymentProps } from "@/types/employment";
 
 interface Props {
@@ -23,7 +23,7 @@ export default function RecruitPrecautionPage({ formData, setFormData, onSubmit 
                         <Text.Body3_1 color="Gray4">스탭 합격시 메세지를 통하여 보여지게 됩니다.</Text.Body3_1>
                     </Wrapper.FlexBox>
 
-                    <Precaution
+                    <PrecautionListItem
                         values={formData.precautions}
                         onChange={updated => setFormData(prev => ({ ...prev, precautions: updated }))}
                     />

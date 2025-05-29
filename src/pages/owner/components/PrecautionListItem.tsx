@@ -15,7 +15,7 @@ interface PrecautionListEditorProps {
     onChange: (updated: Precaution[]) => void;
 }
 
-export default function Precaution({ values, onChange }: PrecautionListEditorProps) {
+export default function PrecautionItem({ values, onChange }: PrecautionListEditorProps) {
     const handleAddPrecaution = () => {
         if (values.length >= 5) return;
         onChange([...values, { precautionsTitle: "", precautionsContent: "" }]);
