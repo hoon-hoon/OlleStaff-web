@@ -12,7 +12,7 @@ const MenuList = [
         title: "게시글 관리",
         content: [
             { title: "주의사항 수정하기", link: "/owner/recruit/write/step2" },
-            { title: "후기관리", link: "/" },
+            { title: "후기관리", link: "/owner/userinfo/reviews" },
         ],
     },
 ];

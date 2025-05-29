@@ -2,8 +2,11 @@ import { GuesthouseList } from "@/components/GuesthouseList";
 import Header from "@/components/Header";
 import PageWrapper from "@/components/PageWrapper";
 import TabSelector from "@/components/TabSelector";
+import { OwnerTabTypes, TAB_LABELS } from "@/constants/tabs";
 import { GuesthouseListItemProps } from "@/types/guesthouse";
 import { useEffect, useState } from "react";
+
+type RecruitTab = OwnerTabTypes["MY_RECRUIT"]; // "전체", "진행중인 공고", "마감공고"
 
 const mockData: GuesthouseListItemProps[] = [
     {
@@ -84,7 +87,7 @@ const mockData: GuesthouseListItemProps[] = [
     },
 ];
 export default function RecruitListPage() {
-    const [sort, setSort] = useState<"전체" | "진행중인 공고" | "마감공고">("전체");
+    const [sort, setSort] = useState<RecruitTab>("전체");
     const [data, setData] = useState<GuesthouseListItemProps[]>([]);
     useEffect(() => {
         const fetchData = async () => {
@@ -103,9 +106,9 @@ export default function RecruitListPage() {
             <Header showBackButton title="나의 공고" />
             <PageWrapper hasHeader>
                 <TabSelector
-                    labels={["전체", "진행중인 공고", "마감공고"]}
+                    labels={[...TAB_LABELS.OWNER.MY_RECRUIT]}
                     selected={sort}
-                    onChange={value => setSort(value as "진행중인 공고" | "마감공고")}
+                    onChange={value => setSort(value as RecruitTab)}
                     variant="bold"
                 />
                 <GuesthouseList data={data} />

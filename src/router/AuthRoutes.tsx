@@ -10,6 +10,7 @@ import TypeSelectPage from "@/pages/auth/TypeSelectPage";
 import BusinessVerificationPage from "@/pages/auth/BusinessVerification";
 import OwnerTermsPage from "@/pages/auth/OwnerTermsPage";
 import RecruitWriteContainer from "@/pages/owner/Recruit";
+import Review from "@/pages/owner/Review";
 const AuthRoutes: RouteObject[] = [
     {
         path: "/",
@@ -56,6 +57,10 @@ const AuthRoutes: RouteObject[] = [
     {
         path: "owner/recruit/write/*",
         element: <RecruitWriteContainer />,
+    },
+    {
+        path: "owner/userinfo/reviews",
+        element: <Review />,
     },
 ];
 
