@@ -37,7 +37,7 @@ export default function CommentItem({
                     </Meta>
                     {!isReply && replyCount > 0 && (
                         <ReplyToggleButton onClick={() => onToggleReplies?.(id)}>
-                            <Icon src={areRepliesOpen ? "/upArrow.svg" : "/downArrow.svg"}></Icon>
+                            <Icon src={areRepliesOpen ? "/icons/upArrow.svg" : "/icons/downArrow.svg"}></Icon>
                             <Text.Body3 color="Gray4" style={{ marginTop: "3px" }}>
                                 {areRepliesOpen ? "댓글 숨기기" : `${replyCount}개의 댓글 보기`}
                             </Text.Body3>

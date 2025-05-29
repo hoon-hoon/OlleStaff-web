@@ -15,7 +15,7 @@ export default function SettingListItem({ title, link }: Props) {
         <>
             <Style.Wrapper onClick={() => navigate(link)}>
                 <Text.Body2_1 color="Gray4">{title}</Text.Body2_1>
-                <img src="/Icon/arrow.svg" alt="이동 아이콘" />
+                <img src="/icons/arrow.svg" alt="이동 아이콘" />
             </Style.Wrapper>
         </>
     );

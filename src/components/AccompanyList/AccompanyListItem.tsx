@@ -59,8 +59,8 @@ export const AccompanyListItem = ({
                 </Text.Body3_1>
                 <Footer>
                     <IconGroup>
-                        <Icon src="/Icon/comment.svg" alt="comment" />
-                        <Icon src="/Icon/heart.svg" alt="heart" />
+                        <Icon src="/icons/comment.svg" alt="comment" />
+                        <Icon src="/icons/heart.svg" alt="heart" />
                     </IconGroup>
                     <Text.Body3 color="Gray4">{timeAgo(createdAt)}</Text.Body3>
                 </Footer>

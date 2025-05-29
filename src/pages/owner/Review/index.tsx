@@ -14,7 +14,7 @@ export default function Review() {
                     <Text.Body1_1>홍길동님의 평균 평점</Text.Body1_1>
 
                     <Wrapper.FlexBox gap="6px" alignItems="center">
-                        <img src="/FullStar.svg" alt="별" />
+                        <img src="/icons/fullStar.svg" alt="별" />
                         <Text.Title2_1>4.5</Text.Title2_1>
                     </Wrapper.FlexBox>
 

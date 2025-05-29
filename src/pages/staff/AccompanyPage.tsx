@@ -123,7 +123,7 @@ export default function AccompanyPage() {
 
     return (
         <>
-            <Header title="동행 구하기" rightIconSrc="/Icon/edit.svg" onRightClick={handleWriteClick} />
+            <Header title="동행 구하기" rightIconSrc="/icons/edit.svg" onRightClick={handleWriteClick} />
             <PageWrapper hasHeader>
                 <TabSelector
                     labels={[...TAB_LABELS.STAFF.COMPANION]}

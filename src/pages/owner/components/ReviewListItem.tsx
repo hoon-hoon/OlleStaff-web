@@ -9,20 +9,20 @@ export default function ReviewListItem() {
         <Card>
             <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
                 <Text.Body1_1>결 게스트하우스 스탭 모집!</Text.Body1_1>
-                <img src="/Icon/more.svg" alt="더보기" />
+                <img src="/icons/more.svg" alt="더보기" />
             </Wrapper.FlexBox>
 
             <ContentWrapper>
                 <UserWrapper>
                     <Text.Body2_1>weifj님</Text.Body2_1>
-                    <img src="/FullStar.svg" alt="별" />
+                    <img src="/icons/fullStar.svg" alt="별" />
                     <Text.Body2_1>4.5</Text.Body2_1>
                 </UserWrapper>
 
                 <ImageList>
-                    <img src="/FullStar.svg" />
-                    <img src="/FullStar.svg" />
-                    <img src="/FullStar.svg" />
+                    <img src="/images/guesthouse1.png" />
+                    <img src="/images/guesthouse1.png" />
+                    <img src="/images/guesthouse3.png" />
                 </ImageList>
 
                 <Text.Body2>
@@ -39,7 +39,7 @@ export default function ReviewListItem() {
 
             <CommentWrapper>
                 <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
-                    <Text.Body1_1>맥스</Text.Body1_1> <img src="/Icon/more.svg" alt="더보기" />
+                    <Text.Body1_1>맥스</Text.Body1_1> <img src="/icons/more.svg" alt="더보기" />
                 </Wrapper.FlexBox>
                 <Text.Body2>
                     weifj님 그동안 고생하셨어요 ㅎㅎ 덕분에 좋은 추억이 되었어요 좋은 후기 감사합니다!!

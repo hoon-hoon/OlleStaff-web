@@ -58,7 +58,7 @@ export default function PrecautionItem({ values, onChange }: PrecautionListEdito
                     />
                     {values.length > 1 && (
                         <Style.DeleteBoxButton
-                            src="/DeleteTag.svg"
+                            src="/icons/deleteTag.svg"
                             alt="삭제"
                             onClick={() => handleRemovePrecaution(index)}
                         />
@@ -68,7 +68,7 @@ export default function PrecautionItem({ values, onChange }: PrecautionListEdito
             {values.length < 5 && (
                 <Wrapper.FlexBox justifyContent="center" margin="15px 0 0 0">
                     <Style.AddPrecaution
-                        src="/Icon/addMainColor.svg"
+                        src="/icons/addMainColor.svg"
                         alt="복리후생 추가 버튼"
                         onClick={handleAddPrecaution}
                     />

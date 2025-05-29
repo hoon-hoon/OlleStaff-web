@@ -3,11 +3,11 @@ import { Text } from "@/styles/Text";
 import { useNavigate } from "react-router-dom";
 
 const categories = [
-    { label: "대규모", icon: "/Icon/group.svg" },
-    { label: "소규모", icon: "/Icon/small.svg" },
-    { label: "뷰맛집", icon: "/Icon/view.svg" },
-    { label: "힐링", icon: "/Icon/healing.svg" },
-    { label: "체험", icon: "/Icon/experience.svg" },
+    { label: "대규모", icon: "/icons/group.svg" },
+    { label: "소규모", icon: "/icons/small.svg" },
+    { label: "뷰맛집", icon: "/icons/view.svg" },
+    { label: "힐링", icon: "/icons/healing.svg" },
+    { label: "체험", icon: "/icons/experience.svg" },
 ];
 
 export default function CategoryList() {

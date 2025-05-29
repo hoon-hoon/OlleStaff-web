@@ -28,7 +28,7 @@ export default function LoginPage() {
     return (
         <Container>
             {/* 임시 로고 */}
-            <Logo src="/logo.png" alt="logo" />
+            <Logo src="/images/logo.png" alt="logo" />
             <Title color="Black">
                 제주도 숙박공간과
                 <br />

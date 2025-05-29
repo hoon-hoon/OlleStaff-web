@@ -103,7 +103,7 @@ const RemoveButton = styled.button`
     height: 16px;
     border: none;
     background-color: transparent;
-    background-image: url("/RemoveButton.svg");
+    background-image: url("/icons/removeButton.svg");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -117,7 +117,7 @@ const AddButton = styled.div`
     border-radius: 8px;
     background-color: ${theme.color.White};
     cursor: pointer;
-    background-image: url("/CameraGroup.svg");
+    background-image: url("/icons/cameraGroup.svg");
     background-size: 40%;
     background-repeat: no-repeat;
     background-position: center;

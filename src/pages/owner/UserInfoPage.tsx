@@ -19,7 +19,7 @@ const MenuList = [
 
 export default function UserInfoPage() {
     const user = {
-        image: "/Icon/defaultUser.svg", // 임시 프로필 이미지
+        image: "/icons/defaultUser.svg", // 임시 프로필 이미지
         name: useUserStore(state => state.nickname),
     };
 

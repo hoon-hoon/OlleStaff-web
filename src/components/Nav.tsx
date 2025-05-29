@@ -10,16 +10,16 @@ type NavProps = {
 
 const items = {
     owner: [
-        { src: "/NavHome.svg", alt: "홈", label: "홈", path: "/owner" },
-        { src: "/NavRecruit.svg", alt: "나의 공고", label: "나의 공고", path: "/owner/recruitments-ongoing" },
-        { src: "/NavChat.svg", alt: "채팅", label: "채팅", path: "/chat" },
-        { src: "/NavUser.svg", alt: "내 정보", label: "내 정보", path: "/owner/userinfo" },
+        { src: "/icons/navHome.svg", alt: "홈", label: "홈", path: "/owner" },
+        { src: "/icons/navRecruit.svg", alt: "나의 공고", label: "나의 공고", path: "/owner/recruitments-ongoing" },
+        { src: "/icons/navChat.svg", alt: "채팅", label: "채팅", path: "/chat" },
+        { src: "/icons/navUser.svg", alt: "내 정보", label: "내 정보", path: "/owner/userinfo" },
     ],
     staff: [
-        { src: "/NavHome.svg", alt: "홈", label: "홈", path: "/staff" },
-        { src: "/NavCompanion.svg", alt: "동행", label: "동행", path: "/staff/accompany" },
-        { src: "/NavChat.svg", alt: "채팅", label: "채팅", path: "/chat" },
-        { src: "/NavUser.svg", alt: "내 정보", label: "내 정보", path: "/staff/userinfo" },
+        { src: "/icons/navHome.svg", alt: "홈", label: "홈", path: "/staff" },
+        { src: "/icons/navCompanion.svg", alt: "동행", label: "동행", path: "/staff/accompany" },
+        { src: "/icons/navChat.svg", alt: "채팅", label: "채팅", path: "/chat" },
+        { src: "/icons/navUser.svg", alt: "내 정보", label: "내 정보", path: "/staff/userinfo" },
     ],
 };
 
