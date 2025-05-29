@@ -23,8 +23,6 @@ export default function RecruitPrecautionPage({ formData, setFormData, onSubmit 
                         <Text.Body3_1 color="Gray4">스탭 합격시 메세지를 통하여 보여지게 됩니다.</Text.Body3_1>
                     </Wrapper.FlexBox>
 
-                    {/* 제목 & 소개글 컴포넌트 */}
-
                     <Precaution
                         values={formData.precautions}
                         onChange={updated => setFormData(prev => ({ ...prev, precautions: updated }))}

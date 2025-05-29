@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import RecruitPrecautionPage from "./RecruitPrecautionPage";
 import RecruitBasicInfoPage from "./RecruitBasicInfoPage";
+import RecruitPrecautionPage from "./RecruitPrecautionPage";
 
 interface EmploymentProps {
     instarUrl: string;
