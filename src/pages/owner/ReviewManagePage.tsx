@@ -1,10 +1,10 @@
 import Header from "@/components/Header";
 import PageWrapper from "@/components/PageWrapper";
+import ReviewList from "@/components/ReviewList";
 import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
-import ReviewListPage from "./ReviewListPage";
 
-export default function Review() {
+export default function ReviewManagePage() {
     return (
         <>
             <Header showBackButton title="후기관리" />
@@ -18,7 +18,7 @@ export default function Review() {
                         <Text.Title2_1>4.5</Text.Title2_1>
                     </Wrapper.FlexBox>
 
-                    <ReviewListPage />
+                    <ReviewList />
                 </Wrapper.FlexBox>
             </PageWrapper>
         </>

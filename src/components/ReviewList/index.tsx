@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { OwnerTabTypes, TAB_LABELS } from "@/constants/tabs";
 import TabSelector from "@/components/TabSelector";
-import ReviewListItem from "../components/ReviewListItem";
+import ReviewListItem from "./ReviewListItem";
 
 type ReviewTab = OwnerTabTypes["REVIEW_MANAGE"]; // "전체" | "완료됨"
-export default function ReviewListPage() {
+export default function ReviewList() {
     const [sort, setSort] = useState<ReviewTab>("전체");
     return (
         <>
