@@ -9,7 +9,7 @@ import TermsPage from "@/pages/auth/TermsPage";
 import TypeSelectPage from "@/pages/auth/TypeSelectPage";
 import BusinessVerificationPage from "@/pages/auth/BusinessVerification";
 import OwnerTermsPage from "@/pages/auth/OwnerTermsPage";
-import RecruitWriteContainer from "@/pages/owner/recruit/RecruitWriteContainer";
+import RecruitWriteContainer from "@/pages/owner/Recruit.";
 const AuthRoutes: RouteObject[] = [
     {
         path: "/",

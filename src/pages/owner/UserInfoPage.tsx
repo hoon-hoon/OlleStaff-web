@@ -11,8 +11,7 @@ const MenuList = [
         id: 1,
         title: "게시글 관리",
         content: [
-            { title: "내가 작성한 공고", link: "/owner/recruitments-ongoing" },
-            { title: "주의사항 수정하기", link: "/" },
+            { title: "주의사항 수정하기", link: "/owner/recruit/write/step2" },
             { title: "후기관리", link: "/" },
         ],
     },
