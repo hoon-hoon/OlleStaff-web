@@ -56,8 +56,7 @@ const InputBox = styled.div`
     display: flex;
     align-items: center;
     padding: 0 12px;
-    background-color: ${theme.color.White};
-    border: 1px solid ${theme.color.Gray2};
+    background-color: ${theme.color.Gray0};
     border-radius: 8px;
     height: 40px;
     width: 100%;

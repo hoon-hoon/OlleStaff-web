@@ -25,15 +25,6 @@ const Template = (args: any) => {
     return <Textarea {...args} value={value} onChange={e => setValue(e.target.value)} />;
 };
 
-export const Outline: Story = {
-    render: Template,
-    args: {
-        placeholder: "outline textarea",
-        variant: "outline",
-        disabled: false,
-    },
-};
-
 export const Flat: Story = {
     render: Template,
     args: {

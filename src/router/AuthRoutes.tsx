@@ -9,8 +9,7 @@ import TermsPage from "@/pages/auth/TermsPage";
 import TypeSelectPage from "@/pages/auth/TypeSelectPage";
 import BusinessVerificationPage from "@/pages/auth/BusinessVerification";
 import OwnerTermsPage from "@/pages/auth/OwnerTermsPage";
-import RecruitWritePage from "@/pages/owner/RecruitWritePage";
-
+import RecruitWriteContainer from "@/pages/owner/recruit/RecruitWriteContainer";
 const AuthRoutes: RouteObject[] = [
     {
         path: "/",
@@ -55,8 +54,8 @@ const AuthRoutes: RouteObject[] = [
         element: <OwnerTermsPage />,
     },
     {
-        path: "owner/recruit/write",
-        element: <RecruitWritePage />,
+        path: "owner/recruit/write/*",
+        element: <RecruitWriteContainer />,
     },
 ];
 

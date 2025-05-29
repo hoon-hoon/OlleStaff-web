@@ -7,18 +7,24 @@ import { Wrapper } from "@/styles/Wrapper";
 import { DaumPostcodeEmbed as RawPostcode } from "react-daum-postcode";
 
 const DaumPostcodeEmbed = RawPostcode as unknown as React.FC<any>;
+interface LocationSelectorProps {
+    latitude: number;
+    longitude: number;
+    onChange: (lat: number, lng: number) => void;
+}
 
-export default function LocationSelector() {
+export default function LocationSelector({ onChange }: LocationSelectorProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [address, setAddress] = useState("");
 
-    const onToggleModal = () => {
-        setIsOpen(prev => !prev);
-    };
+    const onToggleModal = () => setIsOpen(prev => !prev);
 
     const handleAddressChange = (data: { address: string }) => {
         setAddress(data.address);
         setIsOpen(false);
+
+        // 실제로는 주소 → 위경도 변환 로직 필요
+        onChange(33.499621, 126.531188); // 예시값 (제주시)
     };
 
     return (
@@ -54,7 +60,7 @@ const Style = {
         height: 40px;
         border-radius: 8px;
         padding: 10px 17px;
-        background-color: ${theme.color.White};
+        background-color: ${theme.color.Gray0};
         border: none;
         cursor: pointer;
     `,
