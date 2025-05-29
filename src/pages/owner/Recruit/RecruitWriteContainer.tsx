@@ -2,29 +2,10 @@ import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import RecruitBasicInfoPage from "./RecruitBasicInfoPage";
 import RecruitPrecautionPage from "./RecruitPrecautionPage";
-
-interface EmploymentProps {
-    instarUrl: string;
-    personNum: number;
-    sex: "all" | "male" | "female";
-    startedAt: string;
-    endedAt: string;
-    recruitmentEnd: string;
-    title: string;
-    content: string;
-    category: string;
-    latitude: number;
-    longitude: number;
-    hashtagName: string[];
-    benefitsContent: string[];
-    precautions: {
-        title: string;
-        content: string;
-    }[];
-}
+import { EmploymentProps } from "@/types/employment";
 
 const initialFormData: EmploymentProps = {
-    instarUrl: "",
+    instaUrl: "",
     personNum: 0,
     sex: "all",
     startedAt: "",
@@ -37,7 +18,7 @@ const initialFormData: EmploymentProps = {
     longitude: 0,
     hashtagName: [],
     benefitsContent: [],
-    precautions: [{ title: "", content: "" }],
+    precautions: [{ precautionsTitle: "", precautionsContent: "" }],
 };
 
 export default function RecruitWriteContainer() {

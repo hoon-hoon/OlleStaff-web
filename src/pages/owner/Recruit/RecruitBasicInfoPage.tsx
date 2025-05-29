@@ -46,8 +46,8 @@ export default function RecruitBasicInfoPage({ formData, setFormData, onNext }: 
                         inputTitle="인스타 및 링크 URL"
                         placeholder="게스트하우스 대표 링크 1개를 첨부해 주세요."
                         variant="default"
-                        value={formData.instarUrl}
-                        onChange={e => setFormData(prev => ({ ...prev, instarUrl: e.target.value }))}
+                        value={formData.instaUrl}
+                        onChange={e => setFormData(prev => ({ ...prev, instaUrl: e.target.value }))}
                     />
 
                     <Wrapper.FlexBox>

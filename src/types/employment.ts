@@ -1,5 +1,5 @@
 export interface EmploymentProps {
-    instarUrl: string;
+    instaUrl: string;
     personNum: number;
     sex: "all" | "male" | "female";
     startedAt: string;
@@ -14,7 +14,7 @@ export interface EmploymentProps {
     hashtagName: string[];
     benefitsContent: string[];
     precautions: {
-        title: string;
-        content: string;
+        precautionsTitle: string;
+        precautionsContent: string;
     }[];
 }
