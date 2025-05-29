@@ -23,7 +23,7 @@ export default function CommentInput({ onSubmit, placeholder = "댓글을 입력
             value={text}
             onChange={e => setText(e.target.value)}
             placeholder={placeholder}
-            rightIcon={<SendImage src="/Icon/send.svg" />}
+            rightIcon={<SendImage src="/icons/send.svg" />}
             onRightIconClick={handleSubmit}
             disabled={disabled}
         />

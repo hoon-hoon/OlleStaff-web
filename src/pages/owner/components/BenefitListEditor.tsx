@@ -46,7 +46,11 @@ export default function BenefitListEditor({ values, onChange }: BenefitListEdito
                         onChange={e => handleChangeBenefit(e.target.value, index)}
                     />
                     {benefit !== "" && (
-                        <Style.CloseButton src="/DeleteTag.svg" alt="삭제" onClick={() => handleRemoveBenefit(index)} />
+                        <Style.CloseButton
+                            src="/icons/deleteTag.svg"
+                            alt="삭제"
+                            onClick={() => handleRemoveBenefit(index)}
+                        />
                     )}
                 </Style.InputWrapper>
             ))}
@@ -54,7 +58,7 @@ export default function BenefitListEditor({ values, onChange }: BenefitListEdito
             {values.length < 5 && (
                 <Wrapper.FlexBox justifyContent="center">
                     <Style.AddBenefit
-                        src="/Icon/addMainColor.svg"
+                        src="/icons/addMainColor.svg"
                         alt="복리후생 추가 버튼"
                         onClick={handleAddBenefit}
                     />

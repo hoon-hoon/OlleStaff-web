@@ -32,7 +32,7 @@ export default function BusinessFileUploader({ selectedFile, onFileChange }: Pro
                         <FileName>
                             <Text.Body1>{selectedFile.name}</Text.Body1>
                             <img
-                                src="/XButton.svg"
+                                src="/icons/xButton.svg"
                                 alt="X"
                                 onClick={() => onFileChange(null)}
                                 style={{ cursor: "pointer" }}

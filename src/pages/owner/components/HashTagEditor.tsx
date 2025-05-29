@@ -76,12 +76,12 @@ export default function HashTagEditor({ values, onChange }: HashTagEditorProps) 
                     ) : (
                         <Style.TagPill key={index} onClick={() => setEditingIndex(index)}>
                             <Text.Body3_1># {tag || "입력하기"}</Text.Body3_1>
-                            <img src="/DeleteTag.svg" alt="태그 삭제" onClick={e => handleDeleteTag(index, e)} />
+                            <img src="/icons/deleteTag.svg" alt="태그 삭제" onClick={e => handleDeleteTag(index, e)} />
                         </Style.TagPill>
                     )
                 )}
 
-                {values.length < 5 && <img src="/Icon/addMainColor.svg" alt="태그 추가" onClick={handleAddNewTag} />}
+                {values.length < 5 && <img src="/icons/addMainColor.svg" alt="태그 추가" onClick={handleAddNewTag} />}
             </Wrapper.FlexBox>
         </Wrapper.FlexBox>
     );

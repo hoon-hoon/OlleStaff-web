@@ -34,7 +34,7 @@ export default function LocationSelector({ onChange }: LocationSelectorProps) {
             <Style.AddressSelectorWrapper onClick={onToggleModal}>
                 {address === "" ? (
                     <Wrapper.FlexBox gap="8px" alignItems="center">
-                        <img src="/SearchIcon.svg" alt="위치 검색" style={{ width: "14px" }} />
+                        <img src="/icons/searchIcon.svg" alt="위치 검색" style={{ width: "14px" }} />
                         <Text.Body1 color="Gray3"> 위치를 선택해주세요.</Text.Body1>
                     </Wrapper.FlexBox>
                 ) : (

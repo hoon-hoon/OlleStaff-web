@@ -15,6 +15,7 @@ const theme = {
         Yellow1: "#FFE41C",
         Green1: "#1CFF1C",
         Blue1: "#1F1CFF",
+        LightGray: "#D9D9D9",
     },
     size: {
         HeaderHeight: "74px", // header가 존재할 때 header 높이만큼 띄워주기 위함
