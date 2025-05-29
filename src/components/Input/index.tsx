@@ -80,12 +80,10 @@ const Wrapper = styled.div<{ variant: InputVariant }>`
     display: flex;
     align-items: center;
     padding: 0 12px;
-    background-color: ${theme.color.White};
-    border: 1px solid ${theme.color.Gray2};
     border-radius: ${({ variant }) => (variant === "default" ? "8px" : "40px")};
     height: 40px;
     width: 100%;
-    /* max-width: 333px; */
+    background-color: ${theme.color.Gray0};
 `;
 
 const StyledInput = styled.input`

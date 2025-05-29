@@ -7,7 +7,7 @@ export default function PartnerRecruitmentCard() {
     const navigate = useNavigate();
 
     const handleWriteRecruitPost = () => {
-        navigate("/owner/recruit/write");
+        navigate("/owner/recruit/write/step1");
     };
     return (
         <>

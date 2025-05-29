@@ -4,33 +4,37 @@ import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
 import theme from "@/styles/theme";
 
-export default function HashTagEditor() {
-    const [tags, setTags] = useState<string[]>([]);
+interface HashTagEditorProps {
+    values: string[];
+    onChange: (updated: string[]) => void;
+}
+export default function HashTagEditor({ values, onChange }: HashTagEditorProps) {
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
     const handleAddNewTag = () => {
-        if (tags.length >= 5) return;
-        setTags(prev => [...prev, ""]);
-        setEditingIndex(tags.length);
+        if (values.length >= 5) return;
+        onChange([...values, ""]);
+        setEditingIndex(values.length);
     };
 
     const handleChange = (value: string, index: number) => {
-        const newTags = [...tags];
+        const newTags = [...values];
         newTags[index] = value;
-        setTags(newTags);
+        onChange(newTags);
     };
 
-    // 입력 종료
     const handleBlur = (index: number) => {
-        if (!tags[index].trim()) {
-            setTags(prev => prev.filter((_, i) => i !== index));
+        if (!values[index].trim()) {
+            const filtered = values.filter((_, i) => i !== index);
+            onChange(filtered);
         }
         setEditingIndex(null);
     };
 
     const handleDeleteTag = (indexToDelete: number, e: React.MouseEvent) => {
-        e.stopPropagation(); // 태그 클릭 이벤트 방지
-        setTags(prev => prev.filter((_, i) => i !== indexToDelete));
+        e.stopPropagation();
+        const filtered = values.filter((_, i) => i !== indexToDelete);
+        onChange(filtered);
         if (editingIndex === indexToDelete) {
             setEditingIndex(null);
         }
@@ -44,12 +48,12 @@ export default function HashTagEditor() {
             </Wrapper.FlexBox>
 
             <Wrapper.FlexBox gap="6px" style={{ flexWrap: "wrap" }}>
-                {tags.length === 0 && editingIndex === null && (
+                {values.length === 0 && editingIndex === null && (
                     <Style.TagPill onClick={handleAddNewTag}>
                         <Text.Body3_1 color="Gray2"># 입력하기</Text.Body3_1>
                     </Style.TagPill>
                 )}
-                {tags.map((tag, index) =>
+                {values.map((tag, index) =>
                     editingIndex === index ? (
                         <Style.InputWrapper key={index}>
                             <Text.Body3_1>#</Text.Body3_1>
@@ -77,7 +81,7 @@ export default function HashTagEditor() {
                     )
                 )}
 
-                {tags.length < 5 && <img src="/AddTag.svg" alt="태그 추가" onClick={handleAddNewTag} />}
+                {values.length < 5 && <img src="/Icon/addMainColor.svg" alt="태그 추가" onClick={handleAddNewTag} />}
             </Wrapper.FlexBox>
         </Wrapper.FlexBox>
     );

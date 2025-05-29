@@ -14,17 +14,28 @@ const mockAccompanyData = [
     {
         id: 1,
         title: "제주 서쪽 동행 분 구해요",
-        content:
-            "저는 인싸는 아니지만 이야기 듣는 걸 아주 좋아하는 인프피 남성입니다 퇴사 후에 어떤걸 해야할지 모르겠어서 무작정 지원해보았는데 어쩌구 저쩌구 어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구",
-        timeAgo: "2시간 전",
+        content: "저는 인싸는 아니지만 이야기 듣는 걸 아주 좋아하는 인프피 남성입니다 퇴사 후에 어떤걸 해야할지...",
+        createdAt: 1747837887,
+        updatedAt: 1747837887,
+        images: ["/images/guesthouse3.png"],
+        userId: 101,
+        userNickname: "훈식",
+        like: false,
+        likeCount: 0,
+        commentCount: 0,
     },
     {
         id: 2,
         title: "한라산 같이 가실 분!",
-        content:
-            "등산 좋아하시는 분이라면 누구든 환영입니다!등산 좋아하시는 분이라면 누구든 환영입니다등산 좋아하시는 분이라면 누구든 환영입니다등산 좋아하시는 분이라면 누구든 환영입니다",
-        timeAgo: "3시간 전",
-        imageUrl: "/images/guesthouse3.png",
+        content: "등산 좋아하시는 분이라면 누구든 환영입니다!",
+        createdAt: 1747837887,
+        updatedAt: 1747837887,
+        images: [],
+        userId: 102,
+        userNickname: "산사람",
+        like: false,
+        likeCount: 0,
+        commentCount: 0,
     },
 ];
 
@@ -66,7 +77,7 @@ export default function HomePage() {
                     <CardCarousel />
                 </Section>
                 <Section>
-                    <SectionTitle title="나와 취향이 맞는 동행 구하기🎒" link="companion" />
+                    <SectionTitle title="나와 취향이 맞는 동행 구하기🎒" link="accompany" />
                     <AccompanyList data={mockAccompanyData} />
                 </Section>
             </PageWrapper>

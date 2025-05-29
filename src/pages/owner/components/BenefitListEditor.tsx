@@ -1,30 +1,34 @@
-import { useState } from "react";
 import Input from "@/components/Input";
 import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
 import styled from "@emotion/styled";
+import { useEffect } from "react";
+interface BenefitListEditorProps {
+    values: string[];
+    onChange: (updated: string[]) => void;
+}
 
-export default function BenefitListEditor() {
-    const [benefits, setBenefits] = useState<string[]>([""]);
-
+export default function BenefitListEditor({ values, onChange }: BenefitListEditorProps) {
     const handleAddBenefit = () => {
-        if (benefits.length >= 5) return;
-        setBenefits(prev => [...prev, ""]);
+        if (values.length >= 5) return;
+        onChange([...values, ""]);
     };
 
     const handleChangeBenefit = (value: string, index: number) => {
-        const newBenefits = [...benefits];
-        newBenefits[index] = value;
-        setBenefits(newBenefits);
+        const updated = [...values];
+        updated[index] = value;
+        onChange(updated);
     };
+
     const handleRemoveBenefit = (index: number) => {
-        const newBenefits = benefits.filter((_, i) => i !== index);
-        if (newBenefits.length === 0) {
-            setBenefits([""]);
-        } else {
-            setBenefits(newBenefits);
-        }
+        const updated = values.filter((_, i) => i !== index);
+        onChange(updated.length === 0 ? [""] : updated);
     };
+    useEffect(() => {
+        if (values.length === 0) {
+            onChange([""]);
+        }
+    }, [values, onChange]);
 
     return (
         <>
@@ -33,24 +37,27 @@ export default function BenefitListEditor() {
                 <Text.Body3_1 color="Gray4">* 최대 5개의 복리후생 조건을 작성할 수 있습니다.</Text.Body3_1>
             </Wrapper.FlexBox>
 
-            {benefits.map((benefit, index) => (
+            {values.map((benefit, index) => (
                 <Style.InputWrapper key={index}>
                     <Input
-                        placeholder="ex) 매주 흥이나는 파티🔥"
+                        placeholder="예) 매주 흥이나는 파티🔥"
                         variant="default"
                         value={benefit}
                         onChange={e => handleChangeBenefit(e.target.value, index)}
                     />
-
                     {benefit !== "" && (
                         <Style.CloseButton src="/DeleteTag.svg" alt="삭제" onClick={() => handleRemoveBenefit(index)} />
                     )}
                 </Style.InputWrapper>
             ))}
 
-            {benefits.length < 5 && (
+            {values.length < 5 && (
                 <Wrapper.FlexBox justifyContent="center">
-                    <Style.AddBenefit src="/AddBenefit.svg" alt="복리후생 추가 버튼" onClick={handleAddBenefit} />
+                    <Style.AddBenefit
+                        src="/Icon/addMainColor.svg"
+                        alt="복리후생 추가 버튼"
+                        onClick={handleAddBenefit}
+                    />
                 </Wrapper.FlexBox>
             )}
         </>
