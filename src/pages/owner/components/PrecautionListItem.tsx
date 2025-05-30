@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Wrapper } from "@/styles/Wrapper";
 import theme from "@/styles/theme";
+import { Text } from "@/styles/Text";
 
 type Precaution = {
     precautionsTitle: string;
@@ -28,48 +29,66 @@ export default function PrecautionItem({ values, onChange }: PrecautionListEdito
     };
 
     const handleRemovePrecaution = (index: number) => {
+        if (values.length <= 2) return;
         const updated = values.filter((_, i) => i !== index);
-        onChange(updated.length === 0 ? [{ precautionsTitle: "", precautionsContent: "" }] : updated);
+        onChange(updated);
     };
 
     useEffect(() => {
-        if (values.length === 0) {
-            onChange([{ precautionsTitle: "", precautionsContent: "" }]);
+        if (values.length < 2) {
+            const toAdd = 2 - values.length;
+            const newItems = Array(toAdd).fill({ precautionsTitle: "", precautionsContent: "" });
+            onChange([...values, ...newItems]);
         }
     }, [values, onChange]);
 
     return (
         <>
-            {values.map((item, index) => (
-                <Style.InputGroup key={index}>
-                    <Input
-                        inputTitle="제목"
-                        placeholder="ex) 일과 재미, 균형 잡기! ⚖️"
-                        variant="default"
-                        value={item.precautionsTitle}
-                        onChange={e => handleChangePrecaution({ ...item, precautionsTitle: e.target.value }, index)}
-                    />
-                    <Textarea
-                        textareaTitle="내용"
-                        placeholder="ex) 즐길 때는 확실히! 하지만 업무 시간엔 프로페셔널하게 행동해 주세요."
-                        variant="flat-sm"
-                        value={item.precautionsContent}
-                        onChange={e => handleChangePrecaution({ ...item, precautionsContent: e.target.value }, index)}
-                    />
-                    {values.length > 1 && (
-                        <Style.DeleteBoxButton
-                            src="/icons/deleteTag.svg"
-                            alt="삭제"
-                            onClick={() => handleRemovePrecaution(index)}
+            {values.map((item, index) => {
+                const isDeletable = values.length > 2;
+                const isLastItem = index === values.length - 1;
+                return (
+                    <Style.InputGroup key={index} isLast={isLastItem}>
+                        <Style.HeaderRow>
+                            <Text.Title3_1>
+                                주의사항 {index + 1}
+                                {index < 2 && <Style.Required>*</Style.Required>}
+                            </Text.Title3_1>
+
+                            {isDeletable && (
+                                <Style.DeleteBoxButton
+                                    src="/icons/deleteTag.svg"
+                                    alt="삭제"
+                                    onClick={() => handleRemovePrecaution(index)}
+                                />
+                            )}
+                        </Style.HeaderRow>
+
+                        <Input
+                            inputTitle="제목"
+                            placeholder="ex) 일과 재미, 균형 잡기! ⚖️"
+                            variant="default"
+                            value={item.precautionsTitle}
+                            onChange={e => handleChangePrecaution({ ...item, precautionsTitle: e.target.value }, index)}
                         />
-                    )}
-                </Style.InputGroup>
-            ))}
+                        <Textarea
+                            textareaTitle="소개글"
+                            placeholder="ex) 즐길 때는 확실히! 하지만 업무 시간엔 프로페셔널하게 행동해 주세요."
+                            variant="flat-sm"
+                            value={item.precautionsContent}
+                            onChange={e =>
+                                handleChangePrecaution({ ...item, precautionsContent: e.target.value }, index)
+                            }
+                        />
+                    </Style.InputGroup>
+                );
+            })}
+
             {values.length < 5 && (
-                <Wrapper.FlexBox justifyContent="center" margin="15px 0 0 0">
+                <Wrapper.FlexBox justifyContent="center">
                     <Style.AddPrecaution
                         src="/icons/addMainColor.svg"
-                        alt="복리후생 추가 버튼"
+                        alt="주의사항 추가 버튼"
                         onClick={handleAddPrecaution}
                     />
                 </Wrapper.FlexBox>
@@ -79,31 +98,32 @@ export default function PrecautionItem({ values, onChange }: PrecautionListEdito
 }
 
 const Style = {
-    InputGroup: styled.div`
+    InputGroup: styled.div<{ isLast: boolean }>`
         position: relative;
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        padding: 15px;
-        border-radius: 8px;
-        transition:
-            background-color 0.2s ease,
-            box-shadow 0.2s ease;
-        &:hover {
-            background-color: ${theme.color.Gray1};
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
+        gap: 12px;
+        padding-bottom: 20px;
+        border-bottom: ${({ isLast }) => (isLast ? "none" : `1px solid ${theme.color.Gray1}`)};
     `,
+
+    HeaderRow: styled.div`
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    `,
+
+    Required: styled.span`
+        color: ${theme.color.Main};
+        margin-left: 4px;
+    `,
+
     DeleteBoxButton: styled.img`
-        position: absolute;
-        top: 12px;
-        right: 12px;
         width: 20px;
         height: 20px;
         background: #ccc;
         border-radius: 50%;
-
         cursor: pointer;
     `,
     AddPrecaution: styled.img`

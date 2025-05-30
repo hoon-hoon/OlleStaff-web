@@ -93,7 +93,7 @@ const StyledTextarea = styled.textarea<{ variant: TextareaVariant }>`
     ${({ variant }) => {
         switch (variant) {
             case "flat-sm":
-                return `min-height: 77px;`;
+                return `height: 77px;`;
             case "flat":
                 return `min-height: 120px;`;
             case "flat-lg":
