@@ -64,7 +64,7 @@ export default function AccompanyDetailPage() {
             </PageWrapper>
             <Divider />
             <PageWrapper>
-                <CommentBox />
+                <CommentBox accompanyId={accompany.id} />
             </PageWrapper>
         </>
     );

@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 import { useCommentState } from "./useCommentState";
 import CommentList from "./CommentList";
-import { mockComments } from "./mock";
 import CommentInput from "./CommentInput";
 import ReplyingNotice from "./ReplyingNotice";
+import { useCommentList } from "./useCommentList";
 
-export const CommentBox = () => {
+export const CommentBox = ({ accompanyId }: { accompanyId: number }) => {
     const { openReplies, loadedReplies, toggleReplies, startReplyTo, activeReply, cancelReply } = useCommentState();
+    const { data: comments = [], isLoading } = useCommentList(accompanyId);
 
     const handleSubmit = (text: string) => {
         if (activeReply) {
@@ -20,13 +21,18 @@ export const CommentBox = () => {
     return (
         <>
             <ScrollableArea>
-                <CommentList
-                    comments={mockComments}
-                    openReplies={openReplies}
-                    loadedReplies={loadedReplies}
-                    onToggleReplies={toggleReplies}
-                    onReplyClick={startReplyTo}
-                />
+                {isLoading ? (
+                    // TODO: 추후 스켈레톤 적용
+                    <div>댓글 불러오는 중</div>
+                ) : (
+                    <CommentList
+                        comments={comments}
+                        openReplies={openReplies}
+                        loadedReplies={loadedReplies}
+                        onToggleReplies={toggleReplies}
+                        onReplyClick={startReplyTo}
+                    />
+                )}
             </ScrollableArea>
             <FixedInputArea>
                 {activeReply && <ReplyingNotice nickname={activeReply.nickname} onCancel={cancelReply} />}
