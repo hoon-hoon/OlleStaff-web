@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { CommentType } from "@/types/comment";
 import { timeAgo } from "@/utils/date";
 import { Text } from "@/styles/Text";
+import { useUserStore } from "@/store/useUserStore";
+import { useState } from "react";
 
 interface CommentItemProps {
     comment: CommentType;
@@ -19,6 +21,9 @@ export default function CommentItem({
     areRepliesOpen,
 }: CommentItemProps) {
     const { userNickname, userImage, createdAt, content, id, replyCount } = comment;
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const currentUserNickname = useUserStore(state => state.nickname);
+    const isAuthor = currentUserNickname === userNickname;
 
     return (
         <>
@@ -35,6 +40,18 @@ export default function CommentItem({
                             </ReplyButton>
                         )}
                     </Meta>
+                    {isAuthor && (
+                        <MenuButton onClick={() => setIsMenuOpen(prev => !prev)}>
+                            <img src="/icons/dots.svg" alt="댓글 메뉴" />
+                            {isMenuOpen && (
+                                <Dropdown>
+                                    <DropdownButton onClick={() => console.log("삭제 클릭")}>
+                                        <Text.Body1 color="Gray3">댓글 삭제</Text.Body1>
+                                    </DropdownButton>
+                                </Dropdown>
+                            )}
+                        </MenuButton>
+                    )}
                     {!isReply && replyCount > 0 && (
                         <ReplyToggleButton onClick={() => onToggleReplies?.(id)}>
                             <Icon src={areRepliesOpen ? "/icons/upArrow.svg" : "/icons/downArrow.svg"}></Icon>
@@ -66,6 +83,34 @@ const ProfileImage = styled.img`
 const ContentBox = styled.div`
     display: flex;
     flex-direction: column;
+    position: relative;
+    width: 100%;
+`;
+
+const MenuButton = styled.div`
+    position: absolute;
+    top: -10px;
+    right: 0;
+    cursor: pointer;
+    padding: 4px;
+`;
+
+const Dropdown = styled.div`
+    position: absolute;
+    top: 24px;
+    right: 0;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 3px 0;
+`;
+
+const DropdownButton = styled.button`
+    width: 100px;
+    background: none;
+    border: none;
+    padding: 9px 8px 4px 8px;
+    cursor: pointer;
 `;
 
 const Meta = styled.div`

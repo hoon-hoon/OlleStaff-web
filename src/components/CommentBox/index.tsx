@@ -10,15 +10,6 @@ export const CommentBox = ({ accompanyId, commentCount }: { accompanyId: number;
     const { openReplies, loadedReplies, toggleReplies, startReplyTo, activeReply, cancelReply } = useCommentState();
     const { data: comments = [], isLoading } = useCommentList(accompanyId);
 
-    const handleSubmit = (text: string) => {
-        if (activeReply) {
-            console.log(`답글 → ${activeReply.nickname}:`, text);
-            cancelReply();
-        } else {
-            console.log("댓글:", text);
-        }
-    };
-
     return (
         <>
             <Text.Body1_1>댓글 {commentCount}</Text.Body1_1>
@@ -39,7 +30,7 @@ export const CommentBox = ({ accompanyId, commentCount }: { accompanyId: number;
             <FixedInputArea>
                 {activeReply && <ReplyingNotice nickname={activeReply.nickname} onCancel={cancelReply} />}
                 <InputWrapper>
-                    <CommentInput onSubmit={handleSubmit} accompanyId={accompanyId} />
+                    <CommentInput accompanyId={accompanyId} />
                 </InputWrapper>
             </FixedInputArea>
         </>

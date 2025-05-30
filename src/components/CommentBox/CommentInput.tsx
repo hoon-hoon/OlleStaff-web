@@ -4,18 +4,12 @@ import styled from "@emotion/styled";
 import { useCreateComment } from "./useCommentMutation";
 
 interface CommentInputProps {
-    onSubmit: (text: string) => void;
     placeholder?: string;
     disabled?: boolean;
     accompanyId: number;
 }
 
-export default function CommentInput({
-    onSubmit,
-    placeholder = "댓글을 입력하세요.",
-    disabled,
-    accompanyId,
-}: CommentInputProps) {
+export default function CommentInput({ placeholder = "댓글을 입력하세요.", disabled, accompanyId }: CommentInputProps) {
     const [text, setText] = useState("");
     const { mutate: createComment } = useCreateComment();
 
