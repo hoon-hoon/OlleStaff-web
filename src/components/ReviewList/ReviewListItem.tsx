@@ -56,33 +56,38 @@ export default function ReviewListItem({ review }: ReviewListItemProps) {
                     )}
                 </Text.Body2>
 
-                <Text.Body3_1 color="Gray3">
-                    {review.disclosure
-                        ? `스탭에게만 공개 | ${timeAgo(review.reviewDate)}`
-                        : `${timeAgo(review.reviewDate)}`}
-                </Text.Body3_1>
+                <Wrapper.FlexBox justifyContent="space-between">
+                    <Text.Body3_1 color="Gray3">
+                        {review.disclosure
+                            ? `게스트하우스에게만 공개 | ${timeAgo(review.reviewDate)}`
+                            : `${timeAgo(review.reviewDate)}`}
+                    </Text.Body3_1>
+                    {!review.reviewComment && <img src="/icons/comment_gray.svg" alt="댓글 버튼" />}
+                </Wrapper.FlexBox>
             </ContentWrapper>
 
-            <CommentWrapper>
-                <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
-                    <Text.Body1_1>{review.hostNickName}</Text.Body1_1> <img src="/icons/more.svg" alt="더보기" />
-                </Wrapper.FlexBox>
-                <Text.Body2>
-                    {review.reviewComment!.length > 70 && !isCommentExpanded ? (
-                        <Text.Body2_1>
-                            {review.reviewComment!.slice(0, 70)} ...{" "}
-                            <Text.Body2_1 color="Gray3" onClick={() => toggleExpand("comment")}>
-                                더보기
+            {review.reviewComment && (
+                <CommentWrapper>
+                    <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
+                        <Text.Body1_1>{review.hostNickName}</Text.Body1_1> <img src="/icons/more.svg" alt="더보기" />
+                    </Wrapper.FlexBox>
+                    <Text.Body2>
+                        {review.reviewComment.length > 70 && !isCommentExpanded ? (
+                            <Text.Body2_1>
+                                {review.reviewComment.slice(0, 70)} ...{" "}
+                                <Text.Body2_1 color="Gray3" onClick={() => toggleExpand("comment")}>
+                                    더보기
+                                </Text.Body2_1>
                             </Text.Body2_1>
-                        </Text.Body2_1>
-                    ) : (
-                        <Text.Body2_1>{review.reviewComment}</Text.Body2_1>
-                    )}
-                </Text.Body2>
-                <Wrapper.FlexBox justifyContent="flex-end">
-                    <Text.Body3 color="Gray4">{timeAgo(review.reviewCommentDate)}</Text.Body3>
-                </Wrapper.FlexBox>
-            </CommentWrapper>
+                        ) : (
+                            <Text.Body2_1>{review.reviewComment}</Text.Body2_1>
+                        )}
+                    </Text.Body2>
+                    <Wrapper.FlexBox justifyContent="flex-end">
+                        <Text.Body3 color="Gray4">{timeAgo(review.reviewCommentDate)}</Text.Body3>
+                    </Wrapper.FlexBox>
+                </CommentWrapper>
+            )}
         </Card>
     );
 }
