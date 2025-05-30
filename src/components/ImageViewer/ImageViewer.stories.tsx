@@ -1,8 +1,6 @@
-// src/components/ImageViewer/ImageViewer.stories.tsx
-
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import ImageViewer from "./index"; // ImageViewer 컴포넌트 경로에 따라 수정
+import ImageViewer from "./index";
 
 const meta: Meta<typeof ImageViewer> = {
     title: "Components/ImageViewer",
