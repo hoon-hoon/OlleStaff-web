@@ -7,6 +7,7 @@ interface CommentListProps {
     loadedReplies: Record<number, ReplyType[]>;
     onReplyClick: (commentId: number, nickname: string) => void;
     onToggleReplies: (commentId: number) => void;
+    accompanyId: number;
 }
 
 export default function CommentList({
@@ -15,6 +16,7 @@ export default function CommentList({
     loadedReplies,
     onReplyClick,
     onToggleReplies,
+    accompanyId,
 }: CommentListProps) {
     return (
         <div>
@@ -25,11 +27,17 @@ export default function CommentList({
                         onReplyClick={onReplyClick}
                         onToggleReplies={onToggleReplies}
                         areRepliesOpen={openReplies[comment.id]}
+                        accompanyId={accompanyId}
                     />
 
                     {openReplies[comment.id] &&
                         loadedReplies[comment.id]?.map(reply => (
-                            <CommentItem key={reply.id} comment={reply as CommentType} isReply />
+                            <CommentItem
+                                key={reply.id}
+                                comment={reply as CommentType}
+                                isReply
+                                accompanyId={accompanyId}
+                            />
                         ))}
                 </div>
             ))}

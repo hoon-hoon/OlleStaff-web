@@ -4,6 +4,7 @@ import { timeAgo } from "@/utils/date";
 import { Text } from "@/styles/Text";
 import { useUserStore } from "@/store/useUserStore";
 import { useState } from "react";
+import { useDeleteComment } from "./useCommentMutation";
 
 interface CommentItemProps {
     comment: CommentType;
@@ -11,6 +12,7 @@ interface CommentItemProps {
     onToggleReplies?: (commentId: number) => void;
     isReply?: boolean;
     areRepliesOpen?: boolean;
+    accompanyId: number;
 }
 
 export default function CommentItem({
@@ -19,11 +21,18 @@ export default function CommentItem({
     onToggleReplies,
     isReply,
     areRepliesOpen,
+    accompanyId,
 }: CommentItemProps) {
     const { userNickname, userImage, createdAt, content, id, replyCount } = comment;
+    const { mutate: deleteComment } = useDeleteComment();
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const currentUserNickname = useUserStore(state => state.nickname);
     const isAuthor = currentUserNickname === userNickname;
+
+    const handleDelete = () => {
+        deleteComment({ accompanyId, commentId: id });
+    };
 
     return (
         <>
@@ -45,7 +54,7 @@ export default function CommentItem({
                             <img src="/icons/dots.svg" alt="댓글 메뉴" />
                             {isMenuOpen && (
                                 <Dropdown>
-                                    <DropdownButton onClick={() => console.log("삭제 클릭")}>
+                                    <DropdownButton onClick={handleDelete}>
                                         <Text.Body1 color="Gray3">댓글 삭제</Text.Body1>
                                     </DropdownButton>
                                 </Dropdown>

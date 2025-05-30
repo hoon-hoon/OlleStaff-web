@@ -24,6 +24,7 @@ export const CommentBox = ({ accompanyId, commentCount }: { accompanyId: number;
                         loadedReplies={loadedReplies}
                         onToggleReplies={toggleReplies}
                         onReplyClick={startReplyTo}
+                        accompanyId={accompanyId}
                     />
                 )}
             </ScrollableArea>
