@@ -4,8 +4,9 @@ import CommentList from "./CommentList";
 import CommentInput from "./CommentInput";
 import ReplyingNotice from "./ReplyingNotice";
 import { useCommentList } from "./useCommentList";
+import { Text } from "@/styles/Text";
 
-export const CommentBox = ({ accompanyId }: { accompanyId: number }) => {
+export const CommentBox = ({ accompanyId, commentCount }: { accompanyId: number; commentCount: number }) => {
     const { openReplies, loadedReplies, toggleReplies, startReplyTo, activeReply, cancelReply } = useCommentState();
     const { data: comments = [], isLoading } = useCommentList(accompanyId);
 
@@ -20,6 +21,7 @@ export const CommentBox = ({ accompanyId }: { accompanyId: number }) => {
 
     return (
         <>
+            <Text.Body1_1>댓글 {commentCount}</Text.Body1_1>
             <ScrollableArea>
                 {isLoading ? (
                     // TODO: 추후 스켈레톤 적용
@@ -37,7 +39,7 @@ export const CommentBox = ({ accompanyId }: { accompanyId: number }) => {
             <FixedInputArea>
                 {activeReply && <ReplyingNotice nickname={activeReply.nickname} onCancel={cancelReply} />}
                 <InputWrapper>
-                    <CommentInput onSubmit={handleSubmit} />
+                    <CommentInput onSubmit={handleSubmit} accompanyId={accompanyId} />
                 </InputWrapper>
             </FixedInputArea>
         </>

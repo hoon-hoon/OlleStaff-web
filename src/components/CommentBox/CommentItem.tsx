@@ -25,8 +25,8 @@ export default function CommentItem({
             <Wrapper isReply={isReply}>
                 <ProfileImage src={userImage} alt="profile" />
                 <ContentBox>
-                    <Text.Body2_1>{userNickname}</Text.Body2_1>
-                    <Text.Body1 style={{ whiteSpace: "pre-wrap" }}>{content}</Text.Body1>
+                    <Text.Body2_1 style={{ marginBottom: "2px" }}>{userNickname}</Text.Body2_1>
+                    <Text.Body2 style={{ whiteSpace: "pre-wrap" }}>{content}</Text.Body2>
                     <Meta>
                         <Text.Body3 color="Gray4">{timeAgo(createdAt)}</Text.Body3>
                         {!isReply && (
@@ -64,16 +64,15 @@ const ProfileImage = styled.img`
 `;
 
 const ContentBox = styled.div`
-    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 6px;
 `;
 
 const Meta = styled.div`
     display: flex;
     gap: 12px;
     align-items: center;
+    margin-top: 4px;
 `;
 
 const ReplyButton = styled.button`
