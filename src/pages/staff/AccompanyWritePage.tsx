@@ -7,6 +7,9 @@ import Textarea from "@/components/Textarea";
 import { useState } from "react";
 import styled from "@emotion/styled";
 import Modal from "@/components/Modal";
+import { useWriteAccompany } from "@/hooks/staff/useWriteAccompany";
+import { useNavigate } from "react-router-dom";
+import { Text } from "@/styles/Text";
 
 export default function AccompanyWritePage() {
     const [formData, setFormData] = useState({
@@ -15,6 +18,9 @@ export default function AccompanyWritePage() {
     });
     const [images, setImages] = useState<File[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
+    const { postAccompany } = useWriteAccompany();
+    const navigate = useNavigate();
 
     const isAllFilled = Object.values(formData).every(value => value.trim() !== "");
 
@@ -26,10 +32,25 @@ export default function AccompanyWritePage() {
         setIsModalOpen(true);
     };
 
-    const handleConfirm = () => {
-        console.log("폼 데이터:", formData);
-        console.log("이미지:", images);
-        setIsModalOpen(false);
+    const handleConfirm = async () => {
+        try {
+            await postAccompany({
+                title: formData.title,
+                content: formData.content,
+                newImages: images,
+            });
+
+            setIsModalOpen(false);
+            setIsCompleteModalOpen(true);
+
+            setTimeout(() => {
+                setIsCompleteModalOpen(false);
+                navigate("/staff/accompany");
+            }, 1500);
+        } catch (err) {
+            console.error("작성 실패", err);
+            alert("작성에 실패했습니다.");
+        }
     };
 
     return (
@@ -81,6 +102,14 @@ export default function AccompanyWritePage() {
                     onConfirm={handleConfirm}
                 />
             )}
+            {isCompleteModalOpen && (
+                <Modal variant="page" handleModalClose={() => setIsCompleteModalOpen(false)}>
+                    <CompleteWrapper>
+                        <img src="/Checked.svg" alt="완료 아이콘" />
+                        <Text.Title3_1>동행 게시글 등록 완료</Text.Title3_1>
+                    </CompleteWrapper>
+                </Modal>
+            )}
         </>
     );
 }
@@ -96,4 +125,12 @@ const ButtonWrapper = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 35px;
+`;
+
+const CompleteWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
 `;
