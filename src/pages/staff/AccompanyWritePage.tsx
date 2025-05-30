@@ -37,7 +37,7 @@ export default function AccompanyWritePage() {
             await postAccompany({
                 title: formData.title,
                 content: formData.content,
-                newImages: images,
+                images: images,
             });
 
             setIsModalOpen(false);
@@ -105,7 +105,7 @@ export default function AccompanyWritePage() {
             {isCompleteModalOpen && (
                 <Modal variant="page" handleModalClose={() => setIsCompleteModalOpen(false)}>
                     <CompleteWrapper>
-                        <img src="/Checked.svg" alt="완료 아이콘" />
+                        <img src="/icons/checked.svg" alt="완료 아이콘" />
                         <Text.Title3_1>동행 게시글 등록 완료</Text.Title3_1>
                     </CompleteWrapper>
                 </Modal>
