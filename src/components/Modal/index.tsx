@@ -31,7 +31,7 @@ export default function Modal({
     }
     return (
         <ModalWrapper handleModalClose={handleModalClose}>
-            {variant === "default" && <img src="Check.svg" alt="아이콘" />}
+            {variant === "default" && <img src="/icons/check.svg" alt="아이콘" />}
             {variant === "confirm" && title && <Text.Title3_1>{title}</Text.Title3_1>}
 
             {message && (

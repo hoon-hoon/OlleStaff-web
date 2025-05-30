@@ -69,7 +69,7 @@ export default function HomePage() {
                     onChange={e => setSearchValue(e.target.value)}
                     placeholder="어떤 공고를 검색하시겠어요?"
                     variant="message"
-                    leftIcon={<img src="/SearchIcon.svg" alt="검색" width={16} height={16} />}
+                    leftIcon={<img src="/icons/searchIcon.svg" alt="검색" width={16} height={16} />}
                 />
                 <CategoryList />
                 <Section>

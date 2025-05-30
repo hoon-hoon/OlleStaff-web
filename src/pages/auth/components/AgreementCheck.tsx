@@ -30,7 +30,7 @@ export default function AgreementCheck({
                 <Text.Body1_1 style={{ textDecoration: "underline" }}>{label}</Text.Body1_1>
                 <Text.Body1_1 color="Main">{requirementType}</Text.Body1_1>
             </TextWrapper>
-            <CheckBox src={`/${isChecked ? "Checked" : "UnChecked"}.svg`} alt="체크박스" onClick={onToggle} />
+            <CheckBox src={`/icons/${isChecked ? "checked" : "unChecked"}.svg`} alt="체크박스" onClick={onToggle} />
         </Wrapper.FlexBox>
     );
 }

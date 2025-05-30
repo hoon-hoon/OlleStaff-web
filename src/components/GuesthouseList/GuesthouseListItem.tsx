@@ -42,7 +42,7 @@ export const GuesthouseListItem = ({
                 <Footer>
                     {closed ? (
                         <IconText>
-                            <img src="/Icon/check.svg" alt="마감됨" width={18} height={18} />
+                            <img src="/icons/check.svg" alt="마감됨" width={18} height={18} />
                             <Text.Body3 color="Gray4" style={{ marginTop: "1px" }}>
                                 마감됨
                             </Text.Body3>
@@ -50,13 +50,13 @@ export const GuesthouseListItem = ({
                     ) : (
                         <>
                             <IconText>
-                                <Icon src="/Icon/locationIcon.svg" />
+                                <Icon src="/icons/locationIcon.svg" />
                                 <Text.Body3 color="Gray4" style={{ marginTop: "1px" }}>
                                     {location}
                                 </Text.Body3>
                             </IconText>
                             <IconText>
-                                <Icon src="/Icon/groupIcon.svg" />
+                                <Icon src="/icons/groupIcon.svg" />
                                 <Text.Body3 color="Gray4" style={{ marginTop: "1px" }}>
                                     {personnel}
                                 </Text.Body3>
@@ -112,7 +112,7 @@ const Tag = styled.div`
     display: flex;
     height: 18px;
     align-items: center;
-    justify-contents: center;
+    justify-content: center;
     background-color: ${({ theme }) => theme.color.Gray0};
     border-radius: 40px;
     padding: 0px 10px;

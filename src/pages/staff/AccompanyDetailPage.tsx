@@ -53,11 +53,11 @@ export default function AccompanyDetailPage() {
 
                 <ReactionBar>
                     <IconWrapper>
-                        <Icon src="/Icon/heart_black.svg" />
+                        <Icon src="/icons/heart_black.svg" />
                         <Text.Body1 style={{ marginTop: "4px" }}>{likeCount}</Text.Body1>
                     </IconWrapper>
                     <IconWrapper>
-                        <Icon src="/Icon/comment_black.svg" />
+                        <Icon src="/icons/comment_black.svg" />
                         <Text.Body1 style={{ marginTop: "4px" }}>{commentCount}</Text.Body1>
                     </IconWrapper>
                 </ReactionBar>

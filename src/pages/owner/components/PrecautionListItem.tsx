@@ -15,7 +15,7 @@ interface PrecautionListEditorProps {
     onChange: (updated: Precaution[]) => void;
 }
 
-export default function Precaution({ values, onChange }: PrecautionListEditorProps) {
+export default function PrecautionItem({ values, onChange }: PrecautionListEditorProps) {
     const handleAddPrecaution = () => {
         if (values.length >= 5) return;
         onChange([...values, { precautionsTitle: "", precautionsContent: "" }]);
@@ -58,7 +58,7 @@ export default function Precaution({ values, onChange }: PrecautionListEditorPro
                     />
                     {values.length > 1 && (
                         <Style.DeleteBoxButton
-                            src="/DeleteTag.svg"
+                            src="/icons/deleteTag.svg"
                             alt="삭제"
                             onClick={() => handleRemovePrecaution(index)}
                         />
@@ -68,7 +68,7 @@ export default function Precaution({ values, onChange }: PrecautionListEditorPro
             {values.length < 5 && (
                 <Wrapper.FlexBox justifyContent="center" margin="15px 0 0 0">
                     <Style.AddPrecaution
-                        src="/Icon/addMainColor.svg"
+                        src="/icons/addMainColor.svg"
                         alt="복리후생 추가 버튼"
                         onClick={handleAddPrecaution}
                     />

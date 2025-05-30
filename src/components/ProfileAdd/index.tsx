@@ -24,11 +24,11 @@ export default function ProfileAdd({ onImageChange }: ProfileAddProps) {
                 {preview ? (
                     <ProfileImage src={preview} alt="프로필 이미지" />
                 ) : (
-                    <DefaultIcon src="/user.svg" alt="기본 프로필" />
+                    <DefaultIcon src="/icons/user.svg" alt="기본 프로필" />
                 )}
             </Frame>
             <UploadButton htmlFor="profile-upload">
-                <CameraIcon src="/CameraIcon.svg" alt="업로드 아이콘" />
+                <CameraIcon src="/icons/cameraIcon.svg" alt="업로드 아이콘" />
             </UploadButton>
             <HiddenInput id="profile-upload" type="file" accept="image/*" onChange={handleImageChange} />
         </Wrapper>
