@@ -34,7 +34,10 @@ export default function ReviewList({ data }: ReviewListProps) {
                     {filteredReviews.length > 0 ? (
                         filteredReviews.map(item => <ReviewListItem key={item.reviewId} review={item} />)
                     ) : (
-                        <Text.Body2_1>표시할 리뷰가 없습니다.</Text.Body2_1>
+                        <Wrapper.FlexBox gap="12px" justifyContent="center">
+                            <img src="/icons/oops.svg" alt="머쓱한 이모지" />
+                            <Text.Body1_1>작성된 후기가 없어요.</Text.Body1_1>
+                        </Wrapper.FlexBox>
                     )}
                 </Wrapper.FlexBox>
             </div>
