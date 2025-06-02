@@ -1,37 +1,36 @@
 import styled from "@emotion/styled";
 import { useCommentState } from "./useCommentState";
 import CommentList from "./CommentList";
-import { mockComments } from "./mock";
 import CommentInput from "./CommentInput";
 import ReplyingNotice from "./ReplyingNotice";
+import { Text } from "@/styles/Text";
+import { useCommentList } from "./useCommentQuery";
 
-export const CommentBox = () => {
-    const { openReplies, loadedReplies, toggleReplies, startReplyTo, activeReply, cancelReply } = useCommentState();
-
-    const handleSubmit = (text: string) => {
-        if (activeReply) {
-            console.log(`답글 → ${activeReply.nickname}:`, text);
-            cancelReply();
-        } else {
-            console.log("댓글:", text);
-        }
-    };
+export const CommentBox = ({ accompanyId, commentCount }: { accompanyId: number; commentCount: number }) => {
+    const { openReplies, toggleReplies, startReplyTo, activeReply, cancelReply } = useCommentState();
+    const { data: comments = [], isLoading } = useCommentList(accompanyId);
 
     return (
         <>
+            <Text.Body1_1>댓글 {commentCount}</Text.Body1_1>
             <ScrollableArea>
-                <CommentList
-                    comments={mockComments}
-                    openReplies={openReplies}
-                    loadedReplies={loadedReplies}
-                    onToggleReplies={toggleReplies}
-                    onReplyClick={startReplyTo}
-                />
+                {isLoading ? (
+                    // TODO: 추후 스켈레톤 적용
+                    <div>댓글 불러오는 중</div>
+                ) : (
+                    <CommentList
+                        comments={comments}
+                        openReplies={openReplies}
+                        onToggleReplies={toggleReplies}
+                        onReplyClick={startReplyTo}
+                        accompanyId={accompanyId}
+                    />
+                )}
             </ScrollableArea>
             <FixedInputArea>
                 {activeReply && <ReplyingNotice nickname={activeReply.nickname} onCancel={cancelReply} />}
                 <InputWrapper>
-                    <CommentInput onSubmit={handleSubmit} />
+                    <CommentInput accompanyId={accompanyId} activeReply={activeReply} cancelReply={cancelReply} />
                 </InputWrapper>
             </FixedInputArea>
         </>

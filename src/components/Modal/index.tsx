@@ -8,7 +8,7 @@ type ModalVariant = "default" | "confirm" | "page";
 interface ModalProps {
     variant: ModalVariant;
     title?: string;
-    message?: string;
+    message?: string | React.ReactNode;
     handleModalClose: () => void;
     onConfirm?: () => void;
     cancelText?: string;
@@ -36,7 +36,7 @@ export default function Modal({
 
             {message && (
                 <MessageWrapper>
-                    <Text.Body2>{message}</Text.Body2>
+                    <Text.Body2 color="Gray4">{message}</Text.Body2>
                 </MessageWrapper>
             )}
 
