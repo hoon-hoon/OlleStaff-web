@@ -1,10 +1,11 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { CommentType } from "@/types/comment";
 import { timeAgo } from "@/utils/date";
 import { Text } from "@/styles/Text";
 import { useUserStore } from "@/store/useUserStore";
-import { useState } from "react";
 import { useDeleteComment, useDeleteReply } from "./useCommentMutation";
+import { useReplyList } from "./useCommentQuery";
 
 interface CommentItemProps {
     comment: CommentType;
@@ -32,19 +33,17 @@ export default function CommentItem({
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const currentUserNickname = useUserStore(state => state.nickname);
     const isAuthor = currentUserNickname === userNickname;
-    
+
     const handleDelete = () => {
         if (isReply && parentCommentId !== undefined) {
-            deleteReply({
-                accompanyId,
-                commentId: parentCommentId,
-                replyId: comment.id,
-            });
+            deleteReply({ accompanyId, commentId: parentCommentId, replyId: id });
         } else {
-            deleteComment({ accompanyId, commentId: comment.id });
+            deleteComment({ accompanyId, commentId: id });
         }
     };
-    
+
+    const shouldShowReplies = !isReply && areRepliesOpen;
+    const { data: replies = [] } = useReplyList(accompanyId, id, shouldShowReplies ?? false);
 
     return (
         <>
@@ -75,7 +74,7 @@ export default function CommentItem({
                     )}
                     {!isReply && replyCount > 0 && (
                         <ReplyToggleButton onClick={() => onToggleReplies?.(id)}>
-                            <Icon src={areRepliesOpen ? "/icons/upArrow.svg" : "/icons/downArrow.svg"}></Icon>
+                            <Icon src={areRepliesOpen ? "/icons/upArrow.svg" : "/icons/downArrow.svg"} />
                             <Text.Body3 color="Gray4" style={{ marginTop: "3px" }}>
                                 {areRepliesOpen ? "댓글 숨기기" : `${replyCount}개의 댓글 보기`}
                             </Text.Body3>
@@ -83,6 +82,16 @@ export default function CommentItem({
                     )}
                 </ContentBox>
             </Wrapper>
+            {shouldShowReplies &&
+                replies.map(reply => (
+                    <CommentItem
+                        key={reply.id}
+                        comment={{ ...reply, replyCount: 0 }}
+                        isReply
+                        accompanyId={accompanyId}
+                        parentCommentId={id}
+                    />
+                ))}
         </>
     );
 }
