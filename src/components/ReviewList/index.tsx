@@ -20,6 +20,8 @@ export default function ReviewList({ data }: ReviewListProps) {
         return data.allReviewInfoDTOS.filter(item => item.reviewComment); // "완료됨" = 댓글이 달린 리뷰
     }, [sort, data]);
 
+    const [openedReviewId, setOpenedReviewId] = useState<number | null>(null);
+
     return (
         <>
             <div>
@@ -32,7 +34,14 @@ export default function ReviewList({ data }: ReviewListProps) {
 
                 <Wrapper.FlexBox direction="column" gap="20px">
                     {filteredReviews.length > 0 ? (
-                        filteredReviews.map(item => <ReviewListItem key={item.reviewId} review={item} />)
+                        filteredReviews.map(item => (
+                            <ReviewListItem
+                                key={item.reviewId}
+                                review={item}
+                                openedReviewId={openedReviewId}
+                                setOpenedReviewId={setOpenedReviewId}
+                            />
+                        ))
                     ) : (
                         <Wrapper.FlexBox gap="12px" justifyContent="center">
                             <img src="/icons/oops.svg" alt="머쓱한 이모지" />

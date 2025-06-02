@@ -1,22 +1,33 @@
 import styled from "@emotion/styled";
-
 import { Text } from "@/styles/Text";
 import theme from "@/styles/theme";
 import { Wrapper } from "@/styles/Wrapper";
 import { ReviewInfo } from "@/types/reviews";
 import { useState } from "react";
 import { timeAgo } from "@/utils/date";
+import Input from "../Input";
 interface ReviewListItemProps {
     review: ReviewInfo;
+    openedReviewId: number | null;
+    setOpenedReviewId: (id: number | null) => void;
 }
 
-export default function ReviewListItem({ review }: ReviewListItemProps) {
+export default function ReviewListItem({ review, openedReviewId, setOpenedReviewId }: ReviewListItemProps) {
     const [isReviewExpanded, setIsReviewExpanded] = useState(false);
     const [isCommentExpanded, setIsCommentExpanded] = useState(false);
 
     const toggleExpand = (key: "review" | "comment") => {
         if (key === "review") setIsReviewExpanded(prev => !prev);
         if (key === "comment") setIsCommentExpanded(prev => !prev);
+    };
+
+    const handleOpenComment = () => {
+        setOpenedReviewId(openedReviewId === review.reviewId ? null : review.reviewId);
+    };
+
+    const [text, setText] = useState<string>("");
+    const handleSubmit = () => {
+        //
     };
 
     return (
@@ -33,15 +44,15 @@ export default function ReviewListItem({ review }: ReviewListItemProps) {
                     <Text.Body2_1>{review.rating}</Text.Body2_1>
                 </UserWrapper>
 
-                <ImageList>
-                    {review.images.length > 0 && (
-                        <>
+                {review.images.length > 0 && (
+                    <>
+                        <ImageList>
                             {review.images.map((imgUrl, idx) => (
                                 <img key={idx} src={imgUrl} alt={`리뷰이미지${idx + 1}`} />
                             ))}
-                        </>
-                    )}
-                </ImageList>
+                        </ImageList>
+                    </>
+                )}
 
                 <Text.Body2>
                     {review.review.length > 70 && !isReviewExpanded ? (
@@ -56,13 +67,34 @@ export default function ReviewListItem({ review }: ReviewListItemProps) {
                     )}
                 </Text.Body2>
 
-                <Wrapper.FlexBox justifyContent="space-between">
-                    <Text.Body3_1 color="Gray3">
-                        {review.disclosure
-                            ? `게스트하우스에게만 공개 | ${timeAgo(review.reviewDate)}`
-                            : `${timeAgo(review.reviewDate)}`}
-                    </Text.Body3_1>
-                    {!review.reviewComment && <img src="/icons/comment_gray.svg" alt="댓글 버튼" />}
+                <Wrapper.FlexBox direction="column" gap="8px">
+                    <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
+                        <Text.Body3_1 color="Gray3">
+                            {review.disclosure
+                                ? `게스트하우스에게만 공개 | ${timeAgo(review.reviewDate)}`
+                                : `${timeAgo(review.reviewDate)}`}
+                        </Text.Body3_1>
+
+                        {!review.reviewComment && openedReviewId !== review.reviewId && (
+                            <img
+                                src="/icons/comment_gray.svg"
+                                alt="댓글 버튼"
+                                onClick={handleOpenComment}
+                                style={{ cursor: "pointer" }}
+                            />
+                        )}
+                    </Wrapper.FlexBox>
+
+                    {!review.reviewComment && openedReviewId === review.reviewId && (
+                        <Input
+                            variant="comment"
+                            value={text}
+                            onChange={e => setText(e.target.value)}
+                            placeholder="댓글을 입력하세요."
+                            rightIcon={<img src="/icons/arrow_top.svg" />}
+                            onRightIconClick={handleSubmit}
+                        />
+                    )}
                 </Wrapper.FlexBox>
             </ContentWrapper>
 
