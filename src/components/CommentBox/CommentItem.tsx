@@ -6,6 +6,7 @@ import { Text } from "@/styles/Text";
 import { useUserStore } from "@/store/useUserStore";
 import { useDeleteComment, useDeleteReply } from "./useCommentMutation";
 import { useReplyList } from "./useCommentQuery";
+import { useCommentState } from "./useCommentState";
 
 interface CommentItemProps {
     comment: CommentType;
@@ -33,6 +34,8 @@ export default function CommentItem({
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const currentUserNickname = useUserStore(state => state.nickname);
     const isAuthor = currentUserNickname === userNickname;
+    const { activeReply } = useCommentState();
+    const isActiveReply = activeReply?.commentId === id;
 
     const handleDelete = () => {
         if (isReply && parentCommentId !== undefined) {
@@ -55,7 +58,10 @@ export default function CommentItem({
                     <Meta>
                         <Text.Body3 color="Gray4">{timeAgo(createdAt)}</Text.Body3>
                         {!isReply && (
-                            <ReplyButton onClick={() => onReplyClick?.(id, userNickname)}>
+                            <ReplyButton
+                                onClick={() => onReplyClick?.(id, userNickname)}
+                                className={isActiveReply ? "active" : ""}
+                            >
                                 <Text.Body3 color="Gray4">답글 달기</Text.Body3>
                             </ReplyButton>
                         )}
@@ -156,6 +162,10 @@ const ReplyButton = styled.button`
     border: none;
     cursor: pointer;
     align-self: flex-start;
+
+    &.active span {
+        font-weight: 700 !important;
+    }
 `;
 
 const Icon = styled.img`
