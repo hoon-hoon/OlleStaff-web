@@ -4,7 +4,7 @@ import { timeAgo } from "@/utils/date";
 import { Text } from "@/styles/Text";
 import { useUserStore } from "@/store/useUserStore";
 import { useState } from "react";
-import { useDeleteComment } from "./useCommentMutation";
+import { useDeleteComment, useDeleteReply } from "./useCommentMutation";
 
 interface CommentItemProps {
     comment: CommentType;
@@ -13,6 +13,7 @@ interface CommentItemProps {
     isReply?: boolean;
     areRepliesOpen?: boolean;
     accompanyId: number;
+    parentCommentId?: number;
 }
 
 export default function CommentItem({
@@ -22,17 +23,28 @@ export default function CommentItem({
     isReply,
     areRepliesOpen,
     accompanyId,
+    parentCommentId,
 }: CommentItemProps) {
     const { userNickname, userImage, createdAt, content, id, replyCount } = comment;
     const { mutate: deleteComment } = useDeleteComment();
+    const { mutate: deleteReply } = useDeleteReply();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const currentUserNickname = useUserStore(state => state.nickname);
     const isAuthor = currentUserNickname === userNickname;
-
+    
     const handleDelete = () => {
-        deleteComment({ accompanyId, commentId: id });
+        if (isReply && parentCommentId !== undefined) {
+            deleteReply({
+                accompanyId,
+                commentId: parentCommentId,
+                replyId: comment.id,
+            });
+        } else {
+            deleteComment({ accompanyId, commentId: comment.id });
+        }
     };
+    
 
     return (
         <>

@@ -46,6 +46,7 @@ export default function CommentWithReply({
                     comment={reply as CommentType}
                     isReply
                     accompanyId={accompanyId}
+                    parentCommentId={comment.id}
                 />
             ))}
         </>
