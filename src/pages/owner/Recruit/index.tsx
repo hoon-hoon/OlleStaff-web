@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import RecruitBasicInfoPage from "./RecruitBasicInfoPage";
 import RecruitPrecautionPage from "./RecruitPrecautionPage";
 import { EmploymentProps } from "@/types/employment";
+import RecruitBasicInfoPage from "./RecruitBasicInfoPage";
 
 const initialFormData: EmploymentProps = {
     instaUrl: "",
