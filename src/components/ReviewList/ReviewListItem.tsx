@@ -40,7 +40,7 @@ export default function ReviewListItem({ review, openedReviewId, setOpenedReview
             <ContentWrapper>
                 <UserWrapper>
                     <Text.Body2_1>{review.nickName}님</Text.Body2_1>
-                    <img src="/icons/fullStar.svg" alt="별" />
+                    <img src="/icons/fullStar.svg" alt="별" style={{ width: "15px" }} />
                     <Text.Body2_1>{review.rating}</Text.Body2_1>
                 </UserWrapper>
 
