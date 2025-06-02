@@ -2,19 +2,32 @@ import { Text } from "@/styles/Text";
 import theme from "@/styles/theme";
 import { Wrapper } from "@/styles/Wrapper";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useUserStore } from "@/store/useUserStore";
+import { useNavigate } from "react-router-dom";
 
 export default function UserModeSwitcher() {
-    const [mode, setMode] = useState<"스텝" | "게스트하우스">("스텝");
-    const handleToggleMode = () => {
-        const nextMode = mode === "스텝" ? "게스트하우스" : "스텝";
-        setMode(nextMode);
+    const navigate = useNavigate();
 
-        console.log(`"${nextMode}" 모드로 전환`);
+    const userType = useUserStore(state => state.type);
+    const nickname = useUserStore(state => state.nickname);
+    const setUser = useUserStore(state => state.setUser);
+
+    const modeLabel = userType === "STAFF" ? "게스트하우스" : "스텝";
+
+    const handleToggleMode = () => {
+        const nextType = userType === "STAFF" ? "GUESTHOUSE" : "STAFF";
+        setUser(nickname, nextType);
+
+        if (nextType === "STAFF") {
+            navigate("/staff");
+        } else {
+            navigate("/owner");
+        }
     };
 
     const handleLogout = () => {
         console.log("로그아웃 처리");
+        // 예: localStorage.clear(); navigate("/"); 등
     };
 
     const handleDeleteAccount = () => {
@@ -22,22 +35,20 @@ export default function UserModeSwitcher() {
     };
 
     return (
-        <>
-            <Wrapper.FlexBox direction="column" gap="12px">
-                <Style.ModeChangeButton onClick={handleToggleMode}>
-                    <Text.Body1_1 color="Main">{mode} 모드로 전환</Text.Body1_1>
-                </Style.ModeChangeButton>
-                <Wrapper.FlexBox justifyContent="center" gap="8px">
-                    <Text.Body2 color="Gray2" onClick={handleLogout}>
-                        로그아웃
-                    </Text.Body2>
-                    <Text.Body2 color="Gray2"> | </Text.Body2>
-                    <Text.Body2 color="Gray2" onClick={handleDeleteAccount}>
-                        회원 탈퇴
-                    </Text.Body2>
-                </Wrapper.FlexBox>
+        <Wrapper.FlexBox direction="column" gap="12px">
+            <Style.ModeChangeButton onClick={handleToggleMode}>
+                <Text.Body1_1 color="Main">{modeLabel} 모드로 전환</Text.Body1_1>
+            </Style.ModeChangeButton>
+            <Wrapper.FlexBox justifyContent="center" gap="8px">
+                <Text.Body2 color="Gray2" onClick={handleLogout}>
+                    로그아웃
+                </Text.Body2>
+                <Text.Body2 color="Gray2"> | </Text.Body2>
+                <Text.Body2 color="Gray2" onClick={handleDeleteAccount}>
+                    회원 탈퇴
+                </Text.Body2>
             </Wrapper.FlexBox>
-        </>
+        </Wrapper.FlexBox>
     );
 }
 
@@ -51,5 +62,6 @@ const Style = {
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
     `,
 };

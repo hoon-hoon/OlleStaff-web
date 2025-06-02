@@ -32,11 +32,10 @@ export default function UserInfoPage() {
                     <Text.Title3_1>{user.name}</Text.Title3_1>
                 </Wrapper.FlexBox>
 
-                <Wrapper.FlexBox direction="column" gap="12px">
+                <Wrapper.FlexBox direction="column">
                     <SettingList data={MenuList} />
+                    <UserModeSwitcher />
                 </Wrapper.FlexBox>
-
-                <UserModeSwitcher />
             </PageWrapper>
         </>
     );
