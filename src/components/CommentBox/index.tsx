@@ -7,7 +7,8 @@ import { useCommentList } from "./useCommentList";
 import { Text } from "@/styles/Text";
 
 export const CommentBox = ({ accompanyId, commentCount }: { accompanyId: number; commentCount: number }) => {
-    const { openReplies, loadedReplies, toggleReplies, startReplyTo, activeReply, cancelReply } = useCommentState();
+    const { openReplies, loadedReplies, toggleReplies, startReplyTo, activeReply, cancelReply, setLoadedReplies } =
+        useCommentState();
     const { data: comments = [], isLoading } = useCommentList(accompanyId);
 
     return (
@@ -22,6 +23,7 @@ export const CommentBox = ({ accompanyId, commentCount }: { accompanyId: number;
                         comments={comments}
                         openReplies={openReplies}
                         loadedReplies={loadedReplies}
+                        setLoadedReplies={setLoadedReplies}
                         onToggleReplies={toggleReplies}
                         onReplyClick={startReplyTo}
                         accompanyId={accompanyId}
@@ -31,7 +33,11 @@ export const CommentBox = ({ accompanyId, commentCount }: { accompanyId: number;
             <FixedInputArea>
                 {activeReply && <ReplyingNotice nickname={activeReply.nickname} onCancel={cancelReply} />}
                 <InputWrapper>
-                    <CommentInput accompanyId={accompanyId} />
+                    <CommentInput
+                        accompanyId={accompanyId}
+                        activeReply={activeReply}
+                        cancelReply={cancelReply}
+                    />
                 </InputWrapper>
             </FixedInputArea>
         </>

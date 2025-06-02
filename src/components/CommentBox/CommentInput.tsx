@@ -1,36 +1,59 @@
 import { useState } from "react";
 import Input from "@/components/Input";
 import styled from "@emotion/styled";
-import { useCreateComment } from "./useCommentMutation";
+import { useCreateComment, useCreateReply } from "./useCommentMutation";
 
 interface CommentInputProps {
     placeholder?: string;
     disabled?: boolean;
     accompanyId: number;
+    activeReply: { commentId: number; nickname: string } | null;
+    cancelReply: () => void;
 }
 
-export default function CommentInput({ placeholder = "댓글을 입력하세요.", disabled, accompanyId }: CommentInputProps) {
+export default function CommentInput({
+    placeholder = "댓글을 입력하세요.",
+    disabled,
+    accompanyId,
+    activeReply,
+    cancelReply,
+}: CommentInputProps) {
     const [text, setText] = useState("");
     const { mutate: createComment } = useCreateComment();
+    const { mutate: createReply } = useCreateReply();
 
     const handleSubmit = () => {
         if (!text.trim()) return;
 
-        createComment(
-            {
-                accompanyId,
-                content: text,
-            },
-            {
-                onSuccess: () => {
-                    console.log("댓글 작성 완료");
-                    setText("");
+        if (activeReply) {
+            createReply(
+                {
+                    accompanyId,
+                    commentId: activeReply.commentId,
+                    content: text,
                 },
-                onError: err => {
-                    console.error("댓글 작성 실패", err);
+                {
+                    onSuccess: () => {
+                        console.log("답글 작성 완료");
+                        setText("");
+                        cancelReply();
+                    },
+                }
+            );
+        } else {
+            createComment(
+                {
+                    accompanyId,
+                    content: text,
                 },
-            }
-        );
+                {
+                    onSuccess: () => {
+                        console.log("댓글 작성 완료");
+                        setText("");
+                    },
+                }
+            );
+        }
     };
 
     return (

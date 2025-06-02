@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ReplyType } from "@/types/comment";
-import { mockReplies } from "./mock";
 
 export function useCommentState() {
     const [openReplies, setOpenReplies] = useState<Record<number, boolean>>({}); // 답글 펼침 여부
@@ -12,11 +11,6 @@ export function useCommentState() {
 
     // 답글 토글
     const toggleReplies = async (commentId: number) => {
-        if (!loadedReplies[commentId]) {
-            // 임시 mockData 사용
-            const replies = mockReplies[commentId] || [];
-            setLoadedReplies(prev => ({ ...prev, [commentId]: replies }));
-        }
         setOpenReplies(prev => ({ ...prev, [commentId]: !prev[commentId] }));
     };
 
@@ -37,5 +31,6 @@ export function useCommentState() {
         toggleReplies,
         startReplyTo,
         cancelReply,
+        setLoadedReplies,
     };
 }

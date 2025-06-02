@@ -11,6 +11,12 @@ interface DeleteCommentParams {
     commentId: number;
 }
 
+interface CreateReplyParams {
+    accompanyId: number;
+    commentId: number;
+    content: string;
+}
+
 export const useCreateComment = () => {
     const queryClient = useQueryClient();
 
@@ -50,6 +56,34 @@ export const useDeleteComment = () => {
         },
         onError: err => {
             console.error("댓글 삭제 실패", err);
+        },
+    });
+};
+
+export const useCreateReply = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async ({ accompanyId, commentId, content }: CreateReplyParams) => {
+            const res = await axios.post(
+                `${import.meta.env.VITE_API_BASE_URL}/accompanies/${accompanyId}/comments/${commentId}/replies`,
+                { content },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                }
+            );
+            return res.data;
+        },
+        onSuccess: (_, { accompanyId, commentId }) => {
+            queryClient.invalidateQueries({
+                queryKey: ["replies", accompanyId, commentId],
+            });
+        },
+        onError: err => {
+            console.error("답글 작성 실패", err);
         },
     });
 };

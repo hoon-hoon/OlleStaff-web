@@ -1,5 +1,6 @@
 import CommentItem from "./CommentItem";
 import { CommentType, ReplyType } from "@/types/comment";
+import CommentWithReply from "./CommentWithReply";
 
 interface CommentListProps {
     comments: CommentType[];
@@ -8,6 +9,7 @@ interface CommentListProps {
     onReplyClick: (commentId: number, nickname: string) => void;
     onToggleReplies: (commentId: number) => void;
     accompanyId: number;
+    setLoadedReplies: (updater: (prev: Record<number, ReplyType[]>) => Record<number, ReplyType[]>) => void;
 }
 
 export default function CommentList({
@@ -17,30 +19,38 @@ export default function CommentList({
     onReplyClick,
     onToggleReplies,
     accompanyId,
+    setLoadedReplies,
 }: CommentListProps) {
     return (
         <div>
-            {comments.map(comment => (
-                <div key={comment.id}>
+            {comments.map(comment => {
+                const isOpen = openReplies[comment.id];
+
+                if (isOpen) {
+                    return (
+                        <CommentWithReply
+                            key={comment.id}
+                            comment={comment}
+                            accompanyId={accompanyId}
+                            onReplyClick={onReplyClick}
+                            onToggleReplies={onToggleReplies}
+                            setLoadedReplies={setLoadedReplies}
+                            loadedReplies={loadedReplies}
+                        />
+                    );
+                }
+
+                return (
                     <CommentItem
+                        key={comment.id}
                         comment={comment}
                         onReplyClick={onReplyClick}
                         onToggleReplies={onToggleReplies}
-                        areRepliesOpen={openReplies[comment.id]}
+                        areRepliesOpen={false}
                         accompanyId={accompanyId}
                     />
-
-                    {openReplies[comment.id] &&
-                        loadedReplies[comment.id]?.map(reply => (
-                            <CommentItem
-                                key={reply.id}
-                                comment={reply as CommentType}
-                                isReply
-                                accompanyId={accompanyId}
-                            />
-                        ))}
-                </div>
-            ))}
+                );
+            })}
         </div>
     );
 }
