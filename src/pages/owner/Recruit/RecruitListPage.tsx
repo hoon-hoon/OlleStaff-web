@@ -1,98 +1,31 @@
 import { GuesthouseList } from "@/components/GuesthouseList";
 import Header from "@/components/Header";
+import Oops from "@/components/Oops";
 import PageWrapper from "@/components/PageWrapper";
 import TabSelector from "@/components/TabSelector";
 import { OwnerTabTypes, TAB_LABELS } from "@/constants/tabs";
+import { Wrapper } from "@/styles/Wrapper";
 import { GuesthouseListItemProps } from "@/types/guesthouse";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { mockdata_recruits } from "../mock";
 
 type RecruitTab = OwnerTabTypes["MY_RECRUIT"]; // "전체", "진행중인 공고", "마감공고"
 
-const mockData: GuesthouseListItemProps[] = [
-    {
-        id: 1,
-        title: "결 게스트하우스 스탭모집",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["활기찬", "힐링", "자연", "바다"],
-        description: "바다 근처 힙한 게스트 하우스",
-        location: "함덕해수욕장",
-        personnel: "남자 2명 모집",
-    },
-    {
-        id: 2,
-        title: "오션뷰 게스트하우스",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["뷰맛집", "바다", "프라이빗"],
-        description: "바다가 보이는 오션뷰 숙소",
-        location: "협재",
-        personnel: "여자 1명 모집",
-        closed: true,
-    },
-    {
-        id: 3,
-        title: "소소한 쉼터",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["힐링", "자연"],
-        description: "마음이 편안해지는 조용한 숙소",
-        location: "성산읍",
-        personnel: "남자 2명 모집",
-    },
-    {
-        id: 4,
-        title: "오션뷰 게스트하우스",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["뷰맛집", "바다", "프라이빗"],
-        description: "바다가 보이는 오션뷰 숙소",
-        location: "협재",
-        personnel: "여자 1명 모집",
-        closed: true,
-    },
-    {
-        id: 5,
-        title: "소소한 쉼터",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["힐링", "자연"],
-        description: "마음이 편안해지는 조용한 숙소",
-        location: "성산읍",
-        personnel: "남자 2명 모집",
-    },
-    {
-        id: 6,
-        title: "오션뷰 게스트하우스",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["뷰맛집", "바다", "프라이빗"],
-        description: "바다가 보이는 오션뷰 숙소",
-        location: "협재",
-        personnel: "여자 1명 모집",
-        closed: true,
-    },
-    {
-        id: 7,
-        title: "소소한 쉼터",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["힐링", "자연"],
-        description: "마음이 편안해지는 조용한 숙소",
-        location: "성산읍",
-        personnel: "남자 2명 모집",
-    },
-    {
-        id: 8,
-        title: "오션뷰 게스트하우스",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["뷰맛집", "바다", "프라이빗"],
-        description: "바다가 보이는 오션뷰 숙소",
-        location: "협재",
-        personnel: "여자 1명 모집",
-        closed: true,
-    },
-];
 export default function RecruitListPage() {
     const [sort, setSort] = useState<RecruitTab>("전체");
     const [data, setData] = useState<GuesthouseListItemProps[]>([]);
+
+    const filteredRecruits = useMemo(() => {
+        if (sort === "전체") return data;
+        if (sort === "진행중인 공고") return data.filter(item => !item.closed);
+        if (sort === "마감공고") return data.filter(item => item.closed);
+        return data;
+    }, [sort, data]);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setData(mockData);
+                setData(mockdata_recruits);
             } catch (error) {
                 console.error("카테고리 불러오기 실패", error);
                 setData([]);
@@ -111,7 +44,23 @@ export default function RecruitListPage() {
                     onChange={value => setSort(value as RecruitTab)}
                     variant="bold"
                 />
-                <GuesthouseList data={data} />
+
+                {data && (
+                    <>
+                        <Wrapper.FlexBox direction="column" gap="20px">
+                            {filteredRecruits.length > 0 ? (
+                                filteredRecruits.map(item => <GuesthouseList key={item.id} data={[item]} />)
+                            ) : (
+                                <Wrapper.FlexBox gap="12px" alignItems="center" direction="column" padding="50% 0">
+                                    <Oops
+                                        message="작성된 나의 공고가 없어요."
+                                        description={`홈 > 게시글 작성하기로\n새로운 공고를 등록해 보세요!`}
+                                    />
+                                </Wrapper.FlexBox>
+                            )}
+                        </Wrapper.FlexBox>
+                    </>
+                )}
             </PageWrapper>
         </>
     );

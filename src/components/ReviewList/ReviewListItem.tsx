@@ -1,53 +1,136 @@
 import styled from "@emotion/styled";
-
 import { Text } from "@/styles/Text";
 import theme from "@/styles/theme";
 import { Wrapper } from "@/styles/Wrapper";
+import { ReviewInfo } from "@/types/reviews";
+import { useState } from "react";
+import { timeAgo } from "@/utils/date";
+import Input from "../Input";
+interface ReviewListItemProps {
+    data: ReviewInfo;
+    openedReviewId: number | null;
+    setOpenedReviewId: (id: number | null) => void;
+}
+export default function ReviewListItem({ data, openedReviewId, setOpenedReviewId }: ReviewListItemProps) {
+    const {
+        reviewId,
+        title,
+        nickName,
+        rating,
+        images,
+        review,
+        disclosure,
+        reviewDate,
+        reviewComment,
+        reviewCommentDate,
+        hostNickName,
+    } = data;
 
-export default function ReviewListItem() {
+    const [isReviewExpanded, setIsReviewExpanded] = useState(false);
+    const [isCommentExpanded, setIsCommentExpanded] = useState(false);
+
+    const toggleExpand = (key: "review" | "comment") => {
+        if (key === "review") setIsReviewExpanded(prev => !prev);
+        if (key === "comment") setIsCommentExpanded(prev => !prev);
+    };
+
+    const handleOpenComment = () => {
+        setOpenedReviewId(openedReviewId === reviewId ? null : reviewId);
+    };
+
+    const [text, setText] = useState<string>("");
+    const handleSubmit = () => {
+        //
+    };
+
     return (
         <Card>
             <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
-                <Text.Body1_1>결 게스트하우스 스탭 모집!</Text.Body1_1>
+                <Text.Body1_1>{title}</Text.Body1_1>
                 <img src="/icons/more.svg" alt="더보기" />
             </Wrapper.FlexBox>
 
             <ContentWrapper>
                 <UserWrapper>
-                    <Text.Body2_1>weifj님</Text.Body2_1>
-                    <img src="/icons/fullStar.svg" alt="별" />
-                    <Text.Body2_1>4.5</Text.Body2_1>
+                    <Text.Body2_1>{nickName}님</Text.Body2_1>
+                    <img src="/icons/fullStar.svg" alt="별" style={{ width: "15px" }} />
+                    <Text.Body2_1>{rating}</Text.Body2_1>
                 </UserWrapper>
 
-                <ImageList>
-                    <img src="/images/guesthouse1.png" />
-                    <img src="/images/guesthouse1.png" />
-                    <img src="/images/guesthouse3.png" />
-                </ImageList>
+                {images.length > 0 && (
+                    <>
+                        <ImageList>
+                            {images.map((imgUrl, idx) => (
+                                <img key={idx} src={imgUrl} alt={`리뷰이미지${idx + 1}`} />
+                            ))}
+                        </ImageList>
+                    </>
+                )}
 
                 <Text.Body2>
-                    Korem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate...
-                    <Text.Body2_1 color="Gray3">더보기</Text.Body2_1>
+                    {review.length > 70 && !isReviewExpanded ? (
+                        <Text.Body2_1>
+                            {review.slice(0, 70)} ...{" "}
+                            <Text.Body2_1 color="Gray3" onClick={() => toggleExpand("review")}>
+                                더보기
+                            </Text.Body2_1>
+                        </Text.Body2_1>
+                    ) : (
+                        <Text.Body2_1>{review}</Text.Body2_1>
+                    )}
                 </Text.Body2>
 
-                <Meta>
-                    <Text.Body3_1 color="Gray3">스탭에게만 공개</Text.Body3_1>
-                    <Text.Body3_1 color="Gray3"> | </Text.Body3_1>
-                    <Text.Body3_1 color="Gray3">10분전</Text.Body3_1>
-                </Meta>
+                <Wrapper.FlexBox direction="column" gap="8px">
+                    <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
+                        <Text.Body3_1 color="Gray3">
+                            {disclosure ? `게스트하우스에게만 공개 | ${timeAgo(reviewDate)}` : `${timeAgo(reviewDate)}`}
+                        </Text.Body3_1>
+
+                        {!reviewComment && openedReviewId !== reviewId && (
+                            <img
+                                src="/icons/comment_gray.svg"
+                                alt="댓글 버튼"
+                                onClick={handleOpenComment}
+                                style={{ cursor: "pointer" }}
+                            />
+                        )}
+                    </Wrapper.FlexBox>
+
+                    {!reviewComment && openedReviewId === reviewId && (
+                        <Input
+                            variant="comment"
+                            value={text}
+                            onChange={e => setText(e.target.value)}
+                            placeholder="댓글을 입력하세요."
+                            rightIcon={<img src="/icons/arrow_top.svg" />}
+                            onRightIconClick={handleSubmit}
+                        />
+                    )}
+                </Wrapper.FlexBox>
             </ContentWrapper>
 
-            <CommentWrapper>
-                <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
-                    <Text.Body1_1>맥스</Text.Body1_1> <img src="/icons/more.svg" alt="더보기" />
-                </Wrapper.FlexBox>
-                <Text.Body2>
-                    weifj님 그동안 고생하셨어요 ㅎㅎ 덕분에 좋은 추억이 되었어요 좋은 후기 감사합니다!!
-                </Text.Body2>
-                <Wrapper.FlexBox justifyContent="flex-end">
-                    <Text.Body3 color="Gray4">03/29 15:23</Text.Body3>
-                </Wrapper.FlexBox>
-            </CommentWrapper>
+            {reviewComment && (
+                <CommentWrapper>
+                    <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
+                        <Text.Body1_1>{hostNickName}</Text.Body1_1> <img src="/icons/more.svg" alt="더보기" />
+                    </Wrapper.FlexBox>
+                    <Text.Body2>
+                        {reviewComment.length > 70 && !isCommentExpanded ? (
+                            <Text.Body2_1>
+                                {reviewComment.slice(0, 70)} ...{" "}
+                                <Text.Body2_1 color="Gray3" onClick={() => toggleExpand("comment")}>
+                                    더보기
+                                </Text.Body2_1>
+                            </Text.Body2_1>
+                        ) : (
+                            <Text.Body2_1>{reviewComment}</Text.Body2_1>
+                        )}
+                    </Text.Body2>
+                    <Wrapper.FlexBox justifyContent="flex-end">
+                        <Text.Body3 color="Gray4">{timeAgo(reviewCommentDate)}</Text.Body3>
+                    </Wrapper.FlexBox>
+                </CommentWrapper>
+            )}
         </Card>
     );
 }
@@ -95,9 +178,4 @@ const ImageList = styled.div`
         border-radius: 8px;
         object-fit: cover;
     }
-`;
-
-const Meta = styled.div`
-    display: flex;
-    gap: 6px;
 `;

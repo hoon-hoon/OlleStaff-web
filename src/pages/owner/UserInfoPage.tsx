@@ -12,7 +12,7 @@ const MenuList = [
         title: "게시글 관리",
         content: [
             { title: "주의사항 수정하기", link: "/owner/recruit/write/step2" },
-            { title: "후기관리", link: "/owner/userinfo/reviews" },
+            { title: "후기 관리", link: "/owner/userinfo/reviews" },
         ],
     },
 ];
@@ -32,11 +32,10 @@ export default function UserInfoPage() {
                     <Text.Title3_1>{user.name}</Text.Title3_1>
                 </Wrapper.FlexBox>
 
-                <Wrapper.FlexBox direction="column" gap="12px">
+                <Wrapper.FlexBox direction="column">
                     <SettingList data={MenuList} />
+                    <UserModeSwitcher />
                 </Wrapper.FlexBox>
-
-                <UserModeSwitcher />
             </PageWrapper>
         </>
     );

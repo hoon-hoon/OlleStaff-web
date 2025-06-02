@@ -9,8 +9,9 @@ import TermsPage from "@/pages/auth/TermsPage";
 import TypeSelectPage from "@/pages/auth/TypeSelectPage";
 import BusinessVerificationPage from "@/pages/auth/BusinessVerification";
 import OwnerTermsPage from "@/pages/auth/OwnerTermsPage";
-import RecruitWriteContainer from "@/pages/owner/recruit";
+import RecruitWriteContainer from "@/pages/owner/Recruit";
 import ReviewManagePage from "@/pages/owner/ReviewManagePage";
+import NotFoundPage from "@/pages/NotFoundPage";
 const AuthRoutes: RouteObject[] = [
     {
         path: "/",
@@ -34,6 +35,7 @@ const AuthRoutes: RouteObject[] = [
             },
         ],
     },
+
     {
         path: "/auth/kakao",
         element: <KakaoRedirectPage />,
@@ -61,6 +63,10 @@ const AuthRoutes: RouteObject[] = [
     {
         path: "owner/userinfo/reviews",
         element: <ReviewManagePage />,
+    },
+    {
+        path: "*",
+        element: <NotFoundPage />,
     },
 ];
 
