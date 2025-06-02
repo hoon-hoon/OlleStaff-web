@@ -53,6 +53,7 @@ export const AccompanyListItem = ({
                         display: "-webkit-box",
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: "vertical",
+                        height: "40px",
                     }}
                 >
                     {content}

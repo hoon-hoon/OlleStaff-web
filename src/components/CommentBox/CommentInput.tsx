@@ -1,20 +1,54 @@
 import { useState } from "react";
 import Input from "@/components/Input";
 import styled from "@emotion/styled";
+import { useCreateComment, useCreateReply } from "./useCommentMutation";
 
 interface CommentInputProps {
-    onSubmit: (text: string) => void;
     placeholder?: string;
     disabled?: boolean;
+    accompanyId: number;
+    activeReply: { commentId: number; nickname: string } | null;
+    cancelReply: () => void;
 }
 
-export default function CommentInput({ onSubmit, placeholder = "댓글을 입력하세요.", disabled }: CommentInputProps) {
+export default function CommentInput({
+    placeholder = "댓글을 입력하세요.",
+    disabled,
+    accompanyId,
+    activeReply,
+    cancelReply,
+}: CommentInputProps) {
     const [text, setText] = useState("");
+    const { mutate: createComment } = useCreateComment();
+    const { mutate: createReply } = useCreateReply();
 
     const handleSubmit = () => {
         if (!text.trim()) return;
-        onSubmit(text);
-        setText("");
+
+        if (activeReply) {
+            createReply(
+                {
+                    accompanyId,
+                    commentId: activeReply.commentId,
+                    content: text,
+                },
+                {
+                    onSuccess: () => {
+                        setText("");
+                        cancelReply();
+                    },
+                }
+            );
+        } else {
+            createComment(
+                { accompanyId, content: text },
+                {
+                    onSuccess: () => {
+                        setText("");
+                    },
+                }
+            );
+        }
     };
 
     return (

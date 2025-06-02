@@ -23,10 +23,7 @@ const StaffRoutes: RouteObject[] = [
                 path: "accompany",
                 element: <AccompanyPage />,
             },
-            {
-                path: "accompany/write",
-                element: <AccompanyWritePage />,
-            },
+
             {
                 path: "userinfo",
                 element: <UserInfoPage />,
@@ -52,6 +49,10 @@ const StaffRoutes: RouteObject[] = [
             {
                 path: "application/write",
                 element: <ApplicationWritePage />,
+            },
+            {
+                path: "accompany/write",
+                element: <AccompanyWritePage />,
             },
         ],
     },

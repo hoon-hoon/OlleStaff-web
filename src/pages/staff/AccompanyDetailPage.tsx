@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import ImageViewer from "@/components/ImageViewer";
 import PageWrapper from "@/components/PageWrapper";
 import { Text } from "@/styles/Text";
+import { Wrapper } from "@/styles/Wrapper";
 import { AccompanyListItemProps } from "@/types/accompany";
 import { timeAgo } from "@/utils/date";
 import styled from "@emotion/styled";
@@ -34,11 +35,10 @@ export default function AccompanyDetailPage() {
                         <Text.Body2_1 color="Gray4">{timeAgo(createdAt)} 작성</Text.Body2_1>
                     </MetaInfoText>
                 </MetaInfo>
-
-                <Title>{title}</Title>
-
-                <Content style={{ whiteSpace: "pre-wrap" }}>{content}</Content>
-
+                <Wrapper.FlexBox direction="column">
+                    <Title>{title}</Title>
+                    <Content style={{ whiteSpace: "pre-wrap" }}>{content}</Content>
+                </Wrapper.FlexBox>
                 {images.length > 0 && (
                     <ImageGrid>
                         {images.map((url, idx) => (
@@ -64,7 +64,7 @@ export default function AccompanyDetailPage() {
             </PageWrapper>
             <Divider />
             <PageWrapper>
-                <CommentBox />
+                <CommentBox accompanyId={accompany.id} commentCount={commentCount} />
             </PageWrapper>
         </>
     );

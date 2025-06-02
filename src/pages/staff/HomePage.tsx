@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
 import PageWrapper from "@/components/PageWrapper";
 import SectionTitle from "@/components/SectionTitle";
 import styled from "@emotion/styled";
@@ -62,8 +61,7 @@ export default function HomePage() {
 
     return (
         <>
-            <Header title="Logo" />
-            <PageWrapper hasHeader>
+            <PageWrapper>
                 <Input
                     value={searchValue}
                     onChange={e => setSearchValue(e.target.value)}
@@ -73,7 +71,7 @@ export default function HomePage() {
                 />
                 <CategoryList />
                 <Section>
-                    <SectionTitle title="취향저격 게스트하우스 🌴" link="guesthouse/recommend" />
+                    <SectionTitle title="취향저격 게스트하우스 🌴" />
                     <CardCarousel />
                 </Section>
                 <Section>
