@@ -7,12 +7,25 @@ import { useState } from "react";
 import { timeAgo } from "@/utils/date";
 import Input from "../Input";
 interface ReviewListItemProps {
-    review: ReviewInfo;
+    data: ReviewInfo;
     openedReviewId: number | null;
     setOpenedReviewId: (id: number | null) => void;
 }
+export default function ReviewListItem({ data, openedReviewId, setOpenedReviewId }: ReviewListItemProps) {
+    const {
+        reviewId,
+        title,
+        nickName,
+        rating,
+        images,
+        review,
+        disclosure,
+        reviewDate,
+        reviewComment,
+        reviewCommentDate,
+        hostNickName,
+    } = data;
 
-export default function ReviewListItem({ review, openedReviewId, setOpenedReviewId }: ReviewListItemProps) {
     const [isReviewExpanded, setIsReviewExpanded] = useState(false);
     const [isCommentExpanded, setIsCommentExpanded] = useState(false);
 
@@ -22,7 +35,7 @@ export default function ReviewListItem({ review, openedReviewId, setOpenedReview
     };
 
     const handleOpenComment = () => {
-        setOpenedReviewId(openedReviewId === review.reviewId ? null : review.reviewId);
+        setOpenedReviewId(openedReviewId === reviewId ? null : reviewId);
     };
 
     const [text, setText] = useState<string>("");
@@ -33,21 +46,21 @@ export default function ReviewListItem({ review, openedReviewId, setOpenedReview
     return (
         <Card>
             <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
-                <Text.Body1_1>{review.title}</Text.Body1_1>
+                <Text.Body1_1>{title}</Text.Body1_1>
                 <img src="/icons/more.svg" alt="더보기" />
             </Wrapper.FlexBox>
 
             <ContentWrapper>
                 <UserWrapper>
-                    <Text.Body2_1>{review.nickName}님</Text.Body2_1>
+                    <Text.Body2_1>{nickName}님</Text.Body2_1>
                     <img src="/icons/fullStar.svg" alt="별" style={{ width: "15px" }} />
-                    <Text.Body2_1>{review.rating}</Text.Body2_1>
+                    <Text.Body2_1>{rating}</Text.Body2_1>
                 </UserWrapper>
 
-                {review.images.length > 0 && (
+                {images.length > 0 && (
                     <>
                         <ImageList>
-                            {review.images.map((imgUrl, idx) => (
+                            {images.map((imgUrl, idx) => (
                                 <img key={idx} src={imgUrl} alt={`리뷰이미지${idx + 1}`} />
                             ))}
                         </ImageList>
@@ -55,27 +68,25 @@ export default function ReviewListItem({ review, openedReviewId, setOpenedReview
                 )}
 
                 <Text.Body2>
-                    {review.review.length > 70 && !isReviewExpanded ? (
+                    {review.length > 70 && !isReviewExpanded ? (
                         <Text.Body2_1>
-                            {review.review.slice(0, 70)} ...{" "}
+                            {review.slice(0, 70)} ...{" "}
                             <Text.Body2_1 color="Gray3" onClick={() => toggleExpand("review")}>
                                 더보기
                             </Text.Body2_1>
                         </Text.Body2_1>
                     ) : (
-                        <Text.Body2_1>{review.review}</Text.Body2_1>
+                        <Text.Body2_1>{review}</Text.Body2_1>
                     )}
                 </Text.Body2>
 
                 <Wrapper.FlexBox direction="column" gap="8px">
                     <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
                         <Text.Body3_1 color="Gray3">
-                            {review.disclosure
-                                ? `게스트하우스에게만 공개 | ${timeAgo(review.reviewDate)}`
-                                : `${timeAgo(review.reviewDate)}`}
+                            {disclosure ? `게스트하우스에게만 공개 | ${timeAgo(reviewDate)}` : `${timeAgo(reviewDate)}`}
                         </Text.Body3_1>
 
-                        {!review.reviewComment && openedReviewId !== review.reviewId && (
+                        {!reviewComment && openedReviewId !== reviewId && (
                             <img
                                 src="/icons/comment_gray.svg"
                                 alt="댓글 버튼"
@@ -85,7 +96,7 @@ export default function ReviewListItem({ review, openedReviewId, setOpenedReview
                         )}
                     </Wrapper.FlexBox>
 
-                    {!review.reviewComment && openedReviewId === review.reviewId && (
+                    {!reviewComment && openedReviewId === reviewId && (
                         <Input
                             variant="comment"
                             value={text}
@@ -98,25 +109,25 @@ export default function ReviewListItem({ review, openedReviewId, setOpenedReview
                 </Wrapper.FlexBox>
             </ContentWrapper>
 
-            {review.reviewComment && (
+            {reviewComment && (
                 <CommentWrapper>
                     <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
-                        <Text.Body1_1>{review.hostNickName}</Text.Body1_1> <img src="/icons/more.svg" alt="더보기" />
+                        <Text.Body1_1>{hostNickName}</Text.Body1_1> <img src="/icons/more.svg" alt="더보기" />
                     </Wrapper.FlexBox>
                     <Text.Body2>
-                        {review.reviewComment.length > 70 && !isCommentExpanded ? (
+                        {reviewComment.length > 70 && !isCommentExpanded ? (
                             <Text.Body2_1>
-                                {review.reviewComment.slice(0, 70)} ...{" "}
+                                {reviewComment.slice(0, 70)} ...{" "}
                                 <Text.Body2_1 color="Gray3" onClick={() => toggleExpand("comment")}>
                                     더보기
                                 </Text.Body2_1>
                             </Text.Body2_1>
                         ) : (
-                            <Text.Body2_1>{review.reviewComment}</Text.Body2_1>
+                            <Text.Body2_1>{reviewComment}</Text.Body2_1>
                         )}
                     </Text.Body2>
                     <Wrapper.FlexBox justifyContent="flex-end">
-                        <Text.Body3 color="Gray4">{timeAgo(review.reviewCommentDate)}</Text.Body3>
+                        <Text.Body3 color="Gray4">{timeAgo(reviewCommentDate)}</Text.Body3>
                     </Wrapper.FlexBox>
                 </CommentWrapper>
             )}

@@ -42,7 +42,7 @@ export default function ReviewList({ data }: ReviewListProps) {
                         filteredReviews.map(item => (
                             <ReviewListItem
                                 key={item.reviewId}
-                                review={item}
+                                data={item}
                                 openedReviewId={openedReviewId}
                                 setOpenedReviewId={setOpenedReviewId}
                             />

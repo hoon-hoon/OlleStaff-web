@@ -3,8 +3,10 @@ import Header from "@/components/Header";
 import PageWrapper from "@/components/PageWrapper";
 import TabSelector from "@/components/TabSelector";
 import { OwnerTabTypes, TAB_LABELS } from "@/constants/tabs";
+import { Text } from "@/styles/Text";
+import { Wrapper } from "@/styles/Wrapper";
 import { GuesthouseListItemProps } from "@/types/guesthouse";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type RecruitTab = OwnerTabTypes["MY_RECRUIT"]; // "전체", "진행중인 공고", "마감공고"
 
@@ -89,6 +91,14 @@ const mockData: GuesthouseListItemProps[] = [
 export default function RecruitListPage() {
     const [sort, setSort] = useState<RecruitTab>("전체");
     const [data, setData] = useState<GuesthouseListItemProps[]>([]);
+
+    const filteredRecruits = useMemo(() => {
+        if (sort === "전체") return data;
+        if (sort === "진행중인 공고") return data.filter(item => !item.closed);
+        if (sort === "마감공고") return data.filter(item => item.closed);
+        return data;
+    }, [sort, data]);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -111,7 +121,17 @@ export default function RecruitListPage() {
                     onChange={value => setSort(value as RecruitTab)}
                     variant="bold"
                 />
-                <GuesthouseList data={data} />
+
+                <Wrapper.FlexBox direction="column" gap="20px">
+                    {filteredRecruits.length > 0 ? (
+                        filteredRecruits.map(item => <GuesthouseList key={item.id} data={[item]} />)
+                    ) : (
+                        <Wrapper.FlexBox gap="12px" justifyContent="center">
+                            <img src="/icons/oops.svg" alt="머쓱한 이모지" />
+                            <Text.Body1_1>작성된 후기가 없어요.</Text.Body1_1>
+                        </Wrapper.FlexBox>
+                    )}
+                </Wrapper.FlexBox>
             </PageWrapper>
         </>
     );
