@@ -15,11 +15,9 @@ interface CommentListProps {
 export default function CommentList({
     comments,
     openReplies,
-    loadedReplies,
     onReplyClick,
     onToggleReplies,
     accompanyId,
-    setLoadedReplies,
 }: CommentListProps) {
     return (
         <div>
@@ -34,12 +32,9 @@ export default function CommentList({
                             accompanyId={accompanyId}
                             onReplyClick={onReplyClick}
                             onToggleReplies={onToggleReplies}
-                            setLoadedReplies={setLoadedReplies}
-                            loadedReplies={loadedReplies}
                         />
                     );
                 }
-
                 return (
                     <CommentItem
                         key={comment.id}

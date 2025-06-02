@@ -84,9 +84,8 @@ export const useCreateReply = () => {
             return res.data;
         },
         onSuccess: (_, { accompanyId, commentId }) => {
-            queryClient.invalidateQueries({
-                queryKey: ["replies", accompanyId, commentId],
-            });
+            queryClient.invalidateQueries({ queryKey: ["replies", accompanyId, commentId] });
+            queryClient.invalidateQueries({ queryKey: ["comments", accompanyId] });
         },
         onError: err => {
             console.error("답글 작성 실패", err);
@@ -106,9 +105,8 @@ export const useDeleteReply = () => {
             return res.data;
         },
         onSuccess: (_, { accompanyId, commentId }) => {
-            queryClient.invalidateQueries({
-                queryKey: ["replies", accompanyId, commentId],
-            });
+            queryClient.invalidateQueries({ queryKey: ["replies", accompanyId, commentId] });
+            queryClient.invalidateQueries({ queryKey: ["comments", accompanyId] });
         },
         onError: err => {
             console.error("답글 삭제 실패", err);

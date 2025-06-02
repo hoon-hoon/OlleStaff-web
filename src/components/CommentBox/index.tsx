@@ -3,8 +3,8 @@ import { useCommentState } from "./useCommentState";
 import CommentList from "./CommentList";
 import CommentInput from "./CommentInput";
 import ReplyingNotice from "./ReplyingNotice";
-import { useCommentList } from "./useCommentList";
 import { Text } from "@/styles/Text";
+import { useCommentList } from "./useCommentQuery";
 
 export const CommentBox = ({ accompanyId, commentCount }: { accompanyId: number; commentCount: number }) => {
     const { openReplies, loadedReplies, toggleReplies, startReplyTo, activeReply, cancelReply, setLoadedReplies } =
