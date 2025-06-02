@@ -6,8 +6,10 @@ import PartnerRecruitmentCard from "./components/PartnerRecruitmentCard";
 import { Wrapper } from "@/styles/Wrapper";
 import { GuesthouseList } from "@/components/GuesthouseList";
 import { GuesthouseListItemProps } from "@/types/guesthouse";
+import ReviewList from "@/components/ReviewList";
+import { ReviewListItemProps } from "@/types/reviews";
 
-const mockData: GuesthouseListItemProps[] = [
+const recruitMockData: GuesthouseListItemProps[] = [
     {
         id: 1,
         title: "결 게스트하우스 스탭모집",
@@ -36,81 +38,40 @@ const mockData: GuesthouseListItemProps[] = [
         location: "성산읍",
         personnel: "남자 2명 모집",
     },
+];
+
+const reviewMockData: ReviewListItemProps[] = [
     {
-        id: 4,
-        title: "오션뷰 게스트하우스",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["뷰맛집", "바다", "프라이빗"],
-        description: "바다가 보이는 오션뷰 숙소",
-        location: "협재",
-        personnel: "여자 1명 모집",
-        closed: true,
-    },
-    {
-        id: 5,
-        title: "소소한 쉼터",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["힐링", "자연"],
-        description: "마음이 편안해지는 조용한 숙소",
-        location: "성산읍",
-        personnel: "남자 2명 모집",
-    },
-    {
-        id: 6,
-        title: "오션뷰 게스트하우스",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["뷰맛집", "바다", "프라이빗"],
-        description: "바다가 보이는 오션뷰 숙소",
-        location: "협재",
-        personnel: "여자 1명 모집",
-        closed: true,
-    },
-    {
-        id: 7,
-        title: "소소한 쉼터",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["힐링", "자연"],
-        description: "마음이 편안해지는 조용한 숙소",
-        location: "성산읍",
-        personnel: "남자 2명 모집",
-    },
-    {
-        id: 8,
-        title: "오션뷰 게스트하우스",
-        imageUrl: "/images/guesthouse3.png",
-        tags: ["뷰맛집", "바다", "프라이빗"],
-        description: "바다가 보이는 오션뷰 숙소",
-        location: "협재",
-        personnel: "여자 1명 모집",
-        closed: true,
+        hasNext: false,
+        countReview: 1,
+        averageRating: 4.5,
+        allReviewInfoDTOS: [
+            {
+                reviewId: 1,
+                rating: 4.8,
+                title: "올레 게스트하우스",
+                nickName: "테스트유저111",
+                images: [],
+                review: "깔끔하고 친절했어요!",
+                disclosure: true,
+                reviewComment: "또 오세요 :)",
+                reviewDate: 1747900000,
+                reviewCommentDate: 1747900000,
+                hostNickName: "호스트",
+            },
+        ],
     },
 ];
 
 export default function HomePage() {
     const navigate = useNavigate();
+    const [recruitData, setRecruitData] = useState<GuesthouseListItemProps[]>([]);
+    const [reviewData, setReviewData] = useState<ReviewListItemProps[]>([]);
 
-    const [data, setData] = useState<GuesthouseListItemProps[]>([]);
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setData(mockData);
-            } catch (error) {
-                console.error("카테고리 불러오기 실패", error);
-                setData([]);
-            }
-        };
-
-        fetchData();
+        setRecruitData(recruitMockData);
+        setReviewData(reviewMockData);
     }, []);
-
-    // 사업자인증 지워보기위한 함수
-    // const handleDeleteVerify = async () => {
-    //     // https://dev.ollestaff.com/users/guesthouse/business-registration
-    //     const res = await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/users/guesthouse/business-registration`, {
-    //         withCredentials: true,
-    //     });
-    //     console.log(res);
-    // };
 
     useEffect(() => {
         const checkApplicationStatus = async () => {
@@ -118,7 +79,7 @@ export default function HomePage() {
                 const user = await fetchMinimumUserInfo();
 
                 if (!user || !user.nickname) {
-                    navigate("/"); // 로그인 안 된 경우
+                    navigate("/");
                 } else if (!user.userType) {
                     navigate("/type-select");
                 } else if (!user.onboarded) {
@@ -126,7 +87,7 @@ export default function HomePage() {
                 }
             } catch (err) {
                 console.error("사용자 정보 확인 실패", err);
-                navigate("/"); // catch된 경우도 안전하게 리디렉션
+                navigate("/");
             }
         };
 
@@ -134,15 +95,35 @@ export default function HomePage() {
     }, []);
 
     return (
-        <>
-            <Wrapper.FlexBox direction="column" gap="32px">
-                <PartnerRecruitmentCard />
-                <SectionTitle title="진행 중인 나의 공고" link="/owner/recruitments-ongoing" />
-                <GuesthouseList data={data.filter(item => !item.closed).slice(0, 2)} />
+        <Wrapper.FlexBox direction="column" gap="32px">
+            <PartnerRecruitmentCard />
 
-                <SectionTitle title="작성된 후기" link="/owner/userinfo/review" />
+            <Wrapper.FlexBox direction="column" gap="16px">
+                {recruitData.length > 0 ? (
+                    <>
+                        <SectionTitle title="진행 중인 나의 공고" link="/owner/recruitments-ongoing" />
+                        <GuesthouseList data={recruitData.filter(item => !item.closed).slice(0, 2)} />
+                    </>
+                ) : (
+                    <>아직 진행 중인 공고가 없어요.</>
+                )}
             </Wrapper.FlexBox>
-            {/* <button onClick={handleDeleteVerify}>삭제</button> */}
-        </>
+
+            <Wrapper.FlexBox direction="column" gap="16px">
+                {reviewData.length > 0 ? (
+                    <>
+                        <SectionTitle title="작성된 후기" link="/owner/userinfo/reviews" />
+                        <ReviewList
+                            data={{
+                                ...reviewData[0],
+                                allReviewInfoDTOS: reviewData[0].allReviewInfoDTOS.slice(0, 1),
+                            }}
+                        />
+                    </>
+                ) : (
+                    <>아직 작성된 후기가 없어요.</>
+                )}
+            </Wrapper.FlexBox>
+        </Wrapper.FlexBox>
     );
 }

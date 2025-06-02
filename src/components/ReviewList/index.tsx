@@ -5,6 +5,7 @@ import ReviewListItem from "./ReviewListItem";
 import { ReviewListItemProps } from "@/types/reviews";
 import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
+import { useLocation } from "react-router-dom";
 
 type ReviewTab = OwnerTabTypes["REVIEW_MANAGE"]; // "전체" | "완료됨"
 
@@ -22,15 +23,19 @@ export default function ReviewList({ data }: ReviewListProps) {
 
     const [openedReviewId, setOpenedReviewId] = useState<number | null>(null);
 
+    const location = useLocation();
+    const isOwnerRoot = location.pathname === "/owner";
     return (
         <>
             <div>
-                <TabSelector
-                    variant="bold"
-                    labels={[...TAB_LABELS.OWNER.REVIEW_MANAGE]}
-                    selected={sort}
-                    onChange={value => setSort(value as ReviewTab)}
-                />
+                {!isOwnerRoot && (
+                    <TabSelector
+                        variant="bold"
+                        labels={[...TAB_LABELS.OWNER.REVIEW_MANAGE]}
+                        selected={sort}
+                        onChange={value => setSort(value as ReviewTab)}
+                    />
+                )}
 
                 <Wrapper.FlexBox direction="column" gap="20px">
                     {filteredReviews.length > 0 ? (
