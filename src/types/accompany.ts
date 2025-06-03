@@ -7,6 +7,7 @@ export interface AccompanyListItemProps {
     images: string[];
     userId: number;
     userNickname: string;
+    userImage?: string;
     like: boolean;
     likeCount: number;
     commentCount: number;

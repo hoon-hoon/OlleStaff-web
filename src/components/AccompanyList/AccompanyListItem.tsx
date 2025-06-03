@@ -14,6 +14,7 @@ export const AccompanyListItem = ({
     userNickname,
     likeCount,
     commentCount,
+    userImage,
 }: AccompanyListItemProps) => {
     const navigate = useNavigate();
     const handleClick = () => {
@@ -29,6 +30,7 @@ export const AccompanyListItem = ({
                     userNickname,
                     likeCount,
                     commentCount,
+                    userImage,
                 },
             },
         });
