@@ -23,8 +23,6 @@ export default function AccompanyDetailPage() {
         setViewerOpen(true);
     };
 
-    console.log("userImage in detail:", userImage);
-
     return (
         <>
             <Header showBackButton title="" />
