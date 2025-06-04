@@ -10,7 +10,8 @@ const DaumPostcodeEmbed = RawPostcode as unknown as React.FC<any>;
 interface LocationSelectorProps {
     latitude: number;
     longitude: number;
-    onChange: (lat: number, lng: number) => void;
+    locationName: string;
+    onChange: (lat: number, lng: number, locationName: string) => void;
 }
 
 export default function LocationSelector({ onChange }: LocationSelectorProps) {
@@ -24,7 +25,7 @@ export default function LocationSelector({ onChange }: LocationSelectorProps) {
         setIsOpen(false);
 
         // 실제로는 주소 → 위경도 변환 로직 필요
-        onChange(33.499621, 126.531188); // 예시값 (제주시)
+        onChange(33.499621, 126.531188, data.address);
     };
 
     return (

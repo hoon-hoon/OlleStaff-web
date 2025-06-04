@@ -1,5 +1,5 @@
 export interface EmploymentPostProps {
-    instaUrl: string;
+    instarUrl: string;
     personNum: number;
     sex: "all" | "male" | "female";
     startedAt: string;
@@ -10,7 +10,7 @@ export interface EmploymentPostProps {
     category: string;
     latitude: number;
     longitude: number;
-    // location : string
+    locationName: string;
     hashtagName: string[];
     benefitsContent: string[];
     precautions: {

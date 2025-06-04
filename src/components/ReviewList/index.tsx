@@ -24,7 +24,7 @@ export default function ReviewList({ data }: ReviewListProps) {
     const [openedReviewId, setOpenedReviewId] = useState<number | null>(null);
 
     const location = useLocation();
-    const isOwnerRoot = location.pathname === "/owner";
+    const isOwnerRoot = location.pathname === "/owner" || "/";
     return (
         <>
             <div>

@@ -4,15 +4,16 @@ import PageWrapper from "@/components/PageWrapper";
 import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
 import PrecautionListItem from "../components/PrecautionListItem";
-import { EmploymentProps } from "@/types/employment";
+import { EmploymentPostProps } from "@/types/employment";
 
 interface Props {
-    formData: EmploymentProps;
-    setFormData: React.Dispatch<React.SetStateAction<EmploymentProps>>;
-    onSubmit: () => void;
+    formData: EmploymentPostProps;
+    setFormData: React.Dispatch<React.SetStateAction<EmploymentPostProps>>;
+    imageFiles: File[];
+    handleSubmit: () => void;
 }
 
-export default function RecruitPrecautionPage({ formData, setFormData, onSubmit }: Props) {
+export default function RecruitPrecautionPage({ formData, setFormData, handleSubmit }: Props) {
     return (
         <>
             <Header title="주의사항 작성" showBackButton />
@@ -27,7 +28,7 @@ export default function RecruitPrecautionPage({ formData, setFormData, onSubmit 
                         values={formData.precautions}
                         onChange={updated => setFormData(prev => ({ ...prev, precautions: updated }))}
                     />
-                    <Button label="작성 완료" width="large" onClick={onSubmit}>
+                    <Button label="작성 완료" width="large" onClick={handleSubmit}>
                         작성 완료
                     </Button>
                 </Wrapper.FlexBox>
