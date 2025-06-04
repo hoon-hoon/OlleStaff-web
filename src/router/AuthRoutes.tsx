@@ -12,6 +12,7 @@ import OwnerTermsPage from "@/pages/auth/OwnerTermsPage";
 import RecruitWriteContainer from "@/pages/owner/Recruit";
 import ReviewManagePage from "@/pages/owner/ReviewManagePage";
 import NotFoundPage from "@/pages/NotFoundPage";
+import RecruitDetailPage from "@/pages/RecruitDetailPage";
 const AuthRoutes: RouteObject[] = [
     {
         path: "/",
@@ -67,6 +68,10 @@ const AuthRoutes: RouteObject[] = [
     {
         path: "*",
         element: <NotFoundPage />,
+    },
+    {
+        path: "guesthouse/:employmentId",
+        element: <RecruitDetailPage />,
     },
 ];
 

@@ -16,7 +16,7 @@ export const GuesthouseListItem = ({
     const navigate = useNavigate();
 
     const handleClick = () => {
-        if (!closed) navigate(`/staff/guesthouse/${id}`);
+        if (!closed) navigate(`/guesthouse/${id}`);
     };
 
     return (
