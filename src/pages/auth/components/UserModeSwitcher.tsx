@@ -10,13 +10,14 @@ export default function UserModeSwitcher() {
 
     const userType = useUserStore(state => state.type);
     const nickname = useUserStore(state => state.nickname);
+    const profileImage = useUserStore(state => state.profileImage);
     const setUser = useUserStore(state => state.setUser);
 
     const modeLabel = userType === "STAFF" ? "게스트하우스" : "스텝";
 
     const handleToggleMode = () => {
         const nextType = userType === "STAFF" ? "GUESTHOUSE" : "STAFF";
-        setUser(nickname, nextType);
+        setUser(nickname, nextType, profileImage);
 
         if (nextType === "STAFF") {
             navigate("/staff");

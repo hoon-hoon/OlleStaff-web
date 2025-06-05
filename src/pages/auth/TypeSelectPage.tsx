@@ -17,7 +17,7 @@ export default function TypeSelectPage() {
         try {
             await patchUserType(selected as "STAFF" | "GUESTHOUSE");
             const userInfo = await fetchMinimumUserInfo();
-            useUserStore.getState().setUser(userInfo.nickname, userInfo.userType);
+            useUserStore.getState().setUser(userInfo.nickname, userInfo.userType, userInfo.profileImage);
 
             if (userInfo.userType === "STAFF") {
                 navigate("/staff");

@@ -14,11 +14,10 @@ export default function AccompanyDetailPage() {
     const { state } = useLocation();
 
     const { accompany } = state as { accompany: AccompanyListItemProps };
-    const { title, content, images, createdAt, userNickname, likeCount, commentCount } = accompany;
+    const { title, content, images, createdAt, userNickname, likeCount, commentCount, userImage } = accompany;
 
     const [isViewerOpen, setViewerOpen] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
     const handleImageClick = (idx: number) => {
         setCurrentImageIndex(idx);
         setViewerOpen(true);
@@ -29,7 +28,7 @@ export default function AccompanyDetailPage() {
             <Header showBackButton title="" />
             <PageWrapper hasHeader>
                 <MetaInfo>
-                    <ProfileImage src="/images/profile1.png" />
+                    <ProfileImage src={userImage || "/icons/defaultUser.svg"} alt="프로필 이미지" />
                     <MetaInfoText>
                         <Text.Body1_1>{userNickname}</Text.Body1_1>
                         <Text.Body2_1 color="Gray4">{timeAgo(createdAt)} 작성</Text.Body2_1>
