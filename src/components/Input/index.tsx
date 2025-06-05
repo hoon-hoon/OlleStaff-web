@@ -37,7 +37,7 @@ export default function Input(props: InputProps) {
         onLeftIconClick,
         bottomMessage,
         messageColor = "Red1",
-        readOnly
+        readOnly,
     } = props;
 
     const hasBottomMessage = "bottomMessage" in props;

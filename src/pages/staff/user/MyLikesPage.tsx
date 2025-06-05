@@ -11,21 +11,11 @@ export default function MyLikesPage() {
     const [filter, setFilter] = useState<StaffTabTypes["SAVED_POSTS"]>("공고");
     const [sfilter, ssetFilter] = useState<StaffTabTypes["SEARCH"]>("진행중인 공고");
 
-    const {
-        data: accompanyData,
-        isLoading: accompanyLoading,
-        refetch: refetchAccompany,
-    } = useMyLikeAccompany();
+    const { data: accompanyData, isLoading: accompanyLoading, refetch: refetchAccompany } = useMyLikeAccompany();
 
-    const {
-        data: openRecruitData,
-        refetch: refetchOpenRecruit,
-    } = useMyLikeRecruitOpen();
+    const { data: openRecruitData, refetch: refetchOpenRecruit } = useMyLikeRecruitOpen();
 
-    const {
-        data: closedRecruitData,
-        refetch: refetchClosedRecruit,
-    } = useMyLikeRecruitClosed();
+    const { data: closedRecruitData, refetch: refetchClosedRecruit } = useMyLikeRecruitClosed();
 
     useEffect(() => {
         if (filter === "동행") {
@@ -59,9 +49,8 @@ export default function MyLikesPage() {
                     />
                 )}
 
-                {filter === "동행" && (
-                    accompanyLoading ? <div>로딩 중</div> : <AccompanyList data={accompanyData || []} />
-                )}
+                {filter === "동행" &&
+                    (accompanyLoading ? <div>로딩 중</div> : <AccompanyList data={accompanyData || []} />)}
 
                 {filter === "공고" && (
                     <div>

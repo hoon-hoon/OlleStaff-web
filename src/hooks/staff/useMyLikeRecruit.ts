@@ -8,7 +8,7 @@ export const useMyLikeRecruitOpen = () => {
         queryFn: async () => {
             const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/recruits/like`, {
                 params: {
-                    type: "IN_PROGRESS", 
+                    type: "IN_PROGRESS",
                     cursor: null,
                     size: 20,
                 },

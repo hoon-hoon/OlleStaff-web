@@ -29,7 +29,11 @@ export default function MyReviewsPage() {
                 >
                     <Wrapper.FlexBox direction="column">
                         <Text.Body2_1 color="Gray4">2025.01.28 -2025.02.26</Text.Body2_1>
-                        <Text.Title2_1>결 게스트하우스의<br />스탭 일은 어떠셨나요?</Text.Title2_1>
+                        <Text.Title2_1>
+                            결 게스트하우스의
+                            <br />
+                            스탭 일은 어떠셨나요?
+                        </Text.Title2_1>
                     </Wrapper.FlexBox>
                     <Button label="작성 버튼" isActive width="large" onClick={() => {}}>
                         글 등록하기
