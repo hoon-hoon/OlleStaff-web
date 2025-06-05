@@ -22,7 +22,7 @@ const MenuList = [
             { title: "내가 작성한 게시글", link: "/staff/user/my-posts" },
             { title: "내가 작성한 댓글", link: "/staff/user/my-comments" },
             { title: "내가 작성한 후기", link: "/staff/user/my-reviews" },
-            { title: "내가 좋아한 글", link: "/staff/user/my-likes" },
+            { title: "내가 저장한 글", link: "/staff/user/my-likes" },
         ],
     },
 ];
