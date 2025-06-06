@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { GuesthouseListItem } from "./GuesthouseListItem";
+
 import { GuesthouseListItemProps } from "@/types/guesthouse";
 
 interface GuesthouseListProps {
@@ -10,7 +11,7 @@ export const GuesthouseList = ({ data }: GuesthouseListProps) => {
     return (
         <Wrapper>
             {data.map(item => (
-                <GuesthouseListItem key={item.id} {...item} />
+                <GuesthouseListItem key={item.employmentId} {...item} />
             ))}
         </Wrapper>
     );

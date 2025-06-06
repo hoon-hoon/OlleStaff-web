@@ -34,3 +34,9 @@ export type OwnerTabTypes = {
     CHAT_LIST: (typeof TAB_LABELS.OWNER.CHAT_LIST)[number];
     STAFF_APPLICATION: (typeof TAB_LABELS.OWNER.STAFF_APPLICATION)[number];
 };
+
+export const recruitTabToQueryType: Record<OwnerTabTypes["MY_RECRUIT"], "ALL" | "IN_PROGRESS" | "END"> = {
+    전체: "ALL",
+    "진행중인 공고": "IN_PROGRESS",
+    마감공고: "END",
+};

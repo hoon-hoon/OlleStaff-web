@@ -1,3 +1,4 @@
+// 공고 게시글 작성
 export interface EmploymentPostProps {
     instarUrl: string;
     personNum: number;
@@ -19,6 +20,7 @@ export interface EmploymentPostProps {
     }[];
 }
 
+// 공고 상세 보기
 export interface EmploymentGetProps {
     employmentId: number;
     images: string[];

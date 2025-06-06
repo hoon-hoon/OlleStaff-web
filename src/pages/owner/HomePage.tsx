@@ -5,19 +5,20 @@ import { useNavigate } from "react-router-dom";
 import PartnerRecruitmentCard from "./components/PartnerRecruitmentCard";
 import { Wrapper } from "@/styles/Wrapper";
 import { GuesthouseList } from "@/components/GuesthouseList";
-import { GuesthouseListItemProps } from "@/types/guesthouse";
 import ReviewList from "@/components/ReviewList";
 import { ReviewListItemProps } from "@/types/reviews";
 import Oops from "@/components/Oops";
-import { mockdata_recruits, mockdata_reviews } from "./mock";
+import { mockdata_reviews } from "./mock";
+import { useMyEmploymentList } from "@/hooks/owner/employment/useMyEmploymentList";
 
 export default function HomePage() {
     const navigate = useNavigate();
-    const [recruitData, setRecruitData] = useState<GuesthouseListItemProps[]>([]);
+
+    const { data } = useMyEmploymentList();
+
     const [reviewData, setReviewData] = useState<ReviewListItemProps | null>(null);
 
     useEffect(() => {
-        setRecruitData(mockdata_recruits);
         setReviewData(mockdata_reviews);
     }, []);
 
@@ -48,8 +49,8 @@ export default function HomePage() {
 
             <Wrapper.FlexBox direction="column" gap="16px">
                 <SectionTitle title="진행 중인 나의 공고" link="/owner/recruitments-ongoing" />
-                {recruitData.length > 0 ? (
-                    <GuesthouseList data={recruitData.filter(item => !item.closed).slice(0, 2)} />
+                {data && data.length > 0 ? (
+                    <GuesthouseList data={data.filter(item => !item.closed).slice(0, 2)} />
                 ) : (
                     <Oops
                         message="작성된 나의 공고가 없어요."

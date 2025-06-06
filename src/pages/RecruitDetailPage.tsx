@@ -54,12 +54,12 @@ export default function RecruitDetailPage() {
         },
         {
             icon: "/icons/addressBook.svg",
-            label: `${sex === "female" ? "여자" : sex === "male" ? "남자" : "성별무관"} ${personNum}명 모집`,
+            label: `${sex === "female" ? "여자" : sex === "male" ? "남자" : "전체"} ${personNum}명 모집`,
             alt: "모집 성별",
         },
         {
             icon: "/icons/calendar.svg",
-            label: `${formatDateToMonthDay(startedAt)}~${formatDateToMonthDay(endedAt)}`,
+            label: `${formatDateToMonthDay(startedAt)} ~ ${formatDateToMonthDay(endedAt)}`,
             alt: "활동 기간",
         },
         {

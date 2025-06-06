@@ -21,6 +21,22 @@ interface Props {
 }
 
 export default function RecruitBasicInfoPage({ formData, setFormData, onNext }: Props) {
+    const isFormValid =
+        formData.hashtagName.length > 0 && // hashtagName: string[];
+        formData.benefitsContent.length > 0 && // benefitsContent: string[];
+        formData.title.trim() !== "" && // title: string;
+        formData.content.trim() !== "" && // content: string;
+        formData.instarUrl.trim() !== "" && // instarUrl: string;
+        formData.startedAt.trim() !== "" && // startedAt: string;
+        formData.endedAt.trim() !== "" && // endedAt: string;
+        formData.recruitmentEnd.trim() !== "" && // recruitmentEnd: string;
+        formData.locationName.trim() !== "" && //     locationName: string;
+        formData.category.trim() !== "" && // category: string;
+        !!formData.personNum && //   personNum: number;
+        !!formData.sex && // sex: "all" | "male" | "female";
+        formData.latitude !== 0 && // latitude: number;
+        formData.longitude !== 0; // longitude: number;
+
     return (
         <>
             <Header title="게시글 작성" showBackButton />
@@ -61,7 +77,7 @@ export default function RecruitBasicInfoPage({ formData, setFormData, onNext }: 
 
                         <RadioButton
                             radioTitle="성별"
-                            labelList={["모두", "남자", "여자"]}
+                            labelList={["전체", "남자", "여자"]}
                             selectedIndex={formData.sex === "all" ? 0 : formData.sex === "male" ? 1 : 2}
                             onSelect={index => {
                                 const value = index === 0 ? "all" : index === 1 ? "male" : "female";
@@ -126,7 +142,13 @@ export default function RecruitBasicInfoPage({ formData, setFormData, onNext }: 
                         onChange={category => setFormData(prev => ({ ...prev, category }))}
                     />
 
-                    <Button label="다음으로" width="large" onClick={onNext}>
+                    <Button
+                        label="다음으로"
+                        width="large"
+                        onClick={onNext}
+                        disabled={!isFormValid}
+                        isActive={isFormValid}
+                    >
                         다음으로
                     </Button>
                 </Wrapper.FlexBox>
