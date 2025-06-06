@@ -13,15 +13,23 @@ import RecruitWriteContainer from "@/pages/owner/Recruit";
 import ReviewManagePage from "@/pages/owner/ReviewManagePage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import RecruitDetailPage from "@/pages/RecruitDetailPage";
+import FullscreenLayout from "@/layout/FullScreenLayout";
+
 const AuthRoutes: RouteObject[] = [
     {
         path: "/",
-        element: <AuthLayout />,
+        element: <FullscreenLayout />,
         children: [
             {
                 index: true,
                 element: <LoginPage />,
             },
+        ],
+    },
+    {
+        path: "/",
+        element: <AuthLayout />,
+        children: [
             {
                 path: "/signup",
                 element: <SignupPage />,
