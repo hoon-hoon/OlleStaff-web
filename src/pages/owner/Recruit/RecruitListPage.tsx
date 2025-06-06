@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Oops from "@/components/Oops";
 import PageWrapper from "@/components/PageWrapper";
 import TabSelector from "@/components/TabSelector";
-import { OwnerTabTypes, recruitTabToQueryType, TAB_LABELS } from "@/constants/tabs";
+import { OwnerTabTypes, TAB_LABELS } from "@/constants/tabs";
 import { Wrapper } from "@/styles/Wrapper";
 import { useMemo, useState } from "react";
 import { useMyEmploymentList } from "@/hooks/owner/employment/useMyEmploymentList";
@@ -12,8 +12,8 @@ type RecruitTab = OwnerTabTypes["MY_RECRUIT"]; // "전체", "진행중인 공고
 
 export default function RecruitListPage() {
     const [sort, setSort] = useState<RecruitTab>("전체");
-    const selectedType = recruitTabToQueryType[sort];
-    const { data } = useMyEmploymentList(selectedType);
+
+    const { data } = useMyEmploymentList();
 
     const filteredRecruits = useMemo(() => {
         if (!data) return [];

@@ -1,9 +1,10 @@
 import { GuesthouseListItemProps } from "@/types/guesthouse";
+import { isClosed } from "@/utils/date";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 // owner 관점에서 사용하는 내 공고 조회 (전체 | 진행중 | 마감)
-export const useMyEmploymentList = (type?: "ALL" | "IN_PROGRESS" | "END") => {
+export const useMyEmploymentList = () => {
     return useQuery<GuesthouseListItemProps[]>({
         queryKey: ["guesthouseList"],
         queryFn: async () => {
@@ -11,11 +12,17 @@ export const useMyEmploymentList = (type?: "ALL" | "IN_PROGRESS" | "END") => {
                 params: {
                     cursor: null,
                     pageSize: 20,
-                    type,
+                    type: "ALL",
                 },
                 withCredentials: true,
             });
-            return data.data.employmentPreviewDTOS;
+
+            const list = data.data.employmentPreviewDTOS;
+
+            return list.map((item: GuesthouseListItemProps) => ({
+                ...item,
+                closed: isClosed(item.recruitmentEnd),
+            }));
         },
     });
 };
