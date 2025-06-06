@@ -40,7 +40,7 @@ export default function ImageUploader({ maxImages = 6, onChange }: ImageUploader
             </Description>
             <Grid maxCount={maxImages}>
                 {images.map((img, index) => (
-                    <div style={{ position: "relative" }}>
+                    <div key={`${img.name}-${img.lastModified}`} style={{ position: "relative" }}>
                         <ImagePreview>
                             <img src={URL.createObjectURL(img)} alt={`uploaded-${index}`} />
                         </ImagePreview>

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import RecruitPrecautionPage from "./RecruitPrecautionPage";
-import { EmploymentProps } from "@/types/employment";
 import RecruitBasicInfoPage from "./RecruitBasicInfoPage";
+import { EmploymentPostProps } from "@/types/employment";
+import { EmploymentApi } from "@/apis/employment";
 
-const initialFormData: EmploymentProps = {
-    instaUrl: "",
+const initialFormData: EmploymentPostProps = {
+    instarUrl: "",
     personNum: 0,
     sex: "all",
     startedAt: "",
@@ -16,14 +17,26 @@ const initialFormData: EmploymentProps = {
     category: "",
     latitude: 0,
     longitude: 0,
+    locationName: "",
     hashtagName: [],
     benefitsContent: [],
     precautions: [{ precautionsTitle: "", precautionsContent: "" }],
 };
 
 export default function Recruit() {
-    const [formData, setFormData] = useState<EmploymentProps>(initialFormData);
+    const [formData, setFormData] = useState<EmploymentPostProps>(initialFormData);
+    const [imageFiles, _setImageFiles] = useState<File[]>([]);
+
     const navigate = useNavigate();
+
+    const handleSubmit = async () => {
+        try {
+            await EmploymentApi.postEmployment(formData, imageFiles); // imageFiles는 상태로 보관한 File[]
+            alert("공고 등록 완료");
+        } catch (error) {
+            console.error("공고 등록 실패", error);
+        }
+    };
 
     return (
         <Routes>
@@ -33,6 +46,7 @@ export default function Recruit() {
                     <RecruitBasicInfoPage
                         formData={formData}
                         setFormData={setFormData}
+                        imageFiles={imageFiles}
                         onNext={() => navigate("/owner/recruit/write/step2")}
                     />
                 }
@@ -43,9 +57,8 @@ export default function Recruit() {
                     <RecruitPrecautionPage
                         formData={formData}
                         setFormData={setFormData}
-                        onSubmit={() => {
-                            console.log("최종 제출", formData);
-                        }}
+                        imageFiles={imageFiles}
+                        handleSubmit={handleSubmit}
                     />
                 }
             />

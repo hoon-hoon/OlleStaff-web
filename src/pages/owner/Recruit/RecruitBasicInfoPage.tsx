@@ -1,5 +1,3 @@
-// import { useState } from "react";
-
 import { Button } from "@/components/Button";
 import DropdownButton from "@/components/DropdownButton";
 import Header from "@/components/Header";
@@ -13,12 +11,13 @@ import HashTagEditor from "../components/HashTagEditor";
 import BenefitListEditor from "../components/BenefitListEditor";
 import LocationSelector from "../components/LocationSelector";
 import CategorySelector from "../components/CategorySelector";
-import { EmploymentProps } from "@/types/employment";
+import { EmploymentPostProps } from "@/types/employment";
 
 interface Props {
-    formData: EmploymentProps;
-    setFormData: React.Dispatch<React.SetStateAction<EmploymentProps>>;
+    formData: EmploymentPostProps;
+    setFormData: React.Dispatch<React.SetStateAction<EmploymentPostProps>>;
     onNext: () => void;
+    imageFiles: File[];
 }
 
 export default function RecruitBasicInfoPage({ formData, setFormData, onNext }: Props) {
@@ -46,8 +45,8 @@ export default function RecruitBasicInfoPage({ formData, setFormData, onNext }: 
                         inputTitle="인스타 및 링크 URL"
                         placeholder="게스트하우스 대표 링크 1개를 첨부해 주세요."
                         variant="default"
-                        value={formData.instaUrl}
-                        onChange={e => setFormData(prev => ({ ...prev, instaUrl: e.target.value }))}
+                        value={formData.instarUrl}
+                        onChange={e => setFormData(prev => ({ ...prev, instarUrl: e.target.value }))}
                     />
 
                     <Wrapper.FlexBox>
@@ -114,9 +113,12 @@ export default function RecruitBasicInfoPage({ formData, setFormData, onNext }: 
                     />
 
                     <LocationSelector
+                        locationName={formData.locationName}
                         latitude={formData.latitude}
                         longitude={formData.longitude}
-                        onChange={(lat, lng) => setFormData(prev => ({ ...prev, latitude: lat, longitude: lng }))}
+                        onChange={(lat, lng, name) =>
+                            setFormData(prev => ({ ...prev, latitude: lat, longitude: lng, locationName: name }))
+                        }
                     />
 
                     <CategorySelector

@@ -6,6 +6,7 @@ import { ReviewInfo } from "@/types/reviews";
 import { useState } from "react";
 import { timeAgo } from "@/utils/date";
 import Input from "../Input";
+import ExpandableText from "../ExpandableText";
 interface ReviewListItemProps {
     data: ReviewInfo;
     openedReviewId: number | null;
@@ -25,14 +26,6 @@ export default function ReviewListItem({ data, openedReviewId, setOpenedReviewId
         reviewCommentDate,
         hostNickName,
     } = data;
-
-    const [isReviewExpanded, setIsReviewExpanded] = useState(false);
-    const [isCommentExpanded, setIsCommentExpanded] = useState(false);
-
-    const toggleExpand = (key: "review" | "comment") => {
-        if (key === "review") setIsReviewExpanded(prev => !prev);
-        if (key === "comment") setIsCommentExpanded(prev => !prev);
-    };
 
     const handleOpenComment = () => {
         setOpenedReviewId(openedReviewId === reviewId ? null : reviewId);
@@ -66,19 +59,9 @@ export default function ReviewListItem({ data, openedReviewId, setOpenedReviewId
                         </ImageList>
                     </>
                 )}
-
-                <Text.Body2>
-                    {review.length > 70 && !isReviewExpanded ? (
-                        <Text.Body2_1>
-                            {review.slice(0, 70)} ...{" "}
-                            <Text.Body2_1 color="Gray3" onClick={() => toggleExpand("review")}>
-                                더보기
-                            </Text.Body2_1>
-                        </Text.Body2_1>
-                    ) : (
-                        <Text.Body2_1>{review}</Text.Body2_1>
-                    )}
-                </Text.Body2>
+                <Text.Body2_1>
+                    <ExpandableText text={review} maxLength={100} />
+                </Text.Body2_1>
 
                 <Wrapper.FlexBox direction="column" gap="8px">
                     <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
@@ -114,18 +97,9 @@ export default function ReviewListItem({ data, openedReviewId, setOpenedReviewId
                     <Wrapper.FlexBox justifyContent="space-between" alignItems="center">
                         <Text.Body1_1>{hostNickName}</Text.Body1_1> <img src="/icons/more.svg" alt="더보기" />
                     </Wrapper.FlexBox>
-                    <Text.Body2>
-                        {reviewComment.length > 70 && !isCommentExpanded ? (
-                            <Text.Body2_1>
-                                {reviewComment.slice(0, 70)} ...{" "}
-                                <Text.Body2_1 color="Gray3" onClick={() => toggleExpand("comment")}>
-                                    더보기
-                                </Text.Body2_1>
-                            </Text.Body2_1>
-                        ) : (
-                            <Text.Body2_1>{reviewComment}</Text.Body2_1>
-                        )}
-                    </Text.Body2>
+                    <Text.Body2_1>
+                        <ExpandableText text={reviewComment} maxLength={70} />
+                    </Text.Body2_1>
                     <Wrapper.FlexBox justifyContent="flex-end">
                         <Text.Body3 color="Gray4">{timeAgo(reviewCommentDate)}</Text.Body3>
                     </Wrapper.FlexBox>
