@@ -36,7 +36,7 @@ const Style = {
             width: 14px;
             height: 9px;
             background-color: ${({ checked }) => (checked ? theme.color.Main : theme.color.Gray2)};
-            mask-image: url("/Tick.svg");
+            mask-image: url("/icons/tick.svg");
             mask-repeat: no-repeat;
             -webkit-mask-position: center;
             mask-position: center;

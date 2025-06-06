@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Text } from "@/styles/Text";
 import { Wrapper } from "@/styles/Wrapper";
+import theme from "@/styles/theme";
 
 export interface DropdownButtonProps {
     label: string;
@@ -62,9 +63,9 @@ const Style = {
     `,
     Button: styled.button`
         padding: 8px 12px;
-        border: 1px solid #ccc;
+        border: none;
         border-radius: 8px;
-        background-color: #fff;
+        background-color: ${theme.color.Gray0};
         cursor: pointer;
         font-size: 14px;
         color: #333;
@@ -78,7 +79,7 @@ const Style = {
         top: calc(100% + 4px);
         left: 0;
         border: 1px solid #ccc;
-        background-color: #fff;
+        background-color: ${theme.color.Gray0};
         border-radius: 8px;
         min-width: 100%;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);

@@ -5,7 +5,7 @@ import PageWrapper from "@/components/PageWrapper";
 export default function AuthLayout() {
     return (
         <>
-            <PageWrapper>
+            <PageWrapper isRoot>
                 <ContentWrapper>
                     <Outlet />
                 </ContentWrapper>

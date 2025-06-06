@@ -19,6 +19,7 @@ type InputProps = {
     onLeftIconClick?: () => void;
     bottomMessage?: string;
     messageColor?: keyof typeof theme.color;
+    readOnly?: boolean;
 };
 
 export default function Input(props: InputProps) {
@@ -36,6 +37,7 @@ export default function Input(props: InputProps) {
         onLeftIconClick,
         bottomMessage,
         messageColor = "Red1",
+        readOnly,
     } = props;
 
     const hasBottomMessage = "bottomMessage" in props;
@@ -55,6 +57,7 @@ export default function Input(props: InputProps) {
                         onChange={onChange}
                         placeholder={placeholder}
                         disabled={disabled}
+                        readOnly={readOnly}
                     />
                     {rightIcon && <RightIconArea onClick={onRightIconClick}>{rightIcon}</RightIconArea>}
                 </Wrapper>
@@ -80,12 +83,10 @@ const Wrapper = styled.div<{ variant: InputVariant }>`
     display: flex;
     align-items: center;
     padding: 0 12px;
-    background-color: ${theme.color.White};
-    border: 1px solid ${theme.color.Gray2};
     border-radius: ${({ variant }) => (variant === "default" ? "8px" : "40px")};
     height: 40px;
     width: 100%;
-    /* max-width: 333px; */
+    background-color: ${theme.color.Gray0};
 `;
 
 const StyledInput = styled.input`

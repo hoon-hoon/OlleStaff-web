@@ -5,6 +5,9 @@ import { GuesthouseList } from "@/components/GuesthouseList";
 import { GuesthouseListItemProps } from "@/types/guesthouse";
 import TabSelector from "@/components/TabSelector";
 import { useEffect, useState } from "react";
+import { StaffTabTypes, TAB_LABELS } from "@/constants/tabs";
+
+type SearchTab = StaffTabTypes["SEARCH"]; // "진행중인 공고", "마감공고"
 
 const mockData: GuesthouseListItemProps[] = [
     {
@@ -86,7 +89,7 @@ const mockData: GuesthouseListItemProps[] = [
 ];
 
 export default function CategoryPage() {
-    const [sort, setSort] = useState<"진행중인 공고" | "마감공고">("진행중인 공고");
+    const [sort, setSort] = useState<SearchTab>("진행중인 공고");
     const [data, setData] = useState<GuesthouseListItemProps[]>([]);
 
     useEffect(() => {
@@ -113,9 +116,9 @@ export default function CategoryPage() {
             <Header showBackButton title={label || "카테고리"} />
             <PageWrapper hasHeader>
                 <TabSelector
-                    labels={["진행중인 공고", "마감공고"]}
+                    labels={[...TAB_LABELS.STAFF.SEARCH]}
                     selected={sort}
-                    onChange={value => setSort(value as "진행중인 공고" | "마감공고")}
+                    onChange={value => setSort(value as SearchTab)}
                     variant="bold"
                 />
                 <GuesthouseList data={data} />

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Text } from "@/styles/Text";
+import theme from "@/styles/theme";
 
 export default function LoginPage() {
     const KAKAO_CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
@@ -7,18 +8,17 @@ export default function LoginPage() {
     const NAVER_CLIENT_ID = import.meta.env.VITE_NAVER_CLIENT_ID;
     const NAVER_REDIRECT_URI = import.meta.env.VITE_NAVER_REDIRECT_URI;
 
-    const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
     const handleKakaoLogin = () => {
-        window.location.href = kakaoAuthUrl;
+        const url = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+        window.location.href = url;
     };
 
     const handleNaverLogin = () => {
         const state = crypto.randomUUID();
         sessionStorage.setItem("naver_auth_state", state);
 
-        const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=${state}`;
-        window.location.href = naverAuthUrl;
+        const url = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=${state}`;
+        window.location.href = url;
     };
 
     const handleGoogleLogin = () => {
@@ -26,69 +26,94 @@ export default function LoginPage() {
     };
 
     return (
-        <Container>
-            {/* 임시 로고 */}
-            <Logo src="/logo.png" alt="logo" />
-            <Title color="Black">
-                제주도 숙박공간과
-                <br />
-                스텝의 연결고리
-            </Title>
+        <Background>
+            <TopSection>
+                <Text.Title3_1 color="White" style={{ textAlign: "center" }}>
+                    제주도 숙박공간과 스텝의 연결고리
+                </Text.Title3_1>
+                <LogoArea>
+                    <img src="/images/logo.svg" alt="올래스텝 로고" />
+                    <img src="/images/logo_text.png" alt="올래스텝" />
+                </LogoArea>
+            </TopSection>
 
             <ButtonContainer>
-                <SocialButton bgcolor="#FEE500" textcolor="#000000" onClick={handleKakaoLogin}>
-                    카카오 로그인
-                </SocialButton>
-                <SocialButton bgcolor="#03C75A" textcolor="#ffffff" onClick={handleNaverLogin}>
-                    네이버 로그인
-                </SocialButton>
-                <SocialButton bgcolor="#ffffff" textcolor="#000000" onClick={handleGoogleLogin}>
-                    이메일 로그인
-                </SocialButton>
+                <LoginButton bgColor="Kakao" onClick={handleKakaoLogin}>
+                    <LoginButtonIcon src="/icons/kakao.svg" alt="카카오 아이콘" />
+                    <Text.Title3_1 style={{ marginTop: "3px" }}>카카오 로그인</Text.Title3_1>
+                </LoginButton>
+
+                <LoginButton bgColor="Naver" onClick={handleNaverLogin}>
+                    <LoginButtonIcon src="/icons/naver.svg" alt="네이버 아이콘" />
+                    <Text.Title3_1 color="White" style={{ marginTop: "3px" }}>
+                        네이버 로그인
+                    </Text.Title3_1>
+                </LoginButton>
+
+                <LoginButton bgColor="White" onClick={handleGoogleLogin}>
+                    <LoginButtonIcon src="/icons/google.svg" alt="구글 아이콘" />
+                    <Text.Title3_1 style={{ marginTop: "3px" }}>구글 로그인</Text.Title3_1>{" "}
+                </LoginButton>
             </ButtonContainer>
-        </Container>
+        </Background>
     );
 }
 
-const Container = styled.div`
+const Background = styled.div`
+    width: 100%;
+    height: 100%;
+    background: url("/images/login.png") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 80px 16px 40px;
+    box-sizing: border-box;
+`;
+
+const TopSection = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    gap: 20px;
+    margin-top: 30px;
 `;
 
-const Title = styled(Text.Title3_1)`
-    text-align: center;
-`;
-
-const Logo = styled.img`
-    width: 100%;
-    height: auto;
-    background-color: #eee;
-    border-radius: 60px;
-    margin-bottom: 30px;
+const LogoArea = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
 `;
 
 const ButtonContainer = styled.div`
-    width: 100vw;
+    width: 100%;
     max-width: 333px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-top: 100px;
+    gap: 12px;
 `;
 
-const SocialButton = styled.button<{
-    bgcolor: string;
-    textcolor: string;
+const LoginButton = styled.button<{
+    bgColor: keyof typeof theme.color;
 }>`
-    width: 100%;
+    position: relative;
     display: flex;
-    height: 40px;
-    padding: 8px 16px;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 54px;
+    padding: 8px 16px;
     border: none;
-    background-color: ${({ bgcolor }) => bgcolor};
-    color: ${({ textcolor }) => textcolor};
+    border-radius: 8px;
+    background-color: ${({ bgColor }) => theme.color[bgColor]};
+    cursor: pointer;
+`;
+
+const LoginButtonIcon = styled.img`
+    position: absolute;
+    left: 16px;
+    width: 20px;
+    height: 20px;
 `;

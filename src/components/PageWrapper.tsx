@@ -49,6 +49,7 @@ const InnerContent = styled.div<{ $hasHeader: boolean; $hasNav: boolean; $isRoot
         return "100%";
     }};
     overflow-y: auto;
-    background-color: rgba(255, 255, 0, 0.2);
+    // 배경 구분용 노란색 색상 제거
+    /* background-color: rgba(255, 255, 0, 0.2); */
     scrollbar-width: none;
 `;

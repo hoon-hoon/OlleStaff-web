@@ -7,7 +7,7 @@ export default function PartnerRecruitmentCard() {
     const navigate = useNavigate();
 
     const handleWriteRecruitPost = () => {
-        navigate("/owner/recruit/write");
+        navigate("/owner/recruit/write/step1");
     };
     return (
         <>
@@ -17,6 +17,7 @@ export default function PartnerRecruitmentCard() {
                 border="1px solid #E4E4E4"
                 borderRadius="12px"
                 gap="20px"
+                bgColor="white"
             >
                 <Wrapper.FlexBox direction="column">
                     <Text.Title2_1>같이 일할 사람을 찾고 있다면?</Text.Title2_1>

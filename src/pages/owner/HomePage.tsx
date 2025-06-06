@@ -1,20 +1,25 @@
 import SectionTitle from "@/components/SectionTitle";
 import { fetchMinimumUserInfo } from "@/hooks/user/useFetchMinumumUserInfo";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PartnerRecruitmentCard from "./components/PartnerRecruitmentCard";
 import { Wrapper } from "@/styles/Wrapper";
+import { GuesthouseList } from "@/components/GuesthouseList";
+import { GuesthouseListItemProps } from "@/types/guesthouse";
+import ReviewList from "@/components/ReviewList";
+import { ReviewListItemProps } from "@/types/reviews";
+import Oops from "@/components/Oops";
+import { mockdata_recruits, mockdata_reviews } from "./mock";
 
 export default function HomePage() {
     const navigate = useNavigate();
+    const [recruitData, setRecruitData] = useState<GuesthouseListItemProps[]>([]);
+    const [reviewData, setReviewData] = useState<ReviewListItemProps | null>(null);
 
-    // const handleDeleteVerify = async () => {
-    //     // https://dev.ollestaff.com/users/guesthouse/business-registration
-    //     const res = await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/users/guesthouse/business-registration`, {
-    //         withCredentials: true,
-    //     });
-    //     console.log(res);
-    // };
+    useEffect(() => {
+        setRecruitData(mockdata_recruits);
+        setReviewData(mockdata_reviews);
+    }, []);
 
     useEffect(() => {
         const checkApplicationStatus = async () => {
@@ -22,7 +27,7 @@ export default function HomePage() {
                 const user = await fetchMinimumUserInfo();
 
                 if (!user || !user.nickname) {
-                    navigate("/"); // 로그인 안 된 경우
+                    navigate("/");
                 } else if (!user.userType) {
                     navigate("/type-select");
                 } else if (!user.onboarded) {
@@ -30,7 +35,7 @@ export default function HomePage() {
                 }
             } catch (err) {
                 console.error("사용자 정보 확인 실패", err);
-                navigate("/"); // catch된 경우도 안전하게 리디렉션
+                navigate("/");
             }
         };
 
@@ -38,13 +43,34 @@ export default function HomePage() {
     }, []);
 
     return (
-        <>
-            <Wrapper.FlexBox direction="column" gap="32px">
-                <PartnerRecruitmentCard />
-                <SectionTitle title="진행 중인 나의 공고" link="/owner/recruit" />
-                <SectionTitle title="작성된 후기" link="/owner/userinfo/review" />
+        <Wrapper.FlexBox direction="column" gap="32px">
+            <PartnerRecruitmentCard />
+
+            <Wrapper.FlexBox direction="column" gap="16px">
+                <SectionTitle title="진행 중인 나의 공고" link="/owner/recruitments-ongoing" />
+                {recruitData.length > 0 ? (
+                    <GuesthouseList data={recruitData.filter(item => !item.closed).slice(0, 2)} />
+                ) : (
+                    <Oops
+                        message="작성된 나의 공고가 없어요."
+                        description={`홈 > 게시글 작성하기로\n새로운 공고를 등록해 보세요!`}
+                    />
+                )}
             </Wrapper.FlexBox>
-            {/* <button onClick={handleDeleteVerify}>삭제</button> */}
-        </>
+
+            <Wrapper.FlexBox direction="column" gap="16px">
+                <SectionTitle title="작성된 후기" link="/owner/userinfo/reviews" />
+                {reviewData && reviewData.allReviewInfoDTOS.length > 0 ? (
+                    <ReviewList
+                        data={{
+                            ...reviewData,
+                            allReviewInfoDTOS: reviewData.allReviewInfoDTOS.slice(0, 1),
+                        }}
+                    />
+                ) : (
+                    <Oops message="작성된 나의 후기가 없어요." description="후기가 올라올 때까지 기다려주세요!" />
+                )}
+            </Wrapper.FlexBox>
+        </Wrapper.FlexBox>
     );
 }

@@ -52,6 +52,15 @@ export const Text = {
         line-height: 26px;
         letter-spacing: 0.4px;
     `,
+    Title2_2: styled.span<StyleText>`
+        ${baseTextStyle};
+        font-weight: 600;
+        font-size: 20px;
+        color: ${({ color }) => (color ? theme.color[color] : theme.color.Black)};
+        cursor: ${props => props.pointer && "pointer"};
+        line-height: 26px;
+        letter-spacing: 0.4px;
+    `,
     Title3: styled.span<StyleText>`
         ${baseTextStyle};
         font-weight: 400;

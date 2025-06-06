@@ -39,6 +39,7 @@ export default function CardCarousel() {
                 <Slide key={id} className="keen-slider__slide">
                     <ImageWrapper>
                         <StyledImage src={imageUrl} alt={name} />
+                        <DarkOverlay />
                     </ImageWrapper>
                     <Overlay>
                         <TextWrapper>
@@ -86,6 +87,16 @@ const StyledImage = styled.img`
     display: block;
 `;
 
+const DarkOverlay = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+`;
+
 const Overlay = styled.div`
     position: absolute;
     top: 12px;
@@ -93,7 +104,7 @@ const Overlay = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    pointer-events: none; // 클릭 막기 원치 않으면 제거
+    z-index: 2;
 `;
 
 const TextWrapper = styled.div`
@@ -108,4 +119,5 @@ const More = styled.div`
     bottom: 12px;
     right: 12px;
     pointer-events: auto;
+    z-index: 2;
 `;

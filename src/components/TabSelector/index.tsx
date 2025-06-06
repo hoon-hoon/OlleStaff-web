@@ -41,7 +41,7 @@ const TabButton = styled.button<{
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px 0;
+    /* padding: 8px 0; */
     width: ${({ variant }) => (variant === "underline" ? "100%" : "auto")};
 
     &::after {

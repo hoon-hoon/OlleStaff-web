@@ -16,12 +16,12 @@ export const GuesthouseListItem = ({
     const navigate = useNavigate();
 
     const handleClick = () => {
-        if (!closed) navigate(`/staff/guesthouse/${id}`);
+        if (!closed) navigate(`/guesthouse/${id}`);
     };
 
     return (
-        <Card onClick={handleClick} $closed={closed}>
-            <ImageWrapper>
+        <Card onClick={handleClick}>
+            <ImageWrapper $closed={closed}>
                 <StyledImage src={imageUrl} alt={title} />
             </ImageWrapper>
             <ContentWrapper>
@@ -42,7 +42,7 @@ export const GuesthouseListItem = ({
                 <Footer>
                     {closed ? (
                         <IconText>
-                            <img src="/Icon/check.svg" alt="마감됨" width={18} height={18} />
+                            <img src="/icons/check_gray.svg" alt="마감됨" width={18} height={18} />
                             <Text.Body3 color="Gray4" style={{ marginTop: "1px" }}>
                                 마감됨
                             </Text.Body3>
@@ -50,13 +50,13 @@ export const GuesthouseListItem = ({
                     ) : (
                         <>
                             <IconText>
-                                <Icon src="/Icon/locationIcon.svg" />
+                                <Icon src="/icons/locationIcon.svg" />
                                 <Text.Body3 color="Gray4" style={{ marginTop: "1px" }}>
                                     {location}
                                 </Text.Body3>
                             </IconText>
                             <IconText>
-                                <Icon src="/Icon/groupIcon.svg" />
+                                <Icon src="/icons/groupIcon.svg" />
                                 <Text.Body3 color="Gray4" style={{ marginTop: "1px" }}>
                                     {personnel}
                                 </Text.Body3>
@@ -69,24 +69,25 @@ export const GuesthouseListItem = ({
     );
 };
 
-const Card = styled.div<{ $closed: boolean }>`
+const Card = styled.div`
     display: flex;
     gap: 12px;
     padding: 13px 30px 12px 12px;
     border: 1px solid ${({ theme }) => theme.color.Gray1};
     border-radius: 8px;
     background-color: white;
-    opacity: ${({ $closed }) => ($closed ? 0.5 : 1)};
-    pointer-events: ${({ $closed }) => ($closed ? "none" : "auto")};
+
     cursor: pointer;
 `;
 
-const ImageWrapper = styled.div`
+const ImageWrapper = styled.div<{ $closed: boolean }>`
     width: 88px;
     height: 88px;
     flex-shrink: 0;
     border-radius: 4px;
     overflow: hidden;
+    opacity: ${({ $closed }) => ($closed ? 0.5 : 1)};
+    pointer-events: ${({ $closed }) => ($closed ? "none" : "auto")};
 `;
 
 const StyledImage = styled.img`
@@ -112,7 +113,7 @@ const Tag = styled.div`
     display: flex;
     height: 18px;
     align-items: center;
-    justify-contents: center;
+    justify-content: center;
     background-color: ${({ theme }) => theme.color.Gray0};
     border-radius: 40px;
     padding: 0px 10px;

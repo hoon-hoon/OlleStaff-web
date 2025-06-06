@@ -54,14 +54,14 @@ const StarFull = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url("/FullStar.svg") no-repeat center/contain;
+    background: url("/icons/fullStar.svg") no-repeat center/contain;
 `;
 
 const StarHalf = styled.div`
     position: absolute;
     width: 50%;
     height: 100%;
-    background: url("/HalfStar.svg") no-repeat center/contain; // 변경할 이미지
+    background: url("/icons/halfStar.svg") no-repeat center/contain; // 변경할 이미지
     overflow: hidden;
 `;
 
@@ -69,5 +69,5 @@ const StarEmpty = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url("/EmptyStar.svg") no-repeat center/contain;
+    background: url("/icons/emptyStar.svg") no-repeat center/contain;
 `;
