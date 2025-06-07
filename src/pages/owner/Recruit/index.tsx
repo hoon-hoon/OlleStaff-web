@@ -14,7 +14,7 @@ const initialFormData: EmploymentPostProps = {
     recruitmentEnd: "",
     title: "",
     content: "",
-    category: "",
+    category: "LARGE",
     latitude: 0,
     longitude: 0,
     locationName: "",
