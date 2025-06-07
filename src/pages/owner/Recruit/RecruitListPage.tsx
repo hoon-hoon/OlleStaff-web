@@ -4,7 +4,7 @@ import PageWrapper from "@/components/PageWrapper";
 import TabSelector from "@/components/TabSelector";
 import { OwnerTabTypes, TAB_LABELS } from "@/constants/tabs";
 import { Wrapper } from "@/styles/Wrapper";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useMyEmploymentList } from "@/hooks/owner/employment/useMyEmploymentList";
 import styled from "@emotion/styled";
 import { Text } from "@/styles/Text";
@@ -33,6 +33,10 @@ export default function RecruitListPage() {
     const handleToggleCheck = (id: number) => {
         setCheckedIds(prev => (prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]));
     };
+
+    useEffect(() => {
+        setCheckedIds([]);
+    }, [sort]);
 
     return (
         <>
