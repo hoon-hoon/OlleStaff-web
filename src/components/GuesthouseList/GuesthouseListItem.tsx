@@ -54,7 +54,9 @@ export const GuesthouseListItem = ({
                     <TagWrapper>
                         {hashtagName.slice(0, 2).map(tag => (
                             <Tag key={tag}>
-                                <Text.Body3_1 color="Gray4">{truncateText(tag, 4)}</Text.Body3_1>
+                                <Text.Body3_1 color="Gray4">
+                                    {truncateText(tag, isTrashIconActive ? 2 : 4)}
+                                </Text.Body3_1>
                             </Tag>
                         ))}
                         {hashtagName.length > 2 && (
@@ -64,8 +66,8 @@ export const GuesthouseListItem = ({
                         )}
                     </TagWrapper>
                     <Wrapper.FlexBox direction="column">
-                        <Text.Title3_1>{truncateText(title, 11)}</Text.Title3_1>
-                        <Text.Body3_1 color="Gray4">{truncateText(content, 18)}</Text.Body3_1>
+                        <Text.Title3_1>{truncateText(title, isTrashIconActive ? 9 : 11)}</Text.Title3_1>
+                        <Text.Body3_1 color="Gray4">{truncateText(content, isTrashIconActive ? 15 : 18)}</Text.Body3_1>
                     </Wrapper.FlexBox>
                     <Footer>
                         {closed ? (
@@ -80,7 +82,7 @@ export const GuesthouseListItem = ({
                                 <IconText>
                                     <Icon src="/icons/locationIcon.svg" />
                                     <Text.Body3 color="Gray4" style={{ marginTop: "1px" }}>
-                                        {truncateText(locationName, 9)}
+                                        {truncateText(locationName, isTrashIconActive ? 5 : 9)}
                                     </Text.Body3>
                                 </IconText>
                                 <IconText>
