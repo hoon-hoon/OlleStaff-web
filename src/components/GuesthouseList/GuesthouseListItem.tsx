@@ -42,7 +42,7 @@ export const GuesthouseListItem = ({
                 </TagWrapper>
                 <Wrapper.FlexBox direction="column">
                     <Text.Title3_1>{truncateText(title, 11)}</Text.Title3_1>
-                    <Text.Body3_1 color="Gray4">{truncateText(content, 20)}</Text.Body3_1>
+                    <Text.Body3_1 color="Gray4">{truncateText(content, 18)}</Text.Body3_1>
                 </Wrapper.FlexBox>
                 <Footer>
                     {closed ? (

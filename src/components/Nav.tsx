@@ -65,15 +65,18 @@ export default function Nav({ version }: NavProps) {
 }
 
 const NavWrapper = styled.div`
-    position: absolute;
+    position: fixed;
     bottom: 0;
-    left: 0;
-    width: 393px;
+    width: 100%;
+    max-width: 393px;
+    margin: 0 auto; // 가운데 정렬
     height: 78px;
     z-index: 10;
-    box-shadow: 0px -2px 6px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     padding: 0 30px;
     background-color: white;
+    // 사파리 홈 인디케이터와 겹치지 않게 Safe Area 지원
+    padding-bottom: env(safe-area-inset-bottom);
 `;

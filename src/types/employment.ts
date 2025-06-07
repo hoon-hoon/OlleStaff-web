@@ -30,10 +30,12 @@ export interface EmploymentGetProps {
     personNum: number;
     sex: "all" | "male" | "female";
     endedAt: string;
+    startedAt: string;
     recruitmentEnd: string;
     content: string;
     latitude: number;
     longitude: number;
     benefitsContent: string[];
     phoneNum: string;
+    locationName: string;
 }

@@ -11,10 +11,16 @@ import { calculateDDay, formatDateToMonthDay } from "@/utils/date";
 import { truncateText } from "@/utils/truncateText";
 import ExpandableText from "@/components/ExpandableText";
 import { useState } from "react";
+import ImageViewer from "@/components/ImageViewer";
 
 export default function RecruitDetailPage() {
     const [showAllBenefits, setShowAllBenefits] = useState(false);
-
+    const [isViewerOpen, setViewerOpen] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const handleImageClick = (idx: number) => {
+        setCurrentImageIndex(idx);
+        setViewerOpen(true);
+    };
     const userType = useUserStore(state => state.type);
     const { employmentId } = useParams<{ employmentId: string }>();
     const { data: detail, isLoading, error } = useEmploymentDetail(Number(employmentId));
@@ -79,8 +85,21 @@ export default function RecruitDetailPage() {
             />
             <PageWrapper hasHeader>
                 <Wrapper.FlexBox direction="column" padding="30px" gap="20px">
-                    {Array.isArray(images) &&
-                        images.map((item, idx) => <img src={item} key={idx} alt={`이미지 ${idx + 1}`} />)}
+                    {Array.isArray(images) && images.length > 0 && (
+                        <>
+                            {images.map((url, idx) => (
+                                <PostImage key={idx} src={url} onClick={() => handleImageClick(idx)} />
+                            ))}
+                        </>
+                    )}
+
+                    {isViewerOpen && (
+                        <ImageViewer
+                            images={images}
+                            startIndex={currentImageIndex}
+                            onClose={() => setViewerOpen(false)}
+                        />
+                    )}
 
                     <Wrapper.FlexBox gap="6px" style={{ flexWrap: "wrap" }}>
                         {Array.isArray(hashtagName) &&
@@ -197,4 +216,11 @@ const BenefitListWrapper = styled.ul`
     display: flex;
     flex-direction: column;
     gap: 8px;
+`;
+
+const PostImage = styled.img`
+    width: 100%;
+    border-radius: 8px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 `;
