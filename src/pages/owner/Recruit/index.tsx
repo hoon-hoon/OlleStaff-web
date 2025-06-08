@@ -25,7 +25,7 @@ const initialFormData: EmploymentPostProps = {
 
 export default function Recruit() {
     const [formData, setFormData] = useState<EmploymentPostProps>(initialFormData);
-    const [imageFiles, _setImageFiles] = useState<File[]>([]);
+    const [imageFiles, setImageFiles] = useState<File[]>([]);
 
     const navigate = useNavigate();
 
@@ -46,6 +46,7 @@ export default function Recruit() {
                     <RecruitBasicInfoPage
                         formData={formData}
                         setFormData={setFormData}
+                        setImageFiles={setImageFiles}
                         imageFiles={imageFiles}
                         onNext={() => navigate("/owner/recruit/write/step2")}
                     />

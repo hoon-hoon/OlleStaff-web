@@ -39,3 +39,27 @@ export interface EmploymentGetProps {
     phoneNum: string;
     locationName: string;
 }
+
+// 공고 게시글 수정
+export interface EmploymentPutProps {
+    employmentId: number;
+    instarUrl: string;
+    personNum: number;
+    sex: "all" | "male" | "female";
+    startedAt: string;
+    endedAt: string;
+    recruitmentEnd: string;
+    title: string;
+    content: string;
+    category: string;
+    latitude: number;
+    longitude: number;
+    locationName: string;
+    hashtagName: string[];
+    benefitsContent: string[];
+    precautions: {
+        precautionsTitle: string;
+        precautionsContent: string;
+    }[];
+    images: string[];
+}

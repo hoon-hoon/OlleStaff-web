@@ -16,11 +16,12 @@ import { EmploymentPostProps } from "@/types/employment";
 interface Props {
     formData: EmploymentPostProps;
     setFormData: React.Dispatch<React.SetStateAction<EmploymentPostProps>>;
+    setImageFiles: React.Dispatch<React.SetStateAction<File[]>>;
     onNext: () => void;
     imageFiles: File[];
 }
 
-export default function RecruitBasicInfoPage({ formData, setFormData, onNext }: Props) {
+export default function RecruitBasicInfoPage({ setImageFiles, formData, setFormData, onNext }: Props) {
     const isFormValid =
         formData.hashtagName.length > 0 && // hashtagName: string[];
         formData.benefitsContent.length > 0 && // benefitsContent: string[];
@@ -42,7 +43,7 @@ export default function RecruitBasicInfoPage({ formData, setFormData, onNext }: 
             <Header title="게시글 작성" showBackButton />
             <PageWrapper hasHeader>
                 <Wrapper.FlexBox direction="column" padding="30px" gap="20px">
-                    <ImageUploader maxImages={9} />
+                    <ImageUploader maxImages={9} onChange={setImageFiles} />
 
                     <HashTagEditor
                         values={formData.hashtagName}
