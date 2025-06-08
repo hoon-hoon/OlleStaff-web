@@ -12,6 +12,7 @@ import { truncateText } from "@/utils/truncateText";
 import ExpandableText from "@/components/ExpandableText";
 import { useState } from "react";
 import ImageViewer from "@/components/ImageViewer";
+import MapComponent from "../components/Map";
 
 export default function RecruitDetailPage() {
     const [showAllBenefits, setShowAllBenefits] = useState(false);
@@ -39,6 +40,8 @@ export default function RecruitDetailPage() {
         hashtagName,
         images,
         benefitsContent,
+        latitude,
+        longitude,
     } = detail.data;
 
     const handleEditClick = () => {};
@@ -161,12 +164,10 @@ export default function RecruitDetailPage() {
                     </BenefitListWrapper>
 
                     <Wrapper.FlexBox alignItems="center" gap="4px">
-                        <IconImage src="/icons/locationIcon.svg" alt="모집 마감일" />
-                        <Text.Body2>
-                            {locationName}
-                            {/* ({latitude}, {longitude}) */}
-                        </Text.Body2>
+                        <IconImage src="/icons/locationIcon.svg" alt="지역" />
+                        {locationName}
                     </Wrapper.FlexBox>
+                    <MapComponent latitude={latitude} longitude={longitude} />
                 </Wrapper.FlexBox>
             </PageWrapper>
         </>
