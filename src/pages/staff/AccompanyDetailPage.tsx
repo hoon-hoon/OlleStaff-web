@@ -1,5 +1,6 @@
 import { CommentBox } from "@/components/CommentBox";
 import Header from "@/components/Header";
+import ImageGrid from "@/components/ImageGrid";
 import ImageViewer from "@/components/ImageViewer";
 import PageWrapper from "@/components/PageWrapper";
 import { Text } from "@/styles/Text";
@@ -38,13 +39,7 @@ export default function AccompanyDetailPage() {
                     <Title>{title}</Title>
                     <Content style={{ whiteSpace: "pre-wrap" }}>{content}</Content>
                 </Wrapper.FlexBox>
-                {images.length > 0 && (
-                    <ImageGrid>
-                        {images.map((url, idx) => (
-                            <PostImage key={idx} src={url} onClick={() => handleImageClick(idx)} />
-                        ))}
-                    </ImageGrid>
-                )}
+                {images.length > 0 && <ImageGrid images={images} onImageClick={handleImageClick} />}
 
                 {isViewerOpen && (
                     <ImageViewer images={images} startIndex={currentImageIndex} onClose={() => setViewerOpen(false)} />
@@ -100,20 +95,6 @@ const Title = styled(Text.Title2_1)`
 const Content = styled(Text.Body1)`
     white-space: pre-wrap;
     margin-bottom: 16px;
-`;
-
-const ImageGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    margin-bottom: 16px;
-`;
-
-const PostImage = styled.img`
-    width: 100%;
-    border-radius: 8px;
-    aspect-ratio: 1/1;
-    object-fit: cover;
 `;
 
 const ReactionBar = styled.div`
