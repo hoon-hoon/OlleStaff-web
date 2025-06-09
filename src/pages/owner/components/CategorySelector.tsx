@@ -22,6 +22,11 @@ export default function CategorySelector({ value, onChange }: CategorySelectorPr
         Object.entries(categoryMap).map(([ko, en]) => [en, ko])
     );
 
+    const getSelectedIndex = (value: string) => {
+        const selectedCategory = reverseMap[value];
+        return selectedCategory ? categories.indexOf(selectedCategory) : 0;
+    };
+
     return (
         <Wrapper.FlexBox direction="column">
             <Wrapper.FlexBox alignItems="flex-start" justifyContent="space-between">
@@ -32,9 +37,7 @@ export default function CategorySelector({ value, onChange }: CategorySelectorPr
             <RadioButton
                 radioTitle=""
                 labelList={categories}
-                selectedIndex={
-                    categories.includes(reverseMap[value] || "") ? categories.indexOf(reverseMap[value] || "") : 0
-                }
+                selectedIndex={getSelectedIndex(value)}
                 onSelect={index => onChange(categoryMap[categories[index]])}
             />
         </Wrapper.FlexBox>

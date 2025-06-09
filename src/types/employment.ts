@@ -1,3 +1,4 @@
+// 공고 게시글 작성
 export interface EmploymentPostProps {
     instarUrl: string;
     personNum: number;
@@ -19,6 +20,7 @@ export interface EmploymentPostProps {
     }[];
 }
 
+// 공고 상세 보기
 export interface EmploymentGetProps {
     employmentId: number;
     images: string[];
@@ -28,10 +30,36 @@ export interface EmploymentGetProps {
     personNum: number;
     sex: "all" | "male" | "female";
     endedAt: string;
+    startedAt: string;
     recruitmentEnd: string;
     content: string;
     latitude: number;
     longitude: number;
     benefitsContent: string[];
     phoneNum: string;
+    locationName: string;
+}
+
+// 공고 게시글 수정
+export interface EmploymentPutProps {
+    employmentId: number;
+    instarUrl: string;
+    personNum: number;
+    sex: "all" | "male" | "female";
+    startedAt: string;
+    endedAt: string;
+    recruitmentEnd: string;
+    title: string;
+    content: string;
+    category: string;
+    latitude: number;
+    longitude: number;
+    locationName: string;
+    hashtagName: string[];
+    benefitsContent: string[];
+    precautions: {
+        precautionsTitle: string;
+        precautionsContent: string;
+    }[];
+    images: string[];
 }

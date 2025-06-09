@@ -12,7 +12,7 @@ import OwnerTermsPage from "@/pages/auth/OwnerTermsPage";
 import RecruitWriteContainer from "@/pages/owner/Recruit";
 import ReviewManagePage from "@/pages/owner/ReviewManagePage";
 import NotFoundPage from "@/pages/NotFoundPage";
-import RecruitDetailPage from "@/pages/RecruitDetailPage";
+import RecruitDetailPage from "@/pages/owner/Recruit/RecruitDetailPage";
 import FullscreenLayout from "@/layout/FullScreenLayout";
 
 const AuthRoutes: RouteObject[] = [

@@ -2,82 +2,114 @@ import styled from "@emotion/styled";
 import { Text } from "@/styles/Text";
 import { GuesthouseListItemProps } from "@/types/guesthouse";
 import { useNavigate } from "react-router-dom";
+import { truncateText } from "@/utils/truncateText";
+import { Wrapper } from "@/styles/Wrapper";
+
+interface Props extends GuesthouseListItemProps {
+    isTrashIconActive?: boolean;
+    isChecked?: boolean;
+    onCheckToggle?: (employmentId: number) => void;
+}
 
 export const GuesthouseListItem = ({
-    id,
-    imageUrl,
-    tags,
+    employmentId,
+    image,
+    hashtagName,
     title,
-    description,
-    location,
-    personnel,
+    content,
+    locationName,
+    personNum,
+    sex,
     closed = false,
-}: GuesthouseListItemProps) => {
+    isTrashIconActive = false,
+    isChecked = false,
+    onCheckToggle,
+}: Props) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        if (!closed) navigate(`/guesthouse/${id}`);
+        if (!isTrashIconActive) {
+            navigate(`/guesthouse/${employmentId}`);
+        }
+    };
+
+    const handleCheckToggle = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        onCheckToggle?.(employmentId);
     };
 
     return (
-        <Card onClick={handleClick}>
-            <ImageWrapper $closed={closed}>
-                <StyledImage src={imageUrl} alt={title} />
-            </ImageWrapper>
-            <ContentWrapper>
-                <TagWrapper>
-                    {tags.slice(0, 2).map(tag => (
-                        <Tag key={tag}>
-                            <Text.Body3_1 color="Gray4">{tag}</Text.Body3_1>
-                        </Tag>
-                    ))}
-                    {tags.length > 2 && (
-                        <Tag>
-                            <Text.Body3_1 color="Gray4">+{tags.length - 2}</Text.Body3_1>
-                        </Tag>
-                    )}
-                </TagWrapper>
-                <Text.Title3_1>{title}</Text.Title3_1>
-                <Text.Body3_1 color="Gray4">{description}</Text.Body3_1>
-                <Footer>
-                    {closed ? (
-                        <IconText>
-                            <img src="/icons/check_gray.svg" alt="마감됨" width={18} height={18} />
-                            <Text.Body3 color="Gray4" style={{ marginTop: "1px" }}>
-                                마감됨
-                            </Text.Body3>
-                        </IconText>
-                    ) : (
-                        <>
+        <Wrapper.FlexBox alignItems="center" gap="10px">
+            {isTrashIconActive && (
+                <CheckBoxWrapper onClick={handleCheckToggle}>
+                    <img src={isChecked ? "/icons/circle.svg" : "/icons/emptyCircle.svg"} alt="선택 체크박스" />
+                </CheckBoxWrapper>
+            )}
+
+            <Card onClick={handleClick}>
+                <ImageWrapper $closed={closed}>
+                    <StyledImage src={image} alt={title} />
+                </ImageWrapper>
+                <ContentWrapper>
+                    <TagWrapper>
+                        {hashtagName.slice(0, 2).map(tag => (
+                            <Tag key={tag}>
+                                <Text.Body3_1 color="Gray4">
+                                    {truncateText(tag, isTrashIconActive ? 2 : 4)}
+                                </Text.Body3_1>
+                            </Tag>
+                        ))}
+                        {hashtagName.length > 2 && (
+                            <Tag>
+                                <Text.Body3_1 color="Gray4">+{hashtagName.length - 2}</Text.Body3_1>
+                            </Tag>
+                        )}
+                    </TagWrapper>
+                    <Wrapper.FlexBox direction="column">
+                        <Text.Title3_1>{truncateText(title, isTrashIconActive ? 9 : 11)}</Text.Title3_1>
+                        <Text.Body3_1 color="Gray4">{truncateText(content, isTrashIconActive ? 15 : 18)}</Text.Body3_1>
+                    </Wrapper.FlexBox>
+                    <Footer>
+                        {closed ? (
                             <IconText>
-                                <Icon src="/icons/locationIcon.svg" />
+                                <img src="/icons/check_gray.svg" alt="마감됨" width={18} height={18} />
                                 <Text.Body3 color="Gray4" style={{ marginTop: "1px" }}>
-                                    {location}
+                                    마감됨
                                 </Text.Body3>
                             </IconText>
-                            <IconText>
-                                <Icon src="/icons/groupIcon.svg" />
-                                <Text.Body3 color="Gray4" style={{ marginTop: "1px" }}>
-                                    {personnel}
-                                </Text.Body3>
-                            </IconText>
-                        </>
-                    )}
-                </Footer>
-            </ContentWrapper>
-        </Card>
+                        ) : (
+                            <>
+                                <IconText>
+                                    <Icon src="/icons/locationIcon.svg" />
+                                    <Text.Body3 color="Gray4" style={{ marginTop: "1px" }}>
+                                        {truncateText(locationName, isTrashIconActive ? 5 : 9)}
+                                    </Text.Body3>
+                                </IconText>
+                                <IconText>
+                                    <Icon src="/icons/groupIcon.svg" />
+                                    <Text.Body3 color="Gray4" style={{ marginTop: "1px" }}>
+                                        {sex === "female" ? "여자" : sex === "male" ? "남자" : "전체"} {personNum}명
+                                        모집
+                                    </Text.Body3>
+                                </IconText>
+                            </>
+                        )}
+                    </Footer>
+                </ContentWrapper>
+            </Card>
+        </Wrapper.FlexBox>
     );
 };
 
 const Card = styled.div`
     display: flex;
     gap: 12px;
-    padding: 13px 30px 12px 12px;
+    padding: 13px;
     border: 1px solid ${({ theme }) => theme.color.Gray1};
     border-radius: 8px;
     background-color: white;
-
     cursor: pointer;
+    width: 100%;
 `;
 
 const ImageWrapper = styled.div<{ $closed: boolean }>`
@@ -101,12 +133,13 @@ const ContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
     flex: 1;
+    justify-content: space-between;
 `;
 
 const TagWrapper = styled.div`
     display: flex;
     gap: 4px;
-    margin-bottom: 4px;
+    width: 100%;
 `;
 
 const Tag = styled.div`
@@ -122,7 +155,8 @@ const Tag = styled.div`
 const Footer = styled.div`
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    height: 14px;
 `;
 
 const IconText = styled.div`
@@ -134,4 +168,9 @@ const IconText = styled.div`
 const Icon = styled.img`
     width: 12px;
     height: 12px;
+`;
+const CheckBoxWrapper = styled.div`
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 `;
