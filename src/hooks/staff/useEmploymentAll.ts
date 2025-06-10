@@ -9,9 +9,17 @@ interface UseEmploymentAllProps {
     pageSize?: number;
     cursorId?: number;
     category?: string;
+    enabled?: boolean;
 }
 
-export const useEmploymentAll = ({ type, search = "", pageSize = 10, cursorId, category }: UseEmploymentAllProps) => {
+export const useEmploymentAll = ({
+    type,
+    search = "",
+    pageSize = 10,
+    cursorId,
+    category,
+    enabled = true,
+}: UseEmploymentAllProps) => {
     return useQuery<GuesthouseListItemProps[]>({
         queryKey: ["employmentAll", type, search, pageSize, cursorId, category],
         queryFn: async () => {
@@ -33,6 +41,7 @@ export const useEmploymentAll = ({ type, search = "", pageSize = 10, cursorId, c
                 closed: isClosed(item.recruitmentEnd),
             }));
         },
+        enabled,
         staleTime: 1000 * 60,
     });
 };
