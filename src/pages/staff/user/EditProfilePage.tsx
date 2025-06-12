@@ -45,10 +45,6 @@ export default function EditProfilePage() {
         }
     }, [user, setUserInfo]);
 
-    const handleToggleEdit = () => {
-        setIsEditMode(prev => !prev);
-    };
-
     const handleSubmit = () => {
         if (user) {
             if (!validate({ skipBirthDateCheck: true, originalPhone: user.phone })) return;
@@ -86,8 +82,8 @@ export default function EditProfilePage() {
             <Header
                 showBackButton
                 title="개인정보 수정"
-                rightIconSrc="/icons/pencil.svg"
-                onRightClick={handleToggleEdit}
+                rightIconSrc={isEditMode ? undefined : "/icons/pencil.svg"}
+                onRightClick={() => setIsEditMode(true)}
             />
             <PageWrapper hasHeader>
                 <Wrapper.FlexBox
