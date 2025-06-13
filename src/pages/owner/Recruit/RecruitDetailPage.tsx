@@ -11,10 +11,17 @@ import { calculateDDay, formatDateToMonthDay } from "@/utils/date";
 import { truncateText } from "@/utils/truncateText";
 import ExpandableText from "@/components/ExpandableText";
 import { useState } from "react";
+import ImageViewer from "@/components/ImageViewer";
+import MapComponent from "../components/Map";
 
 export default function RecruitDetailPage() {
     const [showAllBenefits, setShowAllBenefits] = useState(false);
-
+    const [isViewerOpen, setViewerOpen] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const handleImageClick = (idx: number) => {
+        setCurrentImageIndex(idx);
+        setViewerOpen(true);
+    };
     const userType = useUserStore(state => state.type);
     const { employmentId } = useParams<{ employmentId: string }>();
     const { data: detail, isLoading, error } = useEmploymentDetail(Number(employmentId));
@@ -33,6 +40,8 @@ export default function RecruitDetailPage() {
         hashtagName,
         images,
         benefitsContent,
+        latitude,
+        longitude,
     } = detail.data;
 
     const handleEditClick = () => {};
@@ -54,12 +63,12 @@ export default function RecruitDetailPage() {
         },
         {
             icon: "/icons/addressBook.svg",
-            label: `${sex === "female" ? "여자" : sex === "male" ? "남자" : "성별무관"} ${personNum}명 모집`,
+            label: `${sex === "female" ? "여자" : sex === "male" ? "남자" : "전체"} ${personNum}명 모집`,
             alt: "모집 성별",
         },
         {
             icon: "/icons/calendar.svg",
-            label: `${formatDateToMonthDay(startedAt)}~${formatDateToMonthDay(endedAt)}`,
+            label: `${formatDateToMonthDay(startedAt)} ~ ${formatDateToMonthDay(endedAt)}`,
             alt: "활동 기간",
         },
         {
@@ -79,8 +88,21 @@ export default function RecruitDetailPage() {
             />
             <PageWrapper hasHeader>
                 <Wrapper.FlexBox direction="column" padding="30px" gap="20px">
-                    {Array.isArray(images) &&
-                        images.map((item, idx) => <img src={item} key={idx} alt={`이미지 ${idx + 1}`} />)}
+                    {Array.isArray(images) && images.length > 0 && (
+                        <>
+                            {images.map((url, idx) => (
+                                <PostImage key={idx} src={url} onClick={() => handleImageClick(idx)} />
+                            ))}
+                        </>
+                    )}
+
+                    {isViewerOpen && (
+                        <ImageViewer
+                            images={images}
+                            startIndex={currentImageIndex}
+                            onClose={() => setViewerOpen(false)}
+                        />
+                    )}
 
                     <Wrapper.FlexBox gap="6px" style={{ flexWrap: "wrap" }}>
                         {Array.isArray(hashtagName) &&
@@ -142,12 +164,10 @@ export default function RecruitDetailPage() {
                     </BenefitListWrapper>
 
                     <Wrapper.FlexBox alignItems="center" gap="4px">
-                        <IconImage src="/icons/locationIcon.svg" alt="모집 마감일" />
-                        <Text.Body2>
-                            {locationName}
-                            {/* ({latitude}, {longitude}) */}
-                        </Text.Body2>
+                        <IconImage src="/icons/locationIcon.svg" alt="지역" />
+                        {locationName}
                     </Wrapper.FlexBox>
+                    <MapComponent latitude={latitude} longitude={longitude} />
                 </Wrapper.FlexBox>
             </PageWrapper>
         </>
@@ -197,4 +217,11 @@ const BenefitListWrapper = styled.ul`
     display: flex;
     flex-direction: column;
     gap: 8px;
+`;
+
+const PostImage = styled.img`
+    width: 100%;
+    border-radius: 8px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 `;

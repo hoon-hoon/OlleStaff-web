@@ -1,10 +1,14 @@
 export interface GuesthouseListItemProps {
-    id: number;
-    imageUrl: string;
-    tags: string[];
+    employmentId: number;
+    image: string;
+    hashtagName: string[];
     title: string;
-    description: string;
-    location: string;
-    personnel: string;
+    sex: "all" | "female" | "male";
+    recruitmentEnd: string;
+    content: string;
+    // latitude: number;
+    // longitude: number;
+    locationName: string;
+    personNum: number;
     closed?: boolean;
 }

@@ -34,10 +34,16 @@ export function calculateDDay(targetDateStr: string): string {
     const diffTime = target.getTime() - today.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-    return diffDays >= 0 ? `D-${diffDays}` : "마감됨";
+    return diffDays >= 0 ? `D - ${diffDays}` : "마감됨";
 }
 
 export function formatDateToMonthDay(dateStr: string): string {
     const date = new Date(dateStr);
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
 }
+
+export const isClosed = (recruitmentEnd: string): boolean => {
+    const today = new Date();
+    const endDate = new Date(recruitmentEnd);
+    return today > endDate;
+};

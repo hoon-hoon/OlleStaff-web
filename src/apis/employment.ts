@@ -1,4 +1,4 @@
-import { EmploymentPostProps } from "@/types/employment";
+import { EmploymentPostProps, EmploymentPutProps } from "@/types/employment";
 import axios from "axios";
 
 export const EmploymentApi = {
@@ -46,5 +46,26 @@ export const EmploymentApi = {
             console.error("공고 등록 실패", error);
             throw error; // 필요 시 상위 컴포넌트에서 에러 처리 가능하도록
         }
+    },
+    putEmployment: async (formData: EmploymentPutProps, imageFiles: File[]) => {
+        const payload = new FormData();
+
+        const employmentPayload = {
+            ...formData,
+            employmentId: formData.employmentId,
+        };
+        payload.append("employment", new Blob([JSON.stringify(employmentPayload)], { type: "application/json" }));
+
+        imageFiles.forEach(file => {
+            payload.append("images", file);
+        });
+
+        const res = await axios.put(`${import.meta.env.VITE_API_BASE_URL}/employments`, payload, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        return res.data;
     },
 };

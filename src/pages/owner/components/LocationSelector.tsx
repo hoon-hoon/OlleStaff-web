@@ -1,5 +1,5 @@
 import Modal from "@/components/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Text } from "@/styles/Text";
 import theme from "@/styles/theme";
@@ -24,9 +24,35 @@ export default function LocationSelector({ onChange }: LocationSelectorProps) {
         setAddress(data.address);
         setIsOpen(false);
 
-        // 실제로는 주소 → 위경도 변환 로직 필요
-        onChange(33.499621, 126.531188, data.address);
+        const geocoder = new window.kakao.maps.services.Geocoder();
+
+        geocoder.addressSearch(data.address, (result: { x: string; y: string }[], status: string) => {
+            if (status === window.kakao.maps.services.Status.OK) {
+                const { x, y } = result[0]; // x: 경도, y: 위도
+                const lat = parseFloat(y);
+                const lng = parseFloat(x);
+                setAddress(data.address);
+                setIsOpen(false);
+                onChange(lat, lng, data.address);
+            } else {
+                alert("주소의 좌표를 찾을 수 없습니다.");
+            }
+        });
     };
+
+    useEffect(() => {
+        if (!window.kakao || !window.kakao.maps) {
+            const script = document.createElement("script");
+            script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${import.meta.env.VITE_KAKAO_JS_KEY}&autoload=false&libraries=services`;
+            script.async = true;
+            script.onload = () => {
+                window.kakao.maps.load(() => {
+                    console.log("Kakao Maps SDK 로드 완료");
+                });
+            };
+            document.head.appendChild(script);
+        }
+    }, []);
 
     return (
         <>
