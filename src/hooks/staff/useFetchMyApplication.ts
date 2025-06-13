@@ -8,7 +8,6 @@ export interface MyApplicationResponse {
     mbti: string;
     link: string;
     introduction: string;
-    motivation: string;
     appeal: string;
     images: string[];
 }

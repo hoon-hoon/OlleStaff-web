@@ -43,7 +43,7 @@ export default function RecruitBasicInfoPage({ setImageFiles, formData, setFormD
             <Header title="게시글 작성" showBackButton />
             <PageWrapper hasHeader>
                 <Wrapper.FlexBox direction="column" padding="30px" gap="20px">
-                    <ImageUploader maxImages={9} onChange={setImageFiles} />
+                    <ImageUploader maxImages={9} onChange={({ files }) => setImageFiles(files)} />
 
                     <HashTagEditor
                         values={formData.hashtagName}

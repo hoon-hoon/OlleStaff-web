@@ -15,6 +15,7 @@ import EditApplicationPage from "@/pages/staff/user/EditApplicationPage";
 import MyPostsPage from "@/pages/staff/user/MyPostsPage";
 import MyReviewsPage from "@/pages/staff/user/MyReviewsPage";
 import MyLikesPage from "@/pages/staff/user/MyLikesPage";
+import ApplicationViewPage from "@/pages/staff/ApplicationViewPage";
 
 const StaffRoutes: RouteObject[] = [
     {
@@ -83,6 +84,10 @@ const StaffRoutes: RouteObject[] = [
             {
                 path: "user/my-likes",
                 element: <MyLikesPage />,
+            },
+            {
+                path: "application",
+                element: <ApplicationViewPage />,
             },
         ],
     },

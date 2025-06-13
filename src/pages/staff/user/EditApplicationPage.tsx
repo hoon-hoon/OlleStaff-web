@@ -32,7 +32,6 @@ export default function EditApplicationPage() {
         mbti: "",
         link: "",
         introduction: "",
-        motivation: "",
         appeal: "",
     });
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -44,7 +43,6 @@ export default function EditApplicationPage() {
                 mbti: data.mbti,
                 link: data.link,
                 introduction: data.introduction,
-                motivation: data.motivation,
                 appeal: data.appeal,
             });
 
@@ -93,7 +91,6 @@ export default function EditApplicationPage() {
         formData.mbti !== data?.mbti ||
         formData.link !== data?.link ||
         formData.introduction !== data?.introduction ||
-        formData.motivation !== data?.motivation ||
         formData.appeal !== data?.appeal ||
         imageFiles.length > 0 ||
         JSON.stringify(imageNames) !== JSON.stringify(data?.images || []);
@@ -126,6 +123,19 @@ export default function EditApplicationPage() {
                         />
                     </FieldGroup>
 
+                    <Textarea
+                        textareaTitle="자기소개 및 지원동기"
+                        value={formData.introduction}
+                        onChange={e => setFormData(prev => ({ ...prev, introduction: e.target.value }))}
+                        disabled={!isEditMode}
+                    />
+                    <Textarea
+                        textareaTitle="어필사항 및 경력사항"
+                        value={formData.appeal}
+                        onChange={e => setFormData(prev => ({ ...prev, appeal: e.target.value }))}
+                        disabled={!isEditMode}
+                    />
+
                     <FieldGroup>
                         <Text.Body1_1>링크 첨부</Text.Body1_1>
                         <Input
@@ -134,25 +144,6 @@ export default function EditApplicationPage() {
                             readOnly={!isEditMode}
                         />
                     </FieldGroup>
-
-                    <Textarea
-                        textareaTitle="자기소개 작성"
-                        value={formData.introduction}
-                        onChange={e => setFormData(prev => ({ ...prev, introduction: e.target.value }))}
-                        disabled={!isEditMode}
-                    />
-                    <Textarea
-                        textareaTitle="지원 동기 작성"
-                        value={formData.motivation}
-                        onChange={e => setFormData(prev => ({ ...prev, motivation: e.target.value }))}
-                        disabled={!isEditMode}
-                    />
-                    <Textarea
-                        textareaTitle="어필 사항"
-                        value={formData.appeal}
-                        onChange={e => setFormData(prev => ({ ...prev, appeal: e.target.value }))}
-                        disabled={!isEditMode}
-                    />
 
                     <FieldGroup>
                         <Text.Body1_1>사진 첨부</Text.Body1_1>
