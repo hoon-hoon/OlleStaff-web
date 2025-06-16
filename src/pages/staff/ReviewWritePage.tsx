@@ -6,13 +6,16 @@ import PageWrapper from "@/components/PageWrapper";
 import RadioButton from "@/components/RadioButton";
 import Star from "@/components/Star";
 import Textarea from "@/components/Textarea";
+import { useWriteReview } from "@/hooks/staff/useWriteReview";
 import { Text } from "@/styles/Text";
 import theme from "@/styles/theme";
 import { Wrapper } from "@/styles/Wrapper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function ReviewWritePage() {
+    const writeReview = useWriteReview();
+
     const labelList = ["전체공개", "게스트하우스에게만 공개"];
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
     const navigate = useNavigate();
@@ -20,13 +23,43 @@ export default function ReviewWritePage() {
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
 
+    const [rating, setRating] = useState<number>(0);
+    const [review, setReview] = useState<string>("");
+    const [disclosure, setDisclosure] = useState<boolean>(false);
+    const [images, setImages] = useState<File[]>([]);
+    const employmentId = 1; // 추후 useParams으로 대체 예정
+
+    useEffect(() => {
+        setDisclosure(selectedIndex === 1);
+    }, [selectedIndex]);
+
     const handleSubmit = () => {
-        setIsCompleteModalOpen(true);
-        // setTimeout(() => {
-        //     setIsCompleteModalOpen(false);
-        //     // navigate("/staff/userinfo");
-        // }, 1500);
+        setIsConfirmModalOpen(true);
     };
+
+    const confirmWriteReview = () => {
+        writeReview.mutate(
+            {
+                rating,
+                review,
+                disclosure,
+                images,
+                employmentId,
+            },
+            {
+                onSuccess: () => {
+                    setIsConfirmModalOpen(false);
+                    setIsCompleteModalOpen(true);
+                    setTimeout(() => {
+                        setIsCompleteModalOpen(false);
+                        navigate("/staff/");
+                    }, 1500);
+                },
+            }
+        );
+    };
+
+    const isFormFilled = rating > 0 && review.trim().length > 0 && employmentId !== undefined;
 
     return (
         <>
@@ -41,10 +74,14 @@ export default function ReviewWritePage() {
                         <Text.Body3_1 color="Gray4">“필게스트 하우스"의 생생한 후기를 작성해주세요!</Text.Body3_1>
                         <Wrapper.FlexBox direction="column" alignItems="center" gap="12px">
                             <Text.Body1_1>게스트하우스 평점</Text.Body1_1>
-                            <Star />
+                            <Star onChange={setRating} />
                         </Wrapper.FlexBox>
-                        <ImageUploader maxImages={3} />
-                        <Textarea value="" placeholder="게스트 하우스의 솔직후기를 남겨주세요!" onChange={() => {}} />
+                        <ImageUploader maxImages={3} onChange={({ files }) => setImages(files)} />
+                        <Textarea
+                            value={review}
+                            placeholder="게스트 하우스의 솔직후기를 남겨주세요!"
+                            onChange={e => setReview(e.target.value)}
+                        />
                         <RadioButton
                             labelList={labelList}
                             selectedIndex={selectedIndex}
@@ -55,9 +92,9 @@ export default function ReviewWritePage() {
                         <Button
                             label="작성 완료"
                             width="large"
-                            onClick={() => setIsConfirmModalOpen(true)}
-                            isActive={true}
-                            disabled={false}
+                            onClick={handleSubmit}
+                            isActive={isFormFilled}
+                            disabled={!isFormFilled}
                         >
                             작성 완료
                         </Button>
@@ -72,10 +109,7 @@ export default function ReviewWritePage() {
                         cancelText="취소"
                         confirmText="등록"
                         handleModalClose={() => setIsConfirmModalOpen(false)}
-                        onConfirm={() => {
-                            setIsConfirmModalOpen(false);
-                            handleSubmit();
-                        }}
+                        onConfirm={confirmWriteReview}
                     />
                 )}
                 {isCompleteModalOpen && (
