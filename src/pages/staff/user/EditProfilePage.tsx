@@ -13,9 +13,11 @@ import { useUpdateUserProfile } from "@/hooks/staff/useUpdateUserProfile";
 import Modal from "@/components/Modal";
 import { useNavigate } from "react-router-dom";
 import { Text } from "@/styles/Text";
+import { useUserStore } from "@/store/useUserStore";
 
 export default function EditProfilePage() {
     const [isEditMode, setIsEditMode] = useState(false);
+    const setUser = useUserStore(state => state.setUser);
 
     const { data: user, isLoading, isError } = useFetchUserProfile();
     const updateMutation = useUpdateUserProfile();
@@ -55,9 +57,11 @@ export default function EditProfilePage() {
                     phone: userInfo.phone,
                     phoneVerificationCode: userInfo.verificationCode,
                     deleteImage: false,
+                    image: null,
                 },
                 {
                     onSuccess: () => {
+                        setUser({ nickname: userInfo.nickname, profileImage: user.profileImage });
                         setIsCompleteModalOpen(true);
                         setTimeout(() => {
                             setIsCompleteModalOpen(false);
