@@ -14,6 +14,7 @@ import Modal from "@/components/Modal";
 import { useNavigate } from "react-router-dom";
 import { Text } from "@/styles/Text";
 import { useUserStore } from "@/store/useUserStore";
+import ProfileAdd from "@/components/ProfileAdd";
 
 export default function EditProfilePage() {
     const [isEditMode, setIsEditMode] = useState(false);
@@ -24,6 +25,8 @@ export default function EditProfilePage() {
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
     const navigate = useNavigate();
+    const [selectedImage, setSelectedImage] = useState<File | null>(null);
+    const [previewImageUrl, setPreviewImageUrl] = useState(user?.profileImage || "");
 
     const { userInfo, errors, handleInputChange, validate, setUserInfo } = useValidation();
     const {
@@ -44,8 +47,19 @@ export default function EditProfilePage() {
                 phone: user.phone,
                 verificationCode: "",
             });
+            setPreviewImageUrl(user.profileImage || "/icons/defaultUser.svg");
         }
-    }, [user, setUserInfo]);
+    }, [user]);
+
+    const handleImageChange = (file: File | null) => {
+        setSelectedImage(file);
+        if (file) {
+            const url = URL.createObjectURL(file);
+            setPreviewImageUrl(url);
+        } else {
+            setPreviewImageUrl(user?.profileImage || "");
+        }
+    };
 
     const handleSubmit = () => {
         if (user) {
@@ -56,12 +70,15 @@ export default function EditProfilePage() {
                     nickname: userInfo.nickname,
                     phone: userInfo.phone,
                     phoneVerificationCode: userInfo.verificationCode,
-                    deleteImage: false,
-                    image: null,
+                    deleteImage: selectedImage === null && previewImageUrl === "",
+                    image: selectedImage,
                 },
                 {
                     onSuccess: () => {
-                        setUser({ nickname: userInfo.nickname, profileImage: user.profileImage });
+                        setUser({
+                            nickname: userInfo.nickname,
+                            profileImage: selectedImage ? previewImageUrl : user.profileImage,
+                        });
                         setIsCompleteModalOpen(true);
                         setTimeout(() => {
                             setIsCompleteModalOpen(false);
@@ -79,7 +96,8 @@ export default function EditProfilePage() {
     const isPhoneChanged = userInfo.phone !== user.phone;
     const isVerificationRequired = isEditMode && isPhoneChanged;
 
-    const isFormModified = userInfo.nickname !== user.nickname || userInfo.phone !== user.phone;
+    const isFormModified =
+        userInfo.nickname !== user.nickname || userInfo.phone !== user.phone || selectedImage !== null;
 
     return (
         <>
@@ -97,10 +115,10 @@ export default function EditProfilePage() {
                 >
                     <div>
                         <Wrapper.FlexBox direction="column" alignItems="center" gap="12px">
-                            <img
-                                src={user.profileImage || "/icons/defaultUser.svg"}
-                                alt="프로필이미지"
-                                style={{ width: "94px", height: "94px" }}
+                            <ProfileAdd
+                                onImageChange={handleImageChange}
+                                previewImageUrl={previewImageUrl}
+                                disabled={!isEditMode}
                             />
                         </Wrapper.FlexBox>
 
