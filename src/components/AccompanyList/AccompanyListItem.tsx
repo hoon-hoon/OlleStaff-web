@@ -2,18 +2,49 @@ import styled from "@emotion/styled";
 import { Text } from "@/styles/Text";
 import { useNavigate } from "react-router-dom";
 import { AccompanyListItemProps } from "@/types/accompany";
+import { timeAgo } from "@/utils/date";
 
-export const AccompanyListItem = ({ id, title, content, timeAgo, imageUrl }: AccompanyListItemProps) => {
+export const AccompanyListItem = ({
+    id,
+    title,
+    content,
+    createdAt,
+    updatedAt,
+    images,
+    userNickname,
+    like,
+    likeCount,
+    commentCount,
+    userImage,
+}: AccompanyListItemProps) => {
     const navigate = useNavigate();
-
     const handleClick = () => {
-        navigate(`/accompany/${id}`);
+        navigate(`/staff/accompany/${id}`, {
+            state: {
+                accompany: {
+                    id,
+                    title,
+                    content,
+                    createdAt,
+                    updatedAt,
+                    images,
+                    userNickname,
+                    like,
+                    likeCount,
+                    commentCount,
+                    userImage,
+                },
+            },
+        });
     };
+
+    const thumbnail = images?.[0];
+
     return (
         <Card onClick={handleClick}>
-            {imageUrl && (
+            {thumbnail && (
                 <ImageWrapper>
-                    <StyledImage src={imageUrl} alt="thumbnail" />
+                    <StyledImage src={thumbnail} alt="thumbnail" />
                 </ImageWrapper>
             )}
             <ContentWrapper>
@@ -26,16 +57,17 @@ export const AccompanyListItem = ({ id, title, content, timeAgo, imageUrl }: Acc
                         display: "-webkit-box",
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: "vertical",
+                        height: "40px",
                     }}
                 >
                     {content}
                 </Text.Body3_1>
                 <Footer>
                     <IconGroup>
-                        <Icon src="/Icon/comment.svg" alt="comment" />
-                        <Icon src="/Icon/heart.svg" alt="heart" />
+                        <Icon src="/icons/comment.svg" alt="comment" />
+                        <Icon src="/icons/heart.svg" alt="heart" />
                     </IconGroup>
-                    <Text.Body3 color="Gray4">{timeAgo}</Text.Body3>
+                    <Text.Body3 color="Gray4">{timeAgo(createdAt)}</Text.Body3>
                 </Footer>
             </ContentWrapper>
         </Card>
@@ -78,7 +110,6 @@ const Footer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    bottom: 0;
 `;
 
 const IconGroup = styled.div`

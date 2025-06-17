@@ -1,31 +1,60 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { Text } from "@/styles/Text";
 
 interface ImageUploaderProps {
     maxImages?: number;
-    onChange?: (files: File[]) => void;
+    previewImageUrls?: string[];
+    onChange?: (data: {
+        urls: string[]; // 기존 이미지 URL
+        files: File[]; // 새 이미지 파일들
+        names: string[]; // 전체 순서 (URL or 파일명)
+    }) => void;
 }
 
-export default function ImageUploader({ maxImages = 6, onChange }: ImageUploaderProps) {
+export default function ImageUploader({ maxImages = 6, previewImageUrls = [], onChange }: ImageUploaderProps) {
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [images, setImages] = useState<File[]>([]);
+    const [imageUrls, setImageUrls] = useState<string[]>([]);
+    const [imageFiles, setImageFiles] = useState<File[]>([]);
+
+    const totalCount = imageUrls.length + imageFiles.length;
+
+    useEffect(() => {
+        setImageUrls(previewImageUrls);
+    }, [previewImageUrls]);
+
+    const triggerChange = (urls: string[], files: File[]) => {
+        onChange?.({
+            urls,
+            files,
+            names: [...urls, ...files.map(file => file.name)],
+        });
+    };
 
     const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (!files || !files[0]) return;
-        if (images.length >= maxImages) return;
 
-        const updated = [...images, files[0]];
-        setImages(updated);
-        onChange?.(updated);
+        const newFile = files[0];
+        const total = imageUrls.length + imageFiles.length + 1;
+        if (total > maxImages) return;
+
+        const updatedFiles = [...imageFiles, newFile];
+        setImageFiles(updatedFiles);
+        triggerChange(imageUrls, updatedFiles);
     };
 
-    const handleRemoveImage = (index: number) => {
-        const updated = images.filter((_, i) => i !== index);
-        setImages(updated);
-        onChange?.(updated);
+    const handleRemoveUrlImage = (index: number) => {
+        const updatedUrls = imageUrls.filter((_, i) => i !== index);
+        setImageUrls(updatedUrls);
+        triggerChange(updatedUrls, imageFiles);
+    };
+
+    const handleRemoveFileImage = (index: number) => {
+        const updatedFiles = imageFiles.filter((_, i) => i !== index);
+        setImageFiles(updatedFiles);
+        triggerChange(imageUrls, updatedFiles);
     };
 
     return (
@@ -35,20 +64,29 @@ export default function ImageUploader({ maxImages = 6, onChange }: ImageUploader
                     * 최대 {maxImages}개의 사진을 첨부할 수 있습니다.
                 </Text.Body3_1>
                 <Text.Body3_1 style={{ color: theme.color.Gray4 }}>
-                    {images.length} / {maxImages}
+                    {totalCount} / {maxImages}
                 </Text.Body3_1>
             </Description>
             <Grid maxCount={maxImages}>
-                {images.map((img, index) => (
-                    <div style={{ position: "relative" }}>
+                {imageUrls.map((url, index) => (
+                    <ImageItem key={`url-${index}`}>
                         <ImagePreview>
-                            <img src={URL.createObjectURL(img)} alt={`uploaded-${index}`} />
+                            <img src={url} alt={`image-url-${index}`} />
                         </ImagePreview>
-                        <RemoveButton onClick={() => handleRemoveImage(index)} />
-                    </div>
+                        <RemoveButton onClick={() => handleRemoveUrlImage(index)} />
+                    </ImageItem>
                 ))}
 
-                {images.length < maxImages && (
+                {imageFiles.map((file, index) => (
+                    <ImageItem key={`${file.name}-${file.lastModified}`}>
+                        <ImagePreview>
+                            <img src={URL.createObjectURL(file)} alt={`image-file-${index}`} />
+                        </ImagePreview>
+                        <RemoveButton onClick={() => handleRemoveFileImage(index)} />
+                    </ImageItem>
+                ))}
+
+                {totalCount < maxImages && (
                     <AddButton onClick={() => fileInputRef.current?.click()}>
                         <input
                             type="file"
@@ -74,6 +112,10 @@ const Grid = styled.div<{ maxCount: number }>`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
+`;
+
+const ImageItem = styled.div`
+    position: relative;
 `;
 
 const ImagePreview = styled.div`
@@ -103,7 +145,7 @@ const RemoveButton = styled.button`
     height: 16px;
     border: none;
     background-color: transparent;
-    background-image: url("/RemoveButton.svg");
+    background-image: url("/icons/removeButton.svg");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -117,7 +159,7 @@ const AddButton = styled.div`
     border-radius: 8px;
     background-color: ${theme.color.White};
     cursor: pointer;
-    background-image: url("/CameraGroup.svg");
+    background-image: url("/icons/cameraGroup.svg");
     background-size: 40%;
     background-repeat: no-repeat;
     background-position: center;

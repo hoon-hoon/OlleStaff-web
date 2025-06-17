@@ -2,18 +2,18 @@ import Input from "@/components/Input";
 import ProfileAdd from "@/components/ProfileAdd";
 import { Wrapper } from "@/styles/Wrapper";
 import { Button } from "@/components/Button";
-import useSignupForm from "@/hooks/useValidation";
+import useValidation from "@/hooks/useValidation";
 import { VerificationTimer } from "@/components/VerificationTimer";
 import { usePhoneAuth } from "@/hooks/auth/usePhoneAuth";
 import { useEffect, useState } from "react";
 import { useSignup } from "@/hooks/auth/useSignup";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import PageWrapper from "@/components/PageWrapper";
 import styled from "@emotion/styled";
 
 export default function SignupPage() {
-    const { userInfo, errors, handleInputChange, validate } = useSignupForm();
+    const { userInfo, errors, handleInputChange, validate } = useValidation();
     const {
         timer,
         message: verificationMessage,
@@ -35,6 +35,7 @@ export default function SignupPage() {
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const location = useLocation();
     const passedAgreements: string[] = location.state?.agreements ?? [];
+    const navigate = useNavigate();
 
     const signupMutation = useSignup();
 
@@ -57,7 +58,7 @@ export default function SignupPage() {
 
     return (
         <>
-            <Header showBackButton title={"회원가입"} />
+            <Header showBackButton title="회원가입" onBackClick={() => navigate("/")} />
             <PageWrapper hasHeader>
                 <div>
                     <Wrapper.FlexBox justifyContent="center">

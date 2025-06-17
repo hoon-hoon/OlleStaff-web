@@ -3,16 +3,17 @@ import ModalWrapper from "./ModalWrapper";
 import { Text } from "@/styles/Text";
 import theme from "@/styles/theme";
 
-type ModalVariant = "default" | "confirm" | "notice";
+type ModalVariant = "default" | "confirm" | "page";
 
 interface ModalProps {
     variant: ModalVariant;
     title?: string;
-    message: string;
+    message?: string | React.ReactNode;
     handleModalClose: () => void;
     onConfirm?: () => void;
     cancelText?: string;
     confirmText?: string;
+    children?: React.ReactNode;
 }
 
 export default function Modal({
@@ -23,14 +24,22 @@ export default function Modal({
     onConfirm,
     cancelText,
     confirmText,
+    children,
 }: ModalProps) {
+    if (variant === "page") {
+        return <ModalWrapper handleModalClose={handleModalClose}>{children}</ModalWrapper>;
+    }
     return (
         <ModalWrapper handleModalClose={handleModalClose}>
-            {variant === "default" && <img src="Check.svg" alt="아이콘" />}
-            {variant === "confirm" && <Text.Title3_1>{title}</Text.Title3_1>}
-            <MessageWrapper>
-                <Text.Body2>{message}</Text.Body2>
-            </MessageWrapper>
+            {variant === "default" && <img src="/icons/check.svg" alt="아이콘" />}
+            {variant === "confirm" && title && <Text.Title3_1>{title}</Text.Title3_1>}
+
+            {message && (
+                <MessageWrapper>
+                    <Text.Body2 color="Gray4">{message}</Text.Body2>
+                </MessageWrapper>
+            )}
+
             <ButtonWrapper>
                 {variant === "confirm" && (
                     <Button onClick={handleModalClose} variant="cancel">
